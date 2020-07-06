@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>9bcbb87f-c624-4461-a187-3c007840736d</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>1c7cbed6-a4ce-4b71-9352-a4a01be45ff7</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>050040de-3173-48fb-94b1-7e51054d7309</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="Common\DirectXHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\StepTimer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DeviceResources.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClCompile Include="Common\DeviceResources.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Filter Include="Content\Scenes">
+      <UniqueIdentifier>{52ac32a2-4cf5-4f65-9810-f2d0b752a0c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Shaders">
+      <UniqueIdentifier>{bb2a9b15-3da0-4b32-a85d-801fea5cedbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Structures">
+      <UniqueIdentifier>{4faa443d-47d4-45d2-b4e2-ede833587577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Visual Features">
+      <UniqueIdentifier>{6c6971b8-1fcd-4d68-ac69-39e710d4e8aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Vegetation">
+      <UniqueIdentifier>{fec43fcd-63fb-4603-8a7e-bb88978613d0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Content\Sample3DSceneRenderer.cpp">
+      <Filter>Content\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Content\SampleFpsTextRenderer.cpp">
+      <Filter>Content\Visual Features</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="VegetationSimulationScene.cpp">
+      <Filter>Content\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Content\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="Vegetation.cpp">
+      <Filter>Content\Vegetation</Filter>
+    </ClCompile>
+    <ClCompile Include="VegetationBud.cpp">
+      <Filter>Content\Vegetation</Filter>
+    </ClCompile>
+    <ClCompile Include="VegetationFeature.cpp">
+      <Filter>Content\Vegetation</Filter>
+    </ClCompile>
+    <ClCompile Include="Vegetation_EcosystemMain.cpp" />
+    <ClCompile Include="VegetationNode.cpp">
+      <Filter>Content\Vegetation</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Content\ShaderStructures.h">
+      <Filter>Content\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\Sample3DSceneRenderer.h">
+      <Filter>Content\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\SampleFpsTextRenderer.h">
+      <Filter>Content\Visual Features</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="VegetationSimulationScene.h">
+      <Filter>Content\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="VegetationParameters.h">
+      <Filter>Content\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Content\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Vegetation.h">
+      <Filter>Content\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="VegetationBud.h">
+      <Filter>Content\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="Vegetation_EcosystemMain.h" />
+    <ClInclude Include="VegetationFeature.h">
+      <Filter>Content\Vegetation</Filter>
+    </ClInclude>
+    <ClInclude Include="VegetationNode.h">
+      <Filter>Content\Vegetation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Content\SamplePixelShader.hlsl">
+      <Filter>Content\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\SampleVertexShader.hlsl">
+      <Filter>Content\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>

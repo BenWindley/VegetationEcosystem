@@ -1,0 +1,22 @@
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\resources.pri
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\AppxManifest.xml
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\Vegetation Ecosystem.build.appxrecipe
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem.vcxprojAssemblyReference.cache
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\ResourceHandlingTask.state
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem.vcxproj.GenerateResource.Cache
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\priconfig.xml
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\priconfig.xml.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\unfiltered.layout.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\unfiltered.layout.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\filtered.layout.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\filtered.layout.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\excluded.layout.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\excluded.layout.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\resources.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\resources.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\pri.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\pri.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\qualifiers.txt
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\qualifiers.txt.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\MultipleQualifiersPerDimensionFound.txt
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Debug\ProjectArchitectures.txt

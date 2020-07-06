@@ -1,0 +1,11 @@
+﻿  App.cpp
+  Transform.cpp
+  Vegetation.cpp
+  VegetationBud.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(16,41): warning C4316: 'VegetationNode': object allocated on the heap may not be aligned 16
+  VegetationFeature.cpp
+  VegetationNode.cpp
+  Vegetation_EcosystemMain.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation_EcosystemMain.cpp(29,46): warning C4316: 'Vegetation': object allocated on the heap may not be aligned 16
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation_EcosystemMain.cpp(55,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Vegetation Ecosystem.vcxproj -> D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\Vegetation Ecosystem.exe

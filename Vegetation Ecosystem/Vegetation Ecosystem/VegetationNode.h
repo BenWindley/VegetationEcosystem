@@ -8,7 +8,7 @@ class VegetationNode : public Transform
 {
 public:
 	VegetationNode() = default;
-	virtual ~VegetationNode() = default;
+	virtual ~VegetationNode();
 
 public:
 	virtual void Start(Transform* parent);
@@ -22,7 +22,7 @@ public:
 
 private:
 	VegetationNode* m_parentNode;
-	std::vector<VegetationFeature>	m_vegetationFeatures;
+	std::vector<VegetationFeature*>	m_vegetationFeatures;
 	std::vector<VegetationNode> m_childNodes;
 
 	bool m_remove;

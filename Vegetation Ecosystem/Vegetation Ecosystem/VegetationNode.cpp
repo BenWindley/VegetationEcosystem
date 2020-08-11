@@ -3,11 +3,20 @@
 #include "VegetationNode.h"
 #include "VegetationBud.h"
 
+VegetationNode::~VegetationNode()
+{
+	while (m_vegetationFeatures.size() > 0)
+	{
+		delete m_vegetationFeatures[m_vegetationFeatures.size() - 1];
+		m_vegetationFeatures.pop_back();
+	}
+}
+
 void VegetationNode::Start(Transform* parent)
 {
 	m_parent = parent;
 
-	m_vegetationFeatures.push_back(VegetationBud(this, true));
+	m_vegetationFeatures.push_back(new VegetationBud(this, true));
 }
 
 void VegetationNode::Start(VegetationNode* parent)
@@ -15,16 +24,18 @@ void VegetationNode::Start(VegetationNode* parent)
 	m_parentNode = parent;
 	m_parent = parent;
 
-	m_vegetationFeatures.push_back(VegetationBud(this, true));
-	m_vegetationFeatures.push_back(VegetationBud(this, false));
+	m_vegetationFeatures.push_back(new VegetationBud(this, true));
+	m_vegetationFeatures.push_back(new VegetationBud(this, false));
 }
 
 void VegetationNode::Update(float growth)
 {
+	return;
+
 	// Append Pass
 	for (auto& v : m_vegetationFeatures)
 	{
-		v.Update();
+		v->Update();
 	}
 
 	for (auto& v : m_childNodes)
@@ -35,10 +46,10 @@ void VegetationNode::Update(float growth)
 	// Shed Pass
 	for (int i = m_vegetationFeatures.size() - 1; i >= 0 ; --i)
 	{
-		if (m_vegetationFeatures[i].GetRemove())
+		if (m_vegetationFeatures[i]->GetRemove())
 		{
-			if(m_vegetationFeatures[i].GetFate())
-				CreateNewNode(m_vegetationFeatures[i]);
+			if(m_vegetationFeatures[i]->GetFate())
+				CreateNewNode(*m_vegetationFeatures[i]);
 
 			m_vegetationFeatures.erase(m_vegetationFeatures.begin() + i);
 		}
@@ -53,7 +64,15 @@ void VegetationNode::Update(float growth)
 
 void VegetationNode::Render()
 {
+	for (auto& vFeature : m_vegetationFeatures)
+	{
+		vFeature->Render();
+	}
 
+	for (auto& vNode : m_childNodes)
+	{
+		vNode.Render();
+	}
 }
 
 void VegetationNode::CreateNewNode(VegetationFeature growthBud)
@@ -64,6 +83,8 @@ void VegetationNode::CreateNewNode(VegetationFeature growthBud)
 
 	node->SetLocalPosition(growthBud.GetLocalPosition());
 	node->SetLocalRotation(growthBud.GetLocalRotation());
+
+	node->Start(this);
 }
 
 bool VegetationNode::GetRemove()

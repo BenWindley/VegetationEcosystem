@@ -28,5 +28,5 @@ void Vegetation::Update(float time)
 
 void Vegetation::Render()
 {
-
+	m_vegetationNode->Render();
 }

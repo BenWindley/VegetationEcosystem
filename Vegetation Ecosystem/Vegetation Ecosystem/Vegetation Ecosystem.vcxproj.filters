@@ -86,6 +86,7 @@
     <ClCompile Include="VegetationNode.cpp">
       <Filter>Content\Vegetation</Filter>
     </ClCompile>
+    <ClCompile Include="Renderable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="VegetationNode.h">
       <Filter>Content\Vegetation</Filter>
     </ClInclude>
+    <ClInclude Include="Renderable.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">

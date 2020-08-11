@@ -16,4 +16,14 @@ namespace Vegetation_Ecosystem
 		DirectX::XMFLOAT3 pos;
 		DirectX::XMFLOAT3 color;
 	};
+
+	struct RendererResources
+	{
+		Microsoft::WRL::ComPtr<ID3D11InputLayout>	inputLayout;
+		Microsoft::WRL::ComPtr<ID3D11Buffer>		vertexBuffer;
+		Microsoft::WRL::ComPtr<ID3D11Buffer>		indexBuffer;
+		Microsoft::WRL::ComPtr<ID3D11VertexShader>	vertexShader;
+		Microsoft::WRL::ComPtr<ID3D11PixelShader>	pixelShader;
+		Microsoft::WRL::ComPtr<ID3D11Buffer>		constantBuffer;
+	};
 }

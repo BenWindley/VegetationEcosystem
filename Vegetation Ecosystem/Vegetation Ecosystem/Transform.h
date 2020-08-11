@@ -15,15 +15,23 @@ public:
 
 	DirectX::XMVECTOR GetPosition();
 	DirectX::XMVECTOR GetLocalPosition();
-	DirectX::XMMATRIX GetRotation();
-	DirectX::XMMATRIX GetLocalRotation();
+	DirectX::XMVECTOR GetRotation();
+	DirectX::XMVECTOR GetLocalRotation();
+	DirectX::XMVECTOR GetScale();
+	DirectX::XMVECTOR GetLocalScale();
+
+	DirectX::XMMATRIX GetMatrix();
 
 	void SetPosition(DirectX::XMVECTOR position);
 	void SetLocalPosition(DirectX::XMVECTOR position);
-	void SetRotation(DirectX::XMMATRIX rotation);
-	void SetLocalRotation(DirectX::XMMATRIX rotation);
+	void SetRotation(DirectX::XMVECTOR rotation);
+	void SetLocalRotation(DirectX::XMVECTOR rotation);
+	void SetScale(DirectX::XMVECTOR rotation);
+	void SetLocalScale(DirectX::XMVECTOR rotation);
+
 
 private:
-	DirectX::XMVECTOR m_localPosition = DirectX::XMVECTOR();
-	DirectX::XMMATRIX m_localRotation = DirectX::XMMATRIX();
+	DirectX::XMVECTOR m_localPosition = DirectX::XMVECTOR{ 0, 0, 0, 1 };
+	DirectX::XMVECTOR m_localRotation = DirectX::XMVECTOR{ 0, 0, 0, 1 };
+	DirectX::XMVECTOR m_localScale =	DirectX::XMVECTOR{ 1, 1, 1, 1 };
 };

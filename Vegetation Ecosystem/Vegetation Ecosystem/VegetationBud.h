@@ -8,8 +8,8 @@ public:
 	~VegetationBud() = default;
 
 public:
-	void Update()override;
-	void Render()override;
+	void Update() override;
+	void Render() override;
 
 private:
 	bool m_terminalBud;

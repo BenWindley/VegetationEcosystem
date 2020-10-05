@@ -117,6 +117,7 @@ void App::Run()
 // class is torn down while the app is in the foreground.
 void App::Uninitialize()
 {
+
 }
 
 // Application lifecycle event handlers.

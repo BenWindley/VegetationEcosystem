@@ -46,6 +46,8 @@ void Cube::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::Rend
 
 void Cube::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData)
 {
+	if (!this) return;
+
 	Vegetation_Ecosystem::ModelViewProjectionConstantBuffer tempBuffer;
 
 	XMStoreFloat4x4(&constantBufferData.model, GetMatrix());

@@ -5,8 +5,6 @@
 #include "Content\Sample3DSceneRenderer.h"
 #include "Content\SampleFpsTextRenderer.h"
 
-#include "Vegetation.h"
-
 // Renders Direct2D and 3D content on the screen.
 namespace Vegetation_Ecosystem
 {
@@ -33,7 +31,5 @@ namespace Vegetation_Ecosystem
 
 		// Rendering loop timer.
 		DX::StepTimer m_timer;
-
-		Vegetation* m_tree;
 	};
 }

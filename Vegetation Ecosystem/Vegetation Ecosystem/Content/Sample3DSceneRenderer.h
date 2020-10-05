@@ -5,6 +5,7 @@
 #include "..\Common\StepTimer.h"
 
 #include "Cube.h"
+#include "Vegetation.h"
 
 namespace Vegetation_Ecosystem
 {
@@ -40,6 +41,8 @@ namespace Vegetation_Ecosystem
 		Cube* m_sun;
 		Cube* m_earth;
 		Cube* m_moon;
+
+		Vegetation* m_tree;
 
 		// Variables used with the rendering loop.
 		float	m_degreesPerSecond;

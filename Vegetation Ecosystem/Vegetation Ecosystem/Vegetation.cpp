@@ -11,14 +11,16 @@ Vegetation::~Vegetation()
 	delete m_vegetationNode;
 }
 
-void Vegetation::Start()
+void Vegetation::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources)
 {
 	m_vegetationNode = new VegetationNode();
-	m_vegetationNode->Start(this);
+	m_vegetationNode->Start(this, deviceResources, rendererResources);
 }
 
 void Vegetation::Update(float time)
 {
+	if (!this) return;
+
 	m_growth += time * m_species.m_growthRate;
 
 	m_vegetationNode->Update(m_growth);
@@ -26,7 +28,9 @@ void Vegetation::Update(float time)
 	m_growth = 0;
 }
 
-void Vegetation::Render()
+void Vegetation::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData)
 {
-	m_vegetationNode->Render();
+	if (!this) return;
+
+	m_vegetationNode->Render(constantBufferData);
 }

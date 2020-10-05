@@ -25,9 +25,6 @@ Vegetation_EcosystemMain::Vegetation_EcosystemMain(const std::shared_ptr<DX::Dev
 	m_timer.SetFixedTimeStep(true);
 	m_timer.SetTargetElapsedSeconds(1.0 / 60);
 	*/
-
-	m_tree = new Vegetation(Species(0.5f, 1.0f));
-	m_tree->Start();
 }
 
 Vegetation_EcosystemMain::~Vegetation_EcosystemMain()
@@ -51,8 +48,6 @@ void Vegetation_EcosystemMain::Update()
 		// TODO: Replace this with your app's content update functions.
 		m_sceneRenderer->Update(m_timer);
 		m_fpsTextRenderer->Update(m_timer);
-
-		m_tree->Update(m_timer.GetElapsedSeconds());
 	});
 }
 

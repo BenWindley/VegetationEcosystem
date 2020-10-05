@@ -3,6 +3,8 @@
 #include "VegetationNode.h"
 #include "VegetationBud.h"
 
+#define MAX_DEPTH 20
+ 
 VegetationNode::~VegetationNode()
 {
 	while (m_vegetationFeatures.size() > 0)
@@ -12,79 +14,113 @@ VegetationNode::~VegetationNode()
 	}
 }
 
-void VegetationNode::Start(Transform* parent)
+void VegetationNode::Start(Transform* parent, DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources)
 {
 	m_parent = parent;
 
+	m_deviceResources = deviceResources;
+	m_rendererResources = rendererResources;
+
+	m_cube = new Cube();
+	m_cube->Init(m_deviceResources, m_rendererResources);
+	m_cube->m_parent = this;
+
 	m_vegetationFeatures.push_back(new VegetationBud(this, true));
+	m_vegetationFeatures.back()->SetLocalRotation({ 0, 0, 0 });
+	m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
 }
 
-void VegetationNode::Start(VegetationNode* parent)
+void VegetationNode::Start(VegetationNode* parent, DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources)
 {
 	m_parentNode = parent;
 	m_parent = parent;
 
-	m_vegetationFeatures.push_back(new VegetationBud(this, true));
+	m_deviceResources = deviceResources;
+	m_rendererResources = rendererResources;
+
+	m_cube = new Cube();
+	m_cube->Init(m_deviceResources, m_rendererResources);
+	m_cube->m_parent = this;
+
+	if(parent)
+		m_depth = parent->m_depth + 1;
+	else
+		m_depth = 0;
+
 	m_vegetationFeatures.push_back(new VegetationBud(this, false));
+	m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
+	m_vegetationFeatures.back()->SetLocalRotation({ 0, 0, DirectX::XMConvertToRadians(-10) });
+	m_vegetationFeatures.push_back(new VegetationBud(this, true));
+	m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
+	m_vegetationFeatures.back()->SetLocalRotation({ 0, 0, DirectX::XMConvertToRadians(10) });
 }
 
 void VegetationNode::Update(float growth)
 {
-	return;
+	if(m_depth >= MAX_DEPTH)
+		return;
 
 	// Append Pass
 	for (auto& v : m_vegetationFeatures)
 	{
 		v->Update();
 	}
-
+	
 	for (auto& v : m_childNodes)
 	{
-		v.Update(growth);
+		v->Update(growth);
 	}
 
 	// Shed Pass
-	for (int i = m_vegetationFeatures.size() - 1; i >= 0 ; --i)
+	for (size_t i = m_vegetationFeatures.size(); i--; )
 	{
 		if (m_vegetationFeatures[i]->GetRemove())
 		{
 			if(m_vegetationFeatures[i]->GetFate())
 				CreateNewNode(*m_vegetationFeatures[i]);
 
+			delete m_vegetationFeatures[i];
 			m_vegetationFeatures.erase(m_vegetationFeatures.begin() + i);
 		}
 	}
 
-	for (int i = m_childNodes.size() - 1; i >= 0; --i)
+	for (size_t i = m_childNodes.size(); i--; )
 	{
-		if (m_childNodes[i].GetRemove())
+		if (m_childNodes[i]->GetRemove())
+		{
+			delete m_childNodes[i];
 			m_childNodes.erase(m_childNodes.begin() + i);
+		}
 	}
 }
 
-void VegetationNode::Render()
+void VegetationNode::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData)
 {
 	for (auto& vFeature : m_vegetationFeatures)
 	{
-		vFeature->Render();
+		vFeature->Render(constantBufferData);
 	}
 
 	for (auto& vNode : m_childNodes)
 	{
-		vNode.Render();
+		vNode->Render(constantBufferData);
 	}
+
+	m_cube->Render(constantBufferData);
 }
 
 void VegetationNode::CreateNewNode(VegetationFeature growthBud)
 {
-	m_childNodes.push_back(VegetationNode());
+	VegetationNode* node = new VegetationNode();
 
-	VegetationNode* node = &m_childNodes.back();
+	node->Start(this, m_deviceResources, m_rendererResources);
 
-	node->SetLocalPosition(growthBud.GetLocalPosition());
+	node->SetLocalPosition(DirectX::XMVectorAdd(growthBud.GetLocalPosition(), { 0, 1, 0 }));
 	node->SetLocalRotation(growthBud.GetLocalRotation());
 
-	node->Start(this);
+	auto worldPos = node->GetPosition();
+
+	m_childNodes.push_back(node);
 }
 
 bool VegetationNode::GetRemove()

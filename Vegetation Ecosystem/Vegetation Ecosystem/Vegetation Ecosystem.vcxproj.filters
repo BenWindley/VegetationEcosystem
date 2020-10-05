@@ -66,7 +66,6 @@
     <ClCompile Include="Content\SampleFpsTextRenderer.cpp">
       <Filter>Content\Visual Features</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="VegetationSimulationScene.cpp">
       <Filter>Content\Scenes</Filter>
     </ClCompile>
@@ -86,7 +85,12 @@
     <ClCompile Include="VegetationNode.cpp">
       <Filter>Content\Vegetation</Filter>
     </ClCompile>
-    <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="Cube.cpp">
+      <Filter>Content\Visual Features</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable.cpp">
+      <Filter>Content\Visual Features</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -100,7 +104,6 @@
     <ClInclude Include="Content\SampleFpsTextRenderer.h">
       <Filter>Content\Visual Features</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h" />
     <ClInclude Include="VegetationSimulationScene.h">
       <Filter>Content\Scenes</Filter>
     </ClInclude>
@@ -123,7 +126,12 @@
     <ClInclude Include="VegetationNode.h">
       <Filter>Content\Vegetation</Filter>
     </ClInclude>
-    <ClInclude Include="Renderable.h" />
+    <ClInclude Include="Cube.h">
+      <Filter>Content\Visual Features</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Content\Visual Features</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">

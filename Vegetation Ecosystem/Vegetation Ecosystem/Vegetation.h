@@ -11,9 +11,9 @@ public:
 	virtual ~Vegetation();
 
 public:
-	void Start();
+	void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
 	void Update(float time);
-	void Render();
+	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
 private:
 	VegetationNode* m_vegetationNode;

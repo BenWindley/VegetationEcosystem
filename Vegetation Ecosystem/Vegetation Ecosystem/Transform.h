@@ -20,7 +20,7 @@ public:
 	DirectX::XMVECTOR GetScale();
 	DirectX::XMVECTOR GetLocalScale();
 
-	DirectX::XMMATRIX GetMatrix();
+	DirectX::XMMATRIX GetTransposeMatrix();
 
 	void SetPosition(DirectX::XMVECTOR position);
 	void SetLocalPosition(DirectX::XMVECTOR position);

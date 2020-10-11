@@ -33,11 +33,11 @@ XMVECTOR Transform::GetLocalScale()
 	return m_localScale;
 }
 
-DirectX::XMMATRIX Transform::GetMatrix()
+DirectX::XMMATRIX Transform::GetTransposeMatrix()
 {
 	auto selfMatrix = XMMatrixTranspose(XMMatrixAffineTransformation(GetLocalScale(), { 0 }, XMQuaternionRotationRollPitchYawFromVector(GetLocalRotation()), GetLocalPosition()));
 
-	return m_parent ? XMMatrixMultiply(m_parent->GetMatrix(), selfMatrix) : selfMatrix;
+	return m_parent ? XMMatrixMultiply(m_parent->GetTransposeMatrix(), selfMatrix) : selfMatrix;
 }
 
 void Transform::SetPosition(XMVECTOR position)

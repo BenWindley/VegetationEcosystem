@@ -3,7 +3,7 @@
 #include "VegetationNode.h"
 #include "VegetationBud.h"
 
-#define MAX_DEPTH 20
+#define MAX_DEPTH 10
  
 VegetationNode::~VegetationNode()
 {
@@ -49,10 +49,19 @@ void VegetationNode::Start(VegetationNode* parent, DX::DeviceResources* deviceRe
 
 	m_vegetationFeatures.push_back(new VegetationBud(this, false));
 	m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
-	m_vegetationFeatures.back()->SetLocalRotation({ 0, 0, DirectX::XMConvertToRadians(-10) });
+
+	if (m_depth % 2)
+		m_vegetationFeatures.back()->SetLocalRotation({ 0, 0, DirectX::XMConvertToRadians(-25) });
+	else
+		m_vegetationFeatures.back()->SetLocalRotation({ DirectX::XMConvertToRadians(-25), 0, 0 });
+
 	m_vegetationFeatures.push_back(new VegetationBud(this, true));
 	m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
-	m_vegetationFeatures.back()->SetLocalRotation({ 0, 0, DirectX::XMConvertToRadians(10) });
+	if (m_depth % 2)
+		m_vegetationFeatures.back()->SetLocalRotation({ 0, 0, DirectX::XMConvertToRadians(25) });
+	else
+		m_vegetationFeatures.back()->SetLocalRotation({ DirectX::XMConvertToRadians(25), 0, 0 });
+
 }
 
 void VegetationNode::Update(float growth)
@@ -60,15 +69,17 @@ void VegetationNode::Update(float growth)
 	if(m_depth >= MAX_DEPTH)
 		return;
 
+	float totalGrowthFactor = GetGrowthFactor();
+
 	// Append Pass
 	for (auto& v : m_vegetationFeatures)
 	{
-		v->Update();
+		v->Update(growth * v->GetGrowthFactor() / totalGrowthFactor);
 	}
 	
 	for (auto& v : m_childNodes)
 	{
-		v->Update(growth);
+		v->Update(growth * v->GetGrowthFactor() / totalGrowthFactor);
 	}
 
 	// Shed Pass
@@ -115,7 +126,7 @@ void VegetationNode::CreateNewNode(VegetationFeature growthBud)
 
 	node->Start(this, m_deviceResources, m_rendererResources);
 
-	node->SetLocalPosition(DirectX::XMVectorAdd(growthBud.GetLocalPosition(), { 0, 1, 0 }));
+	node->SetLocalPosition(DirectX::XMVectorAdd(growthBud.GetLocalPosition(), { 0, 4, 0 }));
 	node->SetLocalRotation(growthBud.GetLocalRotation());
 
 	auto worldPos = node->GetPosition();
@@ -126,4 +137,34 @@ void VegetationNode::CreateNewNode(VegetationFeature growthBud)
 bool VegetationNode::GetRemove()
 {
 	return m_remove;
+}
+
+float VegetationNode::GetGrowthFactor()
+{
+	float totalGrowthFactor = 0.0f;
+
+	for (auto& vFeature : m_vegetationFeatures)
+	{
+		totalGrowthFactor += vFeature->GetGrowthFactor();
+	}
+
+	for (auto& vNode : m_childNodes)
+	{
+		totalGrowthFactor += vNode->GetGrowthFactor();
+	}
+
+	return totalGrowthFactor;
+}
+
+void VegetationNode::GetFeatures(std::vector<VegetationFeature*>* allFeatures)
+{
+	for (auto& vFeature : m_vegetationFeatures)
+	{
+		allFeatures->push_back(vFeature);
+	}
+
+	for (auto& vNode : m_childNodes)
+	{
+		vNode->GetFeatures(allFeatures);
+	}
 }

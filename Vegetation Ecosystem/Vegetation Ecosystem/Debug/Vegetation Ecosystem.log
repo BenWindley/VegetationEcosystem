@@ -1,8 +1,25 @@
-﻿  VegetationNode.cpp
+﻿  App.cpp
+  Sample3DSceneRenderer.cpp
+  Cube.cpp
+  Transform.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Cube.cpp(51,58): warning C4101: 'tempBuffer': unreferenced local variable
+  Vegetation.cpp
+  VegetationBud.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(73,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(168,1): warning C4316: 'Vegetation': object allocated on the heap may not be aligned 16
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(18,41): warning C4316: 'VegetationNode': object allocated on the heap may not be aligned 16
+  VegetationFeature.cpp
+  VegetationNode.cpp
+  VegetationSimulationScene.cpp
+  Vegetation_EcosystemMain.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(74,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(80,20): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(88,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(24,21): warning C4316: 'Cube': object allocated on the heap may not be aligned 16
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(28,62): warning C4316: 'VegetationBud': object allocated on the heap may not be aligned 16
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(41,21): warning C4316: 'Cube': object allocated on the heap may not be aligned 16
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(50,63): warning C4316: 'VegetationBud': object allocated on the heap may not be aligned 16
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(53,62): warning C4316: 'VegetationBud': object allocated on the heap may not be aligned 16
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(114,45): warning C4316: 'VegetationNode': object allocated on the heap may not be aligned 16
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(58,62): warning C4316: 'VegetationBud': object allocated on the heap may not be aligned 16
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(125,45): warning C4316: 'VegetationNode': object allocated on the heap may not be aligned 16
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationSimulationScene.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file VegetationSimulationScene.cpp)
   Vegetation Ecosystem.vcxproj -> D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\Vegetation Ecosystem.exe

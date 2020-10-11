@@ -16,19 +16,25 @@ public:
 
 public:
 	virtual void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
-	virtual void Update();
+	virtual void Update(float growth);
 	virtual void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
 	bool GetFate();
 	bool GetRemove();
+	virtual float GetGrowthFactor();
+	virtual void UpdateLighting(std::vector<VegetationFeature*>* allFeatures);
+	virtual float GetLightAbsorbtion();
 
 protected:
 	DX::DeviceResources* m_deviceResources;
 	Vegetation_Ecosystem::RendererResources* m_rendererResources;
 
-	Transform* m_parent;
 	//Cube* m_cube;
 
-	bool m_fate = true;
+	bool m_fate = false;
 	bool m_remove = false;
+
+	float m_light = 0.0f;
+
+	int id;
 };

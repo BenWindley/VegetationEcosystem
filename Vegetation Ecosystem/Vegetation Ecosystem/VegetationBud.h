@@ -8,10 +8,11 @@ public:
 	~VegetationBud() = default;
 
 public:
-	void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
-	void Update() override;
+	void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources) override;
+	void Update(float growth) override;
 	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData) override;
 
 private:
 	bool m_terminalBud;
+	float m_storedGrowth;
 };

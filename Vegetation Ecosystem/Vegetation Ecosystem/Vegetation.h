@@ -18,6 +18,7 @@ public:
 private:
 	VegetationNode* m_vegetationNode;
 
+	float m_age = 0.0f;
 	float m_growth = 0.0f;
 	Species m_species;
 };

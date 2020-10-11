@@ -20,6 +20,8 @@ public:
 	void CreateNewNode(VegetationFeature growthBud);
 
 	bool GetRemove();
+	float GetGrowthFactor();
+	void GetFeatures(std::vector<VegetationFeature*>* allFeatures);
 
 	int m_depth = 0;
 

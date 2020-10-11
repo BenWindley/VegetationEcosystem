@@ -77,9 +77,8 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 void Sample3DSceneRenderer::Rotate(float radians)
 {
 	// Prepare to pass the updated model matrix to the shader
-	//m_sun->SetLocalRotation({ 0,0,radians });
-	//m_earth->SetLocalRotation({ 0,0,radians * 2.0f });
-	//m_moon->SetLocalRotation({ 0,0,radians });
+	if(m_tree)
+		m_tree->SetLocalRotation({ 0,radians,0 });
 }
 
 void Sample3DSceneRenderer::StartTracking()
@@ -106,10 +105,6 @@ void Sample3DSceneRenderer::StopTracking()
 void Sample3DSceneRenderer::Render()
 {
 	m_tree->Render(m_constantBufferData);
-
-	//m_sun->Render(m_constantBufferData);
-	//m_earth->Render(m_constantBufferData);
-	//m_moon->Render(m_constantBufferData);
 }
 
 void Sample3DSceneRenderer::CreateDeviceDependentResources()
@@ -172,28 +167,9 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 
 		m_tree = new Vegetation(Species(0.5f, 1.0f));
 		m_tree->Start(&*m_deviceResources, &m_rendererResources);
-
-		m_tree->SetScale({ 0.1f, 0.1f, 0.1f });
+		
+		m_tree->SetScale({ 0.03f, 0.03f, 0.03f });
 		m_tree->SetLocalPosition({0,-0.5f,0});
-
-		//m_sun = new Cube();
-		//m_earth = new Cube();
-		//m_moon = new Cube();
-		//
-		//m_sun->Init(&*m_deviceResources, &m_rendererResources);
-		//m_earth->Init(&*m_deviceResources, &m_rendererResources);
-		//m_moon->Init(&*m_deviceResources, &m_rendererResources);
-		//
-		//m_earth->m_parent = m_sun;
-		//m_moon->m_parent = m_earth;
-		//
-		//m_sun->SetLocalPosition({ 0,0,0 });
-		//m_earth->SetLocalPosition({ 0,2,0 });
-		//m_moon->SetLocalPosition({ 1.5,1.5,0 });
-		//
-		//m_sun->SetLocalScale({ 0.1f, 0.1f, 0.1f });
-		//m_earth->SetLocalScale({ 0.5f, 0.5f, 0.5f });
-		//m_moon->SetLocalScale({ 0.5f, 0.5f, 0.5f });
 	});
 }
 

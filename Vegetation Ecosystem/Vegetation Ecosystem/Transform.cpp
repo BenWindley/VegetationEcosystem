@@ -15,7 +15,7 @@ XMVECTOR Transform::GetLocalPosition()
 
 XMVECTOR Transform::GetRotation()
 {
-	return m_parent ? XMVectorAddAngles(m_localRotation, m_parent->GetLocalRotation()) : m_localRotation;
+	return m_parent ? DirectX::XMQuaternionMultiply(m_localRotation, m_parent->GetLocalRotation()) : m_localRotation;
 }
 
 XMVECTOR Transform::GetLocalRotation()
@@ -35,7 +35,7 @@ XMVECTOR Transform::GetLocalScale()
 
 DirectX::XMMATRIX Transform::GetTransposeMatrix()
 {
-	auto selfMatrix = XMMatrixTranspose(XMMatrixAffineTransformation(GetLocalScale(), { 0 }, XMQuaternionRotationRollPitchYawFromVector(GetLocalRotation()), GetLocalPosition()));
+	auto selfMatrix = XMMatrixTranspose(XMMatrixAffineTransformation(GetLocalScale(), { 0 }, GetLocalRotation(), GetLocalPosition()));
 
 	return m_parent ? XMMatrixMultiply(m_parent->GetTransposeMatrix(), selfMatrix) : selfMatrix;
 }
@@ -52,7 +52,7 @@ void Transform::SetLocalPosition(XMVECTOR position)
 
 void Transform::SetRotation(XMVECTOR rotation)
 {
-	m_localRotation = m_parent ? XMVectorSubtractAngles(rotation, m_parent->GetLocalRotation()) : rotation;
+	m_localRotation = m_parent ? DirectX::XMQuaternionMultiply(rotation, DirectX::XMQuaternionInverse(m_parent->GetLocalRotation())) : rotation;
 }
 
 void Transform::SetLocalRotation(XMVECTOR rotation)

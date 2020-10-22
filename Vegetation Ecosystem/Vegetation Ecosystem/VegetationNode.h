@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 
+#include "VegetationParameters.h"
 #include "VegetationFeature.h"
 #include "Cube.h"
 
@@ -12,14 +13,17 @@ public:
 	virtual ~VegetationNode();
 
 public:
-	virtual void Start(Transform* parent, DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
-	virtual void Start(VegetationNode* parent, DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
+	virtual void Start(Transform* parent, Species species, DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
+	virtual void Start(VegetationNode* parent, Species species, DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
 	virtual void Update(float growth);
 	virtual void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
 	void CreateNewNode(VegetationFeature growthBud);
 
+	void SetBranchWidth(float branchWidth);
+
 	bool GetRemove();
+	float GetBranchWidth();
 	float GetGrowthFactor();
 	void GetFeatures(std::vector<VegetationFeature*>* allFeatures);
 
@@ -34,6 +38,8 @@ private:
 	Vegetation_Ecosystem::RendererResources* m_rendererResources;
 
 	Cube* m_cube;
+	Species m_species;
 
 	bool m_remove = false;
+	float m_branchWidth;
 };

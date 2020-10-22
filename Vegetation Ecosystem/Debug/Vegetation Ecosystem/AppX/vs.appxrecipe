@@ -18,7 +18,7 @@
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
     <LayoutDir>D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\AppX</LayoutDir>
-    <RegisteredManifestChecksum>6A3CBDE29BF1B0D917DEE12E78CAC3F8340D8B9D9CF0CC085CE74E1C9835A645</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>520673335AD002F6A3DC2C152E95C47FABCFC88FADA0E0D1CA84ACD99168A4C3</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>0fc65fcc-b628-4e1f-b2ea-6bc30e8bf769_1.0.0.0_x86__ffk0mqj859m78</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>0fc65fcc-b628-4e1f-b2ea-6bc30e8bf769_ffk0mqj859m78!App</RegisteredUserModeAppID>
     <RegisteredPackageID>0fc65fcc-b628-4e1f-b2ea-6bc30e8bf769</RegisteredPackageID>
@@ -29,13 +29,13 @@
     <AppXManifest Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-08-10T09:45:54.422</Modified>
+      <Modified>2020-10-20T20:42:29.935</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\Vegetation Ecosystem.exe">
       <PackagePath>Vegetation Ecosystem.exe</PackagePath>
-      <Modified>2020-10-11T15:37:04.380</Modified>
+      <Modified>2020-10-22T16:26:08.062</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\Vegetation_Ecosystem.winmd">
       <PackagePath>Vegetation_Ecosystem.winmd</PackagePath>
@@ -77,11 +77,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\SamplePixelShader.cso">
       <PackagePath>SamplePixelShader.cso</PackagePath>
-      <Modified>2020-07-08T10:45:46.116</Modified>
+      <Modified>2020-10-20T20:42:20.492</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\SampleVertexShader.cso">
       <PackagePath>SampleVertexShader.cso</PackagePath>
-      <Modified>2020-07-08T10:45:46.258</Modified>
+      <Modified>2020-10-20T20:42:20.569</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.18362.0\\redist\Debug\x86\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -89,7 +89,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-08-10T09:45:54.258</Modified>
+      <Modified>2020-10-20T20:42:29.743</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

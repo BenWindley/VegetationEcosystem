@@ -39,6 +39,9 @@ namespace Vegetation_Ecosystem
 		ModelViewProjectionConstantBuffer m_constantBufferData;
 
 		Vegetation* m_tree;
+		Cube* m_cubex;
+		Cube* m_cubey;
+		Cube* m_cubez;
 
 		// Variables used with the rendering loop.
 		float	m_degreesPerSecond;

@@ -78,7 +78,8 @@ void Sample3DSceneRenderer::Rotate(float radians)
 {
 	// Prepare to pass the updated model matrix to the shader
 	if(m_tree)
-		m_tree->SetLocalRotation({ 0,radians,0 });
+		if(m_tree->IsComplete())
+			m_tree->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYaw( 0,radians,0 ));
 }
 
 void Sample3DSceneRenderer::StartTracking()
@@ -165,11 +166,11 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 	// Once both shaders are loaded, create the mesh.
 	auto createCubeTask = (createPSTask && createVSTask).then([this] () {
 
-		m_tree = new Vegetation(Species(0.5f, 1.0f));
+		m_tree = new Vegetation(Species(0.05f, 1.0f));
 		m_tree->Start(&*m_deviceResources, &m_rendererResources);
 		
 		m_tree->SetScale({ 0.03f, 0.03f, 0.03f });
-		m_tree->SetLocalPosition({0,-0.5f,0});
+		m_tree->SetLocalPosition({0,-1.0f,0});
 	});
 }
 

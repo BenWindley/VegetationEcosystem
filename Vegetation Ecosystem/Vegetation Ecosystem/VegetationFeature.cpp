@@ -2,12 +2,14 @@
 #include "VegetationFeature.h"
 #include "VegetationNode.h"
 
+using namespace DirectX;
+
 VegetationFeature::VegetationFeature(Transform* parent)
 {
 	m_parent = parent;
 
 	static int totalIDs = 0;
-	id = totalIDs++;
+	m_id = totalIDs++;
 }
 
 void VegetationFeature::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources)
@@ -40,63 +42,136 @@ bool VegetationFeature::GetRemove()
 	return m_remove;
 }
 
+float VegetationFeature::GetTropismFactor()
+{
+	return TROPISM_FACTOR;
+}
+
+XMVECTOR VegetationFeature::GetSpatialTropism()
+{
+	return XMVectorScale(m_spatialTropism, SPATIALTROPISM_FACTOR);
+}
+
+XMVECTOR VegetationFeature::GetTropismDirectionQuaternion()
+{
+	// Phototropism
+	auto photoTropism = XMVectorScale(m_photoTropismDirection, PHOTOTROPISM_FACTOR);
+	auto graviTropism = XMVectorScale(m_photoTropismDirection, GRAVITROPISM_FACTOR);
+	auto spatialTropism = XMVectorScale(m_photoTropismDirection, SPATIALTROPISM_FACTOR);
+
+	auto sum = XMVectorScale(XMVectorAdd(XMVectorAdd(photoTropism, graviTropism), spatialTropism), 1 / (PHOTOTROPISM_FACTOR + GRAVITROPISM_FACTOR + SPATIALTROPISM_FACTOR));
+
+	return GetLookatRotation(sum);
+}
+
+DirectX::XMVECTOR VegetationFeature::GetLookatRotation(DirectX::XMVECTOR directionVector)
+{
+	XMVECTOR sampleScale;
+	XMVECTOR samplePosition;
+	XMVECTOR sampleRotation;
+
+	static const XMVECTOR pos = { 0.0f, 0.0f, 0.0f, 0.0f };
+	static const XMVECTOR at = directionVector;
+	static const XMVECTOR up = { 0.0f, 1.0f, 0.0f, 0.0f };
+
+	auto lookAtMatrix = XMMatrixLookAtLH(pos, at, up);
+
+	XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, lookAtMatrix);
+
+	return sampleRotation;
+}
+
 float VegetationFeature::GetGrowthFactor()
 {
 	return m_light;
 }
 
-void VegetationFeature::UpdateLighting(std::vector<VegetationFeature*>* allFeatures)
+void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatures)
 {
 	float light = 1.0f;
 
-	DirectX::XMVECTOR selfScale;
-	DirectX::XMVECTOR selfPosition;
-	DirectX::XMVECTOR selfRotation;
-	DirectX::XMMatrixDecompose(&selfScale, &selfRotation, &selfPosition, DirectX::XMMatrixTranspose(GetTransposeMatrix()));
-	selfPosition = DirectX::XMVector3Rotate(selfPosition, selfRotation);
+	XMVECTOR selfScale;
+	XMVECTOR selfPosition;
+	XMVECTOR selfRotation;
 
-	DirectX::XMVECTOR sampleScale;
-	DirectX::XMVECTOR samplePosition;
-	DirectX::XMVECTOR sampleRotation;
+	XMMatrixDecompose(&selfScale, &selfRotation, &selfPosition, XMMatrixTranspose(GetTransposeMatrix()));
+	selfPosition = XMVector3Rotate(selfPosition, selfRotation);
 
-	for (auto& vFeature : *allFeatures)
+	XMVECTOR sampleScale;
+	XMVECTOR samplePosition;
+	XMVECTOR sampleRotation;
+
+	XMVECTOR totalPhototropism = { 0, 0, 0 };
+
+	for (int x = -1; x <= 1; ++x)
 	{
-		if (vFeature->id == id)
-			continue;
-		if (light == 0.0f)
-			break;
-
-		DirectX::XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, DirectX::XMMatrixTranspose(vFeature->GetTransposeMatrix()));
-		samplePosition = DirectX::XMVector3Rotate(samplePosition, sampleRotation);
-
-		auto oc = DirectX::XMVectorSubtract(selfPosition, samplePosition);
-		float a = DirectX::XMVectorGetX(DirectX::XMVector3Dot({ 0, 1, 0 }, { 0, 1, 0 }));
-		float b = 2.0 * DirectX::XMVectorGetX(DirectX::XMVector3Dot(oc, { 0, 1, 0 }));
-		float c = DirectX::XMVectorGetX(DirectX::XMVector3Dot(oc, oc)) - 4 * DirectX::XMVectorGetX(sampleScale) * DirectX::XMVectorGetX(sampleScale);
-		float discriminant = b * b - 4 * a * c;
-
-		if (discriminant >= 0.0)
+		for (int z = -1; z <= 1; ++z)
 		{
-			float numerator = -b - sqrt(discriminant);
+			float rayLight = 1.0f;
+			XMVECTOR rayDir = XMVector3Normalize({ (float)x, 1.0f, (float)z });
 
-			if (numerator > 0.0)
+			for (auto& vFeature : *allFeatures)
 			{
-				light *= vFeature->GetLightAbsorbtion();
-				continue;
+				XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, XMMatrixTranspose(vFeature->GetTransposeMatrix()));
+				samplePosition = XMVector3Rotate(samplePosition, sampleRotation);
+				
+				if (vFeature->m_id == m_id)
+					continue;
+				if (light == 0.0f)
+					break;
+				if (XMVector3Equal(selfPosition, samplePosition))
+					break;
+
+				auto oc = XMVectorSubtract(selfPosition, samplePosition);
+				float a = XMVectorGetX(XMVector3Dot(rayDir, rayDir));
+				float b = 2.0 * XMVectorGetX(XMVector3Dot(oc, rayDir));
+				float c = XMVectorGetX(XMVector3Dot(oc, oc)) - 2 * XMVectorGetX(sampleScale) * XMVectorGetX(sampleScale);
+				float discriminant = b * b - 2 * a * c;
+
+				if (discriminant >= 0.0)
+				{
+					float numerator = -b - sqrt(discriminant);
+
+					if (numerator > 0.0)
+					{
+						rayLight *= 1 - vFeature->GetLightAbsorbtion();
+					}
+					else
+					{
+						numerator = -b + sqrt(discriminant);
+						if (numerator > 0.0)
+						{
+							rayLight *= 1 - vFeature->GetLightAbsorbtion();
+						}
+					}
+				}
 			}
 
-			numerator = -b + sqrt(discriminant);
-			if (numerator > 0.0)
-			{
-				light *= vFeature->GetLightAbsorbtion();
-			}
+			light += rayLight;
+			totalPhototropism = XMVectorAdd(totalPhototropism, XMVectorScale(rayDir, rayLight / 9.0f));
 		}
 	}
 
-	m_light = light;
+	m_photoTropismDirection = totalPhototropism;
+
+	m_light = light / 9;
+
+	m_spatialTropism = { 0, 0, 0 };
+
+	for (auto& vFeature : *allFeatures)
+	{
+		XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, XMMatrixTranspose(vFeature->GetTransposeMatrix()));
+
+		XMVECTOR v = XMVectorSubtract(selfPosition, samplePosition);
+		v = XMVectorMultiply(v, { 1,1,1,0 });
+		float dist = XMVectorGetX(XMVector3Length(v));
+		float factor = pow(SPATIAL_FALLOFF, -dist);
+
+		m_spatialTropism = XMVectorAdd(m_spatialTropism, XMVectorScale(XMVector3Normalize(v), factor));
+	}
 }
 
 float VegetationFeature::GetLightAbsorbtion()
 {
-	return 0.5f;
+	return 0.7f;
 }

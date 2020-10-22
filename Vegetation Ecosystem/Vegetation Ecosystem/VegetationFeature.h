@@ -19,22 +19,31 @@ public:
 	virtual void Update(float growth);
 	virtual void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
+	virtual float GetGrowthFactor();
+	virtual float GetLightAbsorbtion();
+	virtual void UpdateTropisms(std::vector<VegetationFeature*>* allFeatures);
+
 	bool GetFate();
 	bool GetRemove();
-	virtual float GetGrowthFactor();
-	virtual void UpdateLighting(std::vector<VegetationFeature*>* allFeatures);
-	virtual float GetLightAbsorbtion();
+	float GetTropismFactor();
+	DirectX::XMVECTOR GetSpatialTropism();
+	DirectX::XMVECTOR GetTropismDirectionQuaternion();
+
+	bool m_mainPrevious = true;
 
 protected:
+	DirectX::XMVECTOR GetLookatRotation(DirectX::XMVECTOR directionVector);
+
 	DX::DeviceResources* m_deviceResources;
 	Vegetation_Ecosystem::RendererResources* m_rendererResources;
 
 	//Cube* m_cube;
 
+	int m_id;
 	bool m_fate = false;
 	bool m_remove = false;
-
 	float m_light = 0.0f;
 
-	int id;
+	DirectX::XMVECTOR m_photoTropismDirection = { 0, 1, 0 };
+	DirectX::XMVECTOR m_spatialTropism = { 0, 0, 0 };
 };

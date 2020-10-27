@@ -253,6 +253,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Common\DeviceResources.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="CylinderSegment.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vegetation.h" />
@@ -273,6 +274,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Common\DeviceResources.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="CylinderSegment.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vegetation.cpp" />

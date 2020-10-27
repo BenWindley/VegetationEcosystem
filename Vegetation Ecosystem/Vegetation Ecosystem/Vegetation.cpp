@@ -36,7 +36,14 @@ void Vegetation::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosyste
 void Vegetation::Update(float time)
 {
 	if (!this) return;
-	if (m_age > MAX_AGE) return;
+
+	time *= 5;
+
+	if (m_age > MAX_AGE) 
+	{
+		m_keepThreads = false;
+		return;
+	}
 
 	// Update features list
 
@@ -107,7 +114,7 @@ void Vegetation::DoThread()
 		}
 		else
 		{
-			Sleep(0.01);
+			Sleep(0.05);
 		}
 	}
 

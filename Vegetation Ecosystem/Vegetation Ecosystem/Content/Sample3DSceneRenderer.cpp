@@ -166,11 +166,11 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 	// Once both shaders are loaded, create the mesh.
 	auto createCubeTask = (createPSTask && createVSTask).then([this] () {
 
-		m_tree = new Vegetation(Species(0.05f, 1.0f));
+		m_tree = new Vegetation(Species(0.7f, 1.0f));
 		m_tree->Start(&*m_deviceResources, &m_rendererResources);
-		
-		m_tree->SetScale({ 0.03f, 0.03f, 0.03f });
-		m_tree->SetLocalPosition({0,-1.0f,0});
+
+		m_tree->SetLocalPosition({ 0,-1.0f,0 });
+		m_tree->SetScale({ 0.015f, 0.015f, 0.015f });
 	});
 }
 

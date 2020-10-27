@@ -1,17 +1,19 @@
 ﻿#pragma once
 
 
-#define MAX_AGE 10.0f
+#define MAX_AGE 30.0f
 #define MAX_THREADS 4
-#define TROPISM_FACTOR 0.5f
-#define PHOTOTROPISM_FACTOR 0.0f
-#define SPATIALTROPISM_FACTOR 0.0f
+#define TROPISM_FACTOR 0.2f
+#define PHOTOTROPISM_FACTOR 1.0f
+#define SPATIALTROPISM_FACTOR 0.5f
 #define GRAVITROPISM_FACTOR 0.0f
-#define MAX_DEPTH 10
-#define SPREAD_MAIN 15
-#define SPREAD_BRANCH 15
-#define SPATIAL_FALLOFF 100
+#define MAX_DEPTH 40
 
+#define SPREAD_MAIN 25
+#define SPREAD_BRANCH 45
+#define SPATIAL_FALLOFF 10
+
+#define CYLINDER_SEGMENTS 10
 
 #include <wrl.h>
 #include <wrl/client.h>

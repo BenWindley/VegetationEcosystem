@@ -48,8 +48,6 @@ void Cube::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer consta
 {
 	if (!this) return;
 
-	Vegetation_Ecosystem::ModelViewProjectionConstantBuffer tempBuffer;
-
 	XMStoreFloat4x4(&constantBufferData.model, GetTransposeMatrix());
 
 	Renderable::Render(constantBufferData);

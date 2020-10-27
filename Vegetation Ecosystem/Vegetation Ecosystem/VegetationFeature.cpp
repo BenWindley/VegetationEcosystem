@@ -2,6 +2,8 @@
 #include "VegetationFeature.h"
 #include "VegetationNode.h"
 
+#include <cmath>
+
 using namespace DirectX;
 
 VegetationFeature::VegetationFeature(Transform* parent)
@@ -55,24 +57,24 @@ XMVECTOR VegetationFeature::GetSpatialTropism()
 XMVECTOR VegetationFeature::GetTropismDirectionQuaternion()
 {
 	// Phototropism
-	auto photoTropism = XMVectorScale(m_photoTropismDirection, PHOTOTROPISM_FACTOR);
-	auto graviTropism = XMVectorScale(m_photoTropismDirection, GRAVITROPISM_FACTOR);
-	auto spatialTropism = XMVectorScale(m_photoTropismDirection, SPATIALTROPISM_FACTOR);
+	auto photoTropism = GetLookatRotation(m_photoTropismDirection);
+	auto graviTropism = XMQuaternionRotationRollPitchYawFromVector({ 0.0f, 0.0f, XM_PI });
+	auto spatialTropism = GetLookatRotation(m_spatialTropism);
 
-	auto sum = XMVectorScale(XMVectorAdd(XMVectorAdd(photoTropism, graviTropism), spatialTropism), 1 / (PHOTOTROPISM_FACTOR + GRAVITROPISM_FACTOR + SPATIALTROPISM_FACTOR));
-
-	return GetLookatRotation(sum);
+	return XMQuaternionSlerp(XMQuaternionSlerp(photoTropism, graviTropism, GRAVITROPISM_FACTOR / std::fmaxf(GRAVITROPISM_FACTOR + PHOTOTROPISM_FACTOR, 0.01f)), spatialTropism, SPATIALTROPISM_FACTOR / std::fmaxf(GRAVITROPISM_FACTOR + PHOTOTROPISM_FACTOR + SPATIALTROPISM_FACTOR, 0.01f));
 }
 
-DirectX::XMVECTOR VegetationFeature::GetLookatRotation(DirectX::XMVECTOR directionVector)
+XMVECTOR VegetationFeature::GetLookatRotation(DirectX::XMVECTOR directionVector)
 {
+	directionVector = XMVector3Normalize({ directionVector.m128_f32[0], directionVector.m128_f32[2], directionVector.m128_f32[1] });
+
 	XMVECTOR sampleScale;
 	XMVECTOR samplePosition;
 	XMVECTOR sampleRotation;
 
-	static const XMVECTOR pos = { 0.0f, 0.0f, 0.0f, 0.0f };
-	static const XMVECTOR at = directionVector;
-	static const XMVECTOR up = { 0.0f, 1.0f, 0.0f, 0.0f };
+	static const XMVECTOR pos = { 0.0f, 0.0f, 0.0f };
+	static const XMVECTOR at = XMVector3Normalize(directionVector);
+	static const XMVECTOR up = { 0.0f, 1.0f, 0.0f };
 
 	auto lookAtMatrix = XMMatrixLookAtLH(pos, at, up);
 
@@ -125,7 +127,7 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 				auto oc = XMVectorSubtract(selfPosition, samplePosition);
 				float a = XMVectorGetX(XMVector3Dot(rayDir, rayDir));
 				float b = 2.0 * XMVectorGetX(XMVector3Dot(oc, rayDir));
-				float c = XMVectorGetX(XMVector3Dot(oc, oc)) - 2 * XMVectorGetX(sampleScale) * XMVectorGetX(sampleScale);
+				float c = XMVectorGetX(XMVector3Dot(oc, oc)) - 4 * XMVectorGetX(sampleScale) * XMVectorGetX(sampleScale);
 				float discriminant = b * b - 2 * a * c;
 
 				if (discriminant >= 0.0)

@@ -5,6 +5,7 @@
 #include "VegetationParameters.h"
 #include "VegetationFeature.h"
 #include "Cube.h"
+#include "CylinderSegment.h"
 
 class VegetationNode : public Transform
 {
@@ -28,6 +29,7 @@ public:
 	void GetFeatures(std::vector<VegetationFeature*>* allFeatures);
 
 	int m_depth = 0;
+	CylinderSegment* m_cylinder;
 
 private:
 	VegetationNode* m_parentNode;

@@ -91,6 +91,7 @@
     <ClCompile Include="Renderable.cpp">
       <Filter>Content\Visual Features</Filter>
     </ClCompile>
+    <ClCompile Include="CylinderSegment.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -132,6 +133,7 @@
     <ClInclude Include="Renderable.h">
       <Filter>Content\Visual Features</Filter>
     </ClInclude>
+    <ClInclude Include="CylinderSegment.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">

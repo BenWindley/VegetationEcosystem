@@ -5,7 +5,7 @@ using namespace DirectX;
 
 XMVECTOR Transform::GetPosition()
 {
-	return m_parent ? XMVectorAdd(m_localPosition, m_parent->GetLocalPosition()) : m_localPosition;
+	return m_parent ? XMVectorAdd(m_localPosition, m_parent->GetPosition()) : m_localPosition;
 }
 
 XMVECTOR Transform::GetLocalPosition()
@@ -15,7 +15,7 @@ XMVECTOR Transform::GetLocalPosition()
 
 XMVECTOR Transform::GetRotation()
 {
-	return m_parent ? DirectX::XMQuaternionMultiply(m_localRotation, m_parent->GetLocalRotation()) : m_localRotation;
+	return m_parent ? DirectX::XMQuaternionMultiply(m_localRotation, m_parent->GetRotation()) : m_localRotation;
 }
 
 XMVECTOR Transform::GetLocalRotation()
@@ -25,7 +25,7 @@ XMVECTOR Transform::GetLocalRotation()
 
 XMVECTOR Transform::GetScale()
 {
-	return m_parent ? XMVectorMultiply(m_localScale, m_parent->GetLocalScale()) : m_localScale;
+	return m_parent ? XMVectorMultiply(m_localScale, m_parent->GetScale()) : m_localScale;
 }
 
 XMVECTOR Transform::GetLocalScale()
@@ -52,7 +52,7 @@ void Transform::SetLocalPosition(XMVECTOR position)
 
 void Transform::SetRotation(XMVECTOR rotation)
 {
-	m_localRotation = m_parent ? DirectX::XMQuaternionMultiply(rotation, DirectX::XMQuaternionInverse(m_parent->GetLocalRotation())) : rotation;
+	m_localRotation = m_parent ? DirectX::XMQuaternionMultiply(rotation, DirectX::XMQuaternionInverse(m_parent->GetRotation())) : rotation;
 }
 
 void Transform::SetLocalRotation(XMVECTOR rotation)
@@ -62,7 +62,7 @@ void Transform::SetLocalRotation(XMVECTOR rotation)
 
 void Transform::SetScale(XMVECTOR scale)
 {
-	m_localScale = m_parent ? XMVectorDivide(scale, m_parent->GetLocalScale()) : scale;
+	m_localScale = m_parent ? XMVectorDivide(scale, m_parent->GetScale()) : scale;
 }
 
 void Transform::SetLocalScale(XMVECTOR scale)

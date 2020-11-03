@@ -29,17 +29,25 @@
     <AppXManifest Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-10-26T00:09:27.304</Modified>
+      <Modified>2020-11-03T13:36:01.790</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\Vegetation Ecosystem.exe">
       <PackagePath>Vegetation Ecosystem.exe</PackagePath>
-      <Modified>2020-10-27T22:16:34.235</Modified>
+      <Modified>2020-11-03T14:47:24.392</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\Vegetation_Ecosystem.winmd">
       <PackagePath>Vegetation_Ecosystem.winmd</PackagePath>
-      <Modified>2020-07-06T17:57:45.508</Modified>
+      <Modified>2020-11-03T13:18:14.824</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Assets\Blank.png">
+      <PackagePath>Assets\Blank.png</PackagePath>
+      <Modified>2020-11-03T13:17:26.233</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Assets\Leaf.png">
+      <PackagePath>Assets\Leaf.png</PackagePath>
+      <Modified>2020-11-03T11:47:29.361</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
@@ -70,6 +78,14 @@
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2020-07-06T17:57:45.716</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Assets\Tree-export.png">
+      <PackagePath>Assets\Tree-export.png</PackagePath>
+      <Modified>2020-11-03T13:34:07.311</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Assets\Tree.png">
+      <PackagePath>Assets\Tree.png</PackagePath>
+      <Modified>2020-11-03T11:47:47.180</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
@@ -77,11 +93,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\SamplePixelShader.cso">
       <PackagePath>SamplePixelShader.cso</PackagePath>
-      <Modified>2020-10-20T20:42:20.492</Modified>
+      <Modified>2020-11-03T14:29:07.387</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\SampleVertexShader.cso">
       <PackagePath>SampleVertexShader.cso</PackagePath>
-      <Modified>2020-10-20T20:42:20.569</Modified>
+      <Modified>2020-11-03T13:18:10.640</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.18362.0\\redist\Debug\x86\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
@@ -89,7 +105,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-10-26T00:09:27.228</Modified>
+      <Modified>2020-11-03T13:36:01.766</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

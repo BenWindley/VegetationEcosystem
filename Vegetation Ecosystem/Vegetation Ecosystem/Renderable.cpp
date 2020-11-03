@@ -2,16 +2,82 @@
 #include "Renderable.h"
 
 #include <DirectXMath.h>
+#include "Common/WICTextureLoader.h"
 
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-void Renderable::Init(DX::DeviceResources* deviceResources, 
-	Vegetation_Ecosystem::RendererResources* rendererResources, 
-	Vegetation_Ecosystem::VertexPositionColor vertices[], 
+void Renderable::Init(DX::DeviceResources* deviceResources,
+	Vegetation_Ecosystem::RendererResources* rendererResources,
+	Vegetation_Ecosystem::VertexPositionColor vertices[],
 	uint32 vertexCount,
 	unsigned short indices[],
 	uint32 indexCount)
+{
+	Renderable::Init(deviceResources, rendererResources, vertices, vertexCount, indices, indexCount, L"Assets\\Blank.png");
+}
+
+void Renderable::Init(
+	DX::DeviceResources* deviceResources, 
+	Vegetation_Ecosystem::RendererResources* rendererResources,
+	Vegetation_Ecosystem::VertexPositionColor vertices[], 
+	uint32 vertexCount, 
+	unsigned short indices[],
+	uint32 indexCount, 
+	std::wstring texName)
+{
+	static std::vector<Texture> textures;
+
+	bool exists = false;
+
+	for (auto& t : textures)
+	{
+		if (t.name == texName)
+		{
+			exists = true;
+
+			m_texture = t.m_texture;
+			m_textureResourceView = t.m_textureResourceView;
+			m_samplerState = t.m_samplerState;
+		}
+	}
+
+	if (!exists)
+	{
+		auto result = DirectX::CreateWICTextureFromFile(deviceResources->GetD3DDevice(), deviceResources->GetD3DDeviceContext(), texName.c_str(), &m_texture, &m_textureResourceView);
+
+		textures.push_back({ texName, m_texture, m_textureResourceView, m_samplerState });
+
+		D3D11_SHADER_RESOURCE_VIEW_DESC textureResourceViewDesc;
+		textureResourceViewDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		textureResourceViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+		textureResourceViewDesc.Texture2D.MostDetailedMip = 0;
+		textureResourceViewDesc.Texture2D.MipLevels = -1;
+
+		deviceResources->GetD3DDevice()->CreateShaderResourceView(m_texture, &textureResourceViewDesc, &m_textureResourceView);
+
+		D3D11_SAMPLER_DESC sampler_desc;
+		sampler_desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		sampler_desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		sampler_desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		sampler_desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		sampler_desc.MipLODBias = 0.0f;
+		sampler_desc.MaxAnisotropy = 1;
+		sampler_desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		sampler_desc.BorderColor[0] = 0;
+		sampler_desc.BorderColor[1] = 0;
+		sampler_desc.BorderColor[2] = 0;
+		sampler_desc.BorderColor[3] = 0;
+		sampler_desc.MinLOD = 0;
+		sampler_desc.MaxLOD = D3D11_FLOAT32_MAX;
+
+		deviceResources->GetD3DDevice()->CreateSamplerState(&sampler_desc, &m_samplerState);
+	}
+
+	CreateResources(deviceResources, rendererResources, vertices, vertexCount, indices, indexCount);
+}
+
+void Renderable::CreateResources(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Vegetation_Ecosystem::VertexPositionColor vertices[], uint32 vertexCount, unsigned short indices[], uint32 indexCount)
 {
 	m_deviceResources = deviceResources;
 	m_inputLayout = rendererResources->inputLayout.Get();
@@ -108,6 +174,18 @@ void Renderable::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer 
 		m_pShader,
 		nullptr,
 		0
+	);
+
+	context->PSSetShaderResources(
+		0, 
+		1, 
+		&m_textureResourceView
+	);
+
+	context->PSSetSamplers(
+		0,
+		1,
+		&m_samplerState
 	);
 
 	// Draw the objects.

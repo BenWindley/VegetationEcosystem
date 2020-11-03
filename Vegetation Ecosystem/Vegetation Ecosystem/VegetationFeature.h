@@ -12,7 +12,7 @@ class VegetationFeature : public Transform
 public:
 	VegetationFeature() = default;
 	VegetationFeature(Transform* parent);
-	virtual ~VegetationFeature() = default;
+	virtual ~VegetationFeature();
 
 public:
 	virtual void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
@@ -29,7 +29,7 @@ public:
 	DirectX::XMVECTOR GetSpatialTropism();
 	DirectX::XMVECTOR GetTropismDirectionQuaternion();
 
-	bool m_mainPrevious = true;
+	float m_branchWidth = 1.0f;
 
 protected:
 	DirectX::XMVECTOR GetLookatRotation(DirectX::XMVECTOR directionVector);
@@ -37,7 +37,7 @@ protected:
 	DX::DeviceResources* m_deviceResources;
 	Vegetation_Ecosystem::RendererResources* m_rendererResources;
 
-	//Cube* m_cube;
+	Cube* m_cube;
 
 	int m_id;
 	bool m_fate = false;

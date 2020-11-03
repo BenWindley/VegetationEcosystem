@@ -241,19 +241,25 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Image Include="Assets\Blank.png" />
+    <Image Include="Assets\Leaf.png" />
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Image Include="Assets\StoreLogo.png" />
+    <Image Include="Assets\Tree-export.png" />
+    <Image Include="Assets\Tree.png" />
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Common\DeviceResources.h" />
+    <ClInclude Include="Common\WICTextureLoader.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CylinderSegment.h" />
+    <ClInclude Include="Leaf.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vegetation.h" />
@@ -273,8 +279,10 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Common\DeviceResources.cpp" />
+    <ClCompile Include="Common\WICTextureLoader.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CylinderSegment.cpp" />
+    <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vegetation.cpp" />

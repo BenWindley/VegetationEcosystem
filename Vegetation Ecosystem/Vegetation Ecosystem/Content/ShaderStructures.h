@@ -13,8 +13,9 @@ namespace Vegetation_Ecosystem
 	// Used to send per-vertex data to the vertex shader.
 	struct VertexPositionColor
 	{
-		DirectX::XMFLOAT3 pos;
-		DirectX::XMFLOAT3 color;
+		DirectX::XMFLOAT3 pos = { 0, 0, 0 };
+		DirectX::XMFLOAT3 color = { 1, 1, 1 };
+		DirectX::XMFLOAT2 uv = { 0, 0 };
 	};
 
 	struct RendererResources

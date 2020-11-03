@@ -32,7 +32,7 @@ namespace Vegetation_Ecosystem
 		// Cached pointer to device resources.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
-		// Direct3D resources for cube geometry.
+		// Direct3D resources for geometry.
 		RendererResources m_rendererResources;
 
 		// System resources for cube geometry.

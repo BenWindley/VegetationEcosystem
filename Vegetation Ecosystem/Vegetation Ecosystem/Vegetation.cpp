@@ -2,6 +2,7 @@
 #include "Vegetation.h"
 
 #include <thread>
+#include <random>
 
 Vegetation::Vegetation(Species species)
 {
@@ -22,6 +23,9 @@ Vegetation::~Vegetation()
 
 void Vegetation::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources)
 {
+	m_deviceResources = deviceResources;
+	m_rendererResources = rendererResources;
+
 	m_vegetationNode = new VegetationNode();
 	m_vegetationNode->Start(this, m_species, deviceResources, rendererResources);
 
@@ -41,25 +45,44 @@ void Vegetation::Update(float time)
 
 	if (m_age > MAX_AGE) 
 	{
-		m_keepThreads = false;
+		for (auto& c : m_core)
+		{
+			c->SetRotation(GetRotation());
+		}
+		for (auto& c : m_leaves)
+		{
+			c->SetRotation(GetRotation());
+		}
+
+		if (m_keepThreads)
+		{
+			// Build plant structure
+
+			BuildModel(m_vegetationNode, nullptr);
+			m_keepThreads = false;
+		}
+
 		return;
 	}
 
 	// Update features list
 
-	m_vegetationNode->GetFeatures(&m_allFeatures);
+	m_vegetationNode->GetAllFeatures(&m_allFeatures);
 	m_threadIterator = 0;
 	m_threadsComplete = 0;
 
 	m_updateThreads = true;
 
+	float compTime = 0.0f;
+
 	while (m_updateThreads)
 	{
-		Sleep(0.01);
+		compTime += 0.001f;
+		Sleep(1);
 	} 
 
 	m_allFeatures.clear();
-	m_age += time;
+	m_age += time + compTime;
 
 	// Update growth rate
 	m_growth += time * m_species.m_growthRate * m_vegetationNode->GetGrowthFactor() * 0.9f;
@@ -75,7 +98,19 @@ void Vegetation::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer 
 {
 	if (!this) return;
 
-	m_vegetationNode->Render(constantBufferData);
+	if(!IsComplete())
+		m_vegetationNode->Render(constantBufferData);
+	else
+	{
+		for (auto& c : m_core)
+		{
+			c->Render(constantBufferData);
+		}
+		for (auto& c : m_leaves)
+		{
+			c->Render(constantBufferData);
+		}
+	}
 }
 
 bool Vegetation::IsComplete()
@@ -114,9 +149,53 @@ void Vegetation::DoThread()
 		}
 		else
 		{
-			Sleep(0.05);
+			Sleep(0.05f);
 		}
 	}
 
 	m_threadCount--;
+}
+
+void Vegetation::BuildModel(VegetationNode* node, CylinderSegment* previous)
+{
+	std::random_device r;
+	std::random_device _r;
+	std::uniform_real_distribution<float> rotation(0, DirectX::XM_2PI);
+	std::uniform_real_distribution<float> offset(-LEAF_DISPLACEMENT * node->GetBranchWidth(), LEAF_DISPLACEMENT * node->GetBranchWidth());
+	Leaf* l;
+
+	for (auto& f : node->GetFeatures())
+	{
+		for (int i = 0; i < LEAF_QUANTITY * node->GetBranchWidth(); ++i)
+		{
+			l = new Leaf();
+
+			l->Init(
+				m_deviceResources,
+				m_rendererResources,
+				node,
+				DirectX::XMQuaternionRotationRollPitchYaw(rotation(r), rotation(r), rotation(r)),
+				{ offset(r), offset(r), offset(r) }
+			);
+
+			m_leaves.push_back(l);
+		}
+	}
+	for (auto& v : node->GetChildren())
+	{
+		CylinderSegment* c = new CylinderSegment();
+
+		c->Init(
+			m_deviceResources,
+			m_rendererResources, 
+			node->GetBranchWidth(), 
+			previous, 
+			node, 
+			v->GetChildren().size() == 0
+		);
+
+		m_core.push_back(c);
+
+		BuildModel(v, c);
+	}
 }

@@ -4,16 +4,13 @@
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, float* branchWidth)
+void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, float branchWidth, CylinderSegment* previous, Transform* currentTransform, bool branchEnd, bool branching)
 {
-    m_branchWidth = branchWidth;
-
 	std::vector<unsigned short> indices;
 
-    float height = 1.0f;
-    float radius = *m_branchWidth;
-
     std::vector<XMFLOAT2> circleVertices;
+
+    float radius = branchEnd ? 0 : branchWidth;
 
     for (int i = 0; i <= CYLINDER_SEGMENTS; ++i)
     {
@@ -21,10 +18,31 @@ void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecos
         circleVertices.push_back({ radius * cosf(sectorAngle), radius * sinf(sectorAngle)});
     }
 
+    Transform ringTransform;
+    ringTransform.m_parent = currentTransform;
+
+    XMVECTOR sampleScale;
+    XMVECTOR sampleRotation;
+    XMVECTOR samplePosition;
+
     for (int i = 0; i <= CYLINDER_SEGMENTS; ++i)
     {
-        m_vertices.push_back({ DirectX::XMFLOAT3(circleVertices[i].x, 5, circleVertices[i].y), { 1, 1, 1 } });
-        m_vertices.push_back( { DirectX::XMFLOAT3(circleVertices[i].x, 0, circleVertices[i].y), { 1, 1, 1 } });
+        ringTransform.SetLocalPosition({ circleVertices[i].x, 0, circleVertices[i].y });
+
+        XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, XMMatrixTranspose(ringTransform.GetTransposeMatrix()));
+
+        m_vertices.push_back({ DirectX::XMFLOAT3(samplePosition.m128_f32[0], samplePosition.m128_f32[1], samplePosition.m128_f32[2]), { 1, 1, 1 }, {(float) i / CYLINDER_SEGMENTS, 1} });
+
+        if (branching || previous == nullptr)
+        {
+            m_vertices.push_back(m_vertices.back());
+            m_vertices.back().uv.y = 0;
+        }
+        else
+        {
+            m_vertices.push_back(previous->m_vertices[i * 2]);
+            m_vertices.back().uv.y = 0;
+        }
     }
 
     for (unsigned short i = 0; i < CYLINDER_SEGMENTS * 2; i+=2)
@@ -38,7 +56,7 @@ void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecos
         indices.push_back(i + 3);
     }
 
-	Renderable::Init(deviceResources, rendererResources, &m_vertices[0], m_vertices.size(), &indices[0], indices.size());
+	Renderable::Init(deviceResources, rendererResources, &m_vertices[0], m_vertices.size(), &indices[0], indices.size(), L"Assets\\Tree.png");
 }
 
 void CylinderSegment::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData)
@@ -48,9 +66,4 @@ void CylinderSegment::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBu
     XMStoreFloat4x4(&constantBufferData.model, GetTransposeMatrix());
 
     Renderable::Render(constantBufferData);
-}
-
-void CylinderSegment::SetSegment(CylinderSegment* nextSegment)
-{
-    m_nextSegment = nextSegment;
 }

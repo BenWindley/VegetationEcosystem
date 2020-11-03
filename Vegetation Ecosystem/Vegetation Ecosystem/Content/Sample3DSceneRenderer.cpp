@@ -70,7 +70,7 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 		Rotate(radians);
 	}
 
-	m_tree->Update(timer.GetElapsedSeconds());
+	m_tree->Update(0.01f);
 }
 
 // Rotate the 3D cube model a set amount of radians.
@@ -115,63 +115,87 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 	auto loadPSTask = DX::ReadDataAsync(L"SamplePixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
-	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
-		DX::ThrowIfFailed(
-			m_deviceResources->GetD3DDevice()->CreateVertexShader(
-				&fileData[0],
-				fileData.size(),
-				nullptr,
-				&m_rendererResources.vertexShader
-				)
-			);
-
-		static const D3D11_INPUT_ELEMENT_DESC vertexDesc [] =
+	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData)
 		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		};
-
-		DX::ThrowIfFailed(
-			m_deviceResources->GetD3DDevice()->CreateInputLayout(
-				vertexDesc,
-				ARRAYSIZE(vertexDesc),
-				&fileData[0],
-				fileData.size(),
-				&m_rendererResources.inputLayout
+			DX::ThrowIfFailed(
+				m_deviceResources->GetD3DDevice()->CreateVertexShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_rendererResources.vertexShader
 				)
 			);
-	});
+
+			static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
+			{
+				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+				{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			};
+
+			DX::ThrowIfFailed(
+				m_deviceResources->GetD3DDevice()->CreateInputLayout(
+					vertexDesc,
+					ARRAYSIZE(vertexDesc),
+					&fileData[0],
+					fileData.size(),
+					&m_rendererResources.inputLayout
+				)
+			);
+		});
 
 	// After the pixel shader file is loaded, create the shader and constant buffer.
-	auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
-		DX::ThrowIfFailed(
-			m_deviceResources->GetD3DDevice()->CreatePixelShader(
-				&fileData[0],
-				fileData.size(),
-				nullptr,
-				&m_rendererResources.pixelShader
+	auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData)
+		{
+			DX::ThrowIfFailed(
+				m_deviceResources->GetD3DDevice()->CreatePixelShader(
+					&fileData[0],
+					fileData.size(),
+					nullptr,
+					&m_rendererResources.pixelShader
 				)
 			);
 
-		CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelViewProjectionConstantBuffer) , D3D11_BIND_CONSTANT_BUFFER);
-		DX::ThrowIfFailed(
-			m_deviceResources->GetD3DDevice()->CreateBuffer(
-				&constantBufferDesc,
-				nullptr,
-				&m_rendererResources.constantBuffer
+			CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelViewProjectionConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
+			DX::ThrowIfFailed(
+				m_deviceResources->GetD3DDevice()->CreateBuffer(
+					&constantBufferDesc,
+					nullptr,
+					&m_rendererResources.constantBuffer
 				)
 			);
-	});
+		});
 
 	// Once both shaders are loaded, create the mesh.
-	auto createCubeTask = (createPSTask && createVSTask).then([this] () {
+	auto createVegetationTask = (createPSTask && createVSTask).then([this]()
+		{
+			ID3D11BlendState* d3dBlendState;
+			D3D11_BLEND_DESC omDesc;
+			ZeroMemory(&omDesc,
 
-		m_tree = new Vegetation(Species(0.7f, 1.0f));
-		m_tree->Start(&*m_deviceResources, &m_rendererResources);
+				sizeof(D3D11_BLEND_DESC));
+			omDesc.RenderTarget[0].BlendEnable =
 
-		m_tree->SetLocalPosition({ 0,-1.0f,0 });
-		m_tree->SetScale({ 0.015f, 0.015f, 0.015f });
-	});
+				true;
+			omDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+			omDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+			omDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+			omDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+			omDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+			omDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+			omDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+
+			if (FAILED(m_deviceResources->GetD3DDevice()->CreateBlendState(&omDesc, &d3dBlendState))) return false;
+
+			m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(d3dBlendState, 0, 0xffffffff);
+
+			m_tree = new Vegetation(Species(0.5f, 1.0f));
+			m_tree->Start(&*m_deviceResources, &m_rendererResources);
+
+			m_tree->SetLocalPosition({ 0,-1.0f,0 });
+			m_tree->SetScale({ 0.04f, 0.04f, 0.04f });
+		});
 }
 
 void Sample3DSceneRenderer::ReleaseDeviceDependentResources()

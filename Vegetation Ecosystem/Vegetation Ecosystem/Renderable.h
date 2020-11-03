@@ -3,6 +3,7 @@
 #include "..\Common\DeviceResources.h"
 #include "Content/ShaderStructures.h"
 
+#include <string>
 #include <vector>
 
 class Renderable
@@ -14,7 +15,10 @@ public:
 	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
 protected:
+	void Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Vegetation_Ecosystem::VertexPositionColor vertices[], uint32 vertexCount, unsigned short indices[], uint32 indexCount, std::wstring texName);
 	void Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Vegetation_Ecosystem::VertexPositionColor vertices[], uint32 vertexCount, unsigned short indices[], uint32 indexCount);
+
+	void CreateResources(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Vegetation_Ecosystem::VertexPositionColor vertices[], uint32 vertexCount, unsigned short indices[], uint32 indexCount);
 
 	bool m_loadingComplete = false;
 	uint32 m_indexCount;
@@ -27,4 +31,17 @@ protected:
 	ID3D11VertexShader* m_vShader;
 	ID3D11PixelShader* m_pShader;
 	ID3D11Buffer* m_constantBuffer;
+
+	ID3D11Resource* m_texture = nullptr;
+	ID3D11ShaderResourceView* m_textureResourceView = nullptr;
+	ID3D11SamplerState* m_samplerState = nullptr;
+
+private:
+	struct Texture
+	{
+		std::wstring name;
+		ID3D11Resource* m_texture;
+		ID3D11ShaderResourceView* m_textureResourceView;
+		ID3D11SamplerState* m_samplerState;
+	};
 };

@@ -9,15 +9,9 @@ public:
 	CylinderSegment() = default;
 	~CylinderSegment() = default;
 
-	void Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, float* branchWidth);
+	void Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, float branchWidth, CylinderSegment* previous, Transform* currentTransform, bool branchEnd, bool branching = false);
 	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
-	void SetSegment(CylinderSegment* nextSegment);
-
 	std::vector<Vegetation_Ecosystem::VertexPositionColor> m_vertices;
-
-private:
-	CylinderSegment* m_nextSegment;
-	float* m_branchWidth;
 };
 

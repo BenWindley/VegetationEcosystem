@@ -3,6 +3,8 @@
 #include <mutex>
 
 #include "VegetationNode.h"
+#include "CylinderSegment.h"
+#include "Leaf.h"
 
 class Vegetation : public Transform
 {
@@ -19,6 +21,7 @@ public:
 
 private:
 	void DoThread();
+	void BuildModel(VegetationNode* node, CylinderSegment* previous);
 
 	VegetationNode* m_vegetationNode;
 
@@ -26,13 +29,17 @@ private:
 	float m_growth = 0.0f;
 	Species m_species;
 
-	std::vector<std::thread> m_doThreads;
-	std::vector<VegetationFeature*> m_updateFeatures;
-	std::vector<VegetationFeature*> m_allFeatures;
-	std::mutex m_mutex;
+	DX::DeviceResources* m_deviceResources;
+	Vegetation_Ecosystem::RendererResources* m_rendererResources;
+
 	bool m_keepThreads = true;
 	std::atomic<bool> m_updateThreads;
 	std::atomic<int> m_threadCount;
 	std::atomic<int> m_threadIterator;
 	std::atomic<int> m_threadsComplete;
+	std::vector<std::thread> m_doThreads;
+	std::vector<VegetationFeature*> m_allFeatures;
+
+	std::vector<CylinderSegment*> m_core;
+	std::vector<Leaf*> m_leaves;
 };

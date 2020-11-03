@@ -30,13 +30,10 @@ void VegetationNode::Start(Transform* parent, Species species, DX::DeviceResourc
 	m_cube->m_parent = this;
 	m_cube->Init(m_deviceResources, m_rendererResources);
 
-	m_cylinder = new CylinderSegment();
-	m_cylinder->m_parent = this;
-	m_cylinder->Init(m_deviceResources, m_rendererResources, &m_branchWidth);
-
 	m_vegetationFeatures.push_back(new VegetationBud(this, true));
 	m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYaw( 0, 0, 0 ));
 	m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
+	m_vegetationFeatures.back()->m_branchWidth = m_branchWidth;
 }
 
 // Used for sub-nodes
@@ -53,10 +50,6 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 	m_cube->m_parent = this;
 	m_cube->Init(m_deviceResources, m_rendererResources);
 
-	m_cylinder = new CylinderSegment();
-	m_cylinder->m_parent = this;
-	m_cylinder->Init(m_deviceResources, m_rendererResources, &m_branchWidth);
-
 	if (parent)
 		m_depth = parent->m_depth + 1;
 	else
@@ -64,17 +57,16 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 
 	static std::random_device r;
 	static std::uniform_real_distribution<float> range(0, 1);
-	static std::uniform_real_distribution<float> smallTilt(-DirectX::XM_PIDIV4, DirectX::XM_PIDIV4);
+	static std::uniform_real_distribution<float> smallTilt(DirectX::XMConvertToRadians(-SPREAD_RANDOM), DirectX::XMConvertToRadians(SPREAD_RANDOM));
 
 	if (range(r) > m_species.m_syllepticChance)
 	{
-		m_vegetationFeatures.push_back(new VegetationBud(this, false));
-		m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
-
 		bool LHS = m_depth % 2;
 		bool primary = range(r) > 0.5f;
 
-		m_vegetationFeatures.back()->m_mainPrevious = primary;
+		m_vegetationFeatures.push_back(new VegetationBud(this, false));
+		m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
+		m_vegetationFeatures.back()->m_branchWidth = m_branchWidth * (primary ? WIDTH_MAIN : WIDTH_BRANCH);
 
 		if (LHS)
 			m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ 0, 0, DirectX::XMConvertToRadians(primary ? -SPREAD_MAIN : -SPREAD_BRANCH), 0 }));
@@ -83,8 +75,7 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 
 		m_vegetationFeatures.push_back(new VegetationBud(this, true));
 		m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
-
-		m_vegetationFeatures.back()->m_mainPrevious = !primary;
+		m_vegetationFeatures.back()->m_branchWidth = m_branchWidth * (!primary ? WIDTH_MAIN : WIDTH_BRANCH);
 
 		if (LHS)
 			m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ 0, 0, DirectX::XMConvertToRadians(primary ? SPREAD_BRANCH : SPREAD_MAIN), 0 }));
@@ -95,7 +86,8 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 	{
 		m_vegetationFeatures.push_back(new VegetationBud(this, true));
 		m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
-		m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ smallTilt(r) * 0.2f, 0, smallTilt(r) * 0.2f }));
+		m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ smallTilt(r), 0, smallTilt(r) }));
+		m_vegetationFeatures.back()->m_branchWidth = m_branchWidth;
 	}
 }
 
@@ -152,18 +144,17 @@ void VegetationNode::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuf
 		vNode->Render(constantBufferData);
 	}
 
-	//m_cube->Render(constantBufferData);
-	m_cylinder->Render(constantBufferData);
+	m_cube->Render(constantBufferData);
 }
 
 void VegetationNode::CreateNewNode(VegetationFeature growthBud)
 {
 	VegetationNode* node = new VegetationNode();
 
-	node->SetBranchWidth(m_branchWidth * (growthBud.m_mainPrevious ? 0.95f : 0.99f));
+	node->SetBranchWidth(growthBud.m_branchWidth);
 	node->Start(this, m_species, m_deviceResources, m_rendererResources);
 
-	node->SetLocalPosition(DirectX::XMVectorAdd(growthBud.GetLocalPosition(), { 0, 7.0f * m_branchWidth, 0 }));
+	node->SetLocalPosition(DirectX::XMVectorAdd(growthBud.GetLocalPosition(), { 0, 7.0f * pow(8.0f, growthBud.m_branchWidth - 1), 0 }));
 
 	auto rotationQuaternion = growthBud.GetTropismDirectionQuaternion();
 	auto budRotationQuaternion = growthBud.GetRotation();
@@ -204,10 +195,10 @@ float VegetationNode::GetGrowthFactor()
 		totalGrowthFactor += vNode->GetGrowthFactor();
 	}
 
-	return totalGrowthFactor * m_branchWidth * m_branchWidth;
+	return totalGrowthFactor * pow(m_branchWidth, 4);
 }
 
-void VegetationNode::GetFeatures(std::vector<VegetationFeature*>* allFeatures)
+void VegetationNode::GetAllFeatures(std::vector<VegetationFeature*>* allFeatures)
 {
 	for (auto& vFeature : m_vegetationFeatures)
 	{
@@ -216,6 +207,21 @@ void VegetationNode::GetFeatures(std::vector<VegetationFeature*>* allFeatures)
 
 	for (auto& vNode : m_childNodes)
 	{
-		vNode->GetFeatures(allFeatures);
+		vNode->GetAllFeatures(allFeatures);
 	}
+}
+
+VegetationNode* VegetationNode::GetParentNode()
+{
+	return m_parentNode;
+}
+
+std::vector<VegetationNode*> VegetationNode::GetChildren()
+{
+	return m_childNodes;
+}
+
+std::vector<VegetationFeature*> VegetationNode::GetFeatures()
+{
+	return m_vegetationFeatures;
 }

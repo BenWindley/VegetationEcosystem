@@ -91,7 +91,13 @@
     <ClCompile Include="Renderable.cpp">
       <Filter>Content\Visual Features</Filter>
     </ClCompile>
-    <ClCompile Include="CylinderSegment.cpp" />
+    <ClCompile Include="CylinderSegment.cpp">
+      <Filter>Content\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp" />
+    <ClCompile Include="Common\WICTextureLoader.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -133,10 +139,30 @@
     <ClInclude Include="Renderable.h">
       <Filter>Content\Visual Features</Filter>
     </ClInclude>
-    <ClInclude Include="CylinderSegment.h" />
+    <ClInclude Include="CylinderSegment.h">
+      <Filter>Content\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Leaf.h">
+      <Filter>Content\Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\WICTextureLoader.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Leaf.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Tree.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Blank.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Tree-export.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>

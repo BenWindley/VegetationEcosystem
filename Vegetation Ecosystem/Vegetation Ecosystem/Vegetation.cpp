@@ -65,30 +65,14 @@ void Vegetation::Update(float time)
 		return;
 	}
 
-	// Update features list
-
-	m_vegetationNode->GetAllFeatures(&m_allFeatures);
-	m_threadIterator = 0;
-	m_threadsComplete = 0;
-
-	m_updateThreads = true;
-
-	float compTime = 0.0f;
-
-	while (m_updateThreads)
-	{
-		compTime += 0.001f;
-		Sleep(1);
-	} 
-
-	m_allFeatures.clear();
-	m_age += time + compTime;
+	m_age += time;
 
 	// Update growth rate
 	m_growth += time * m_species.m_growthRate * m_vegetationNode->GetGrowthFactor() * 0.9f;
+	//m_growth -= time * m_vegetationNode->GetLifeCost() * UPKEEP_COEFFICIENT;
 
 	// Pass growth down list of nodes
-	m_vegetationNode->Update(m_growth);
+	m_vegetationNode->Update(m_growth, time);
 
 	// This can be changed if some growth is stored to prevent sudden changes of growth
 	m_growth *= 0.1f;
@@ -118,6 +102,44 @@ bool Vegetation::IsComplete()
 	return m_age > MAX_AGE;
 }
 
+void Vegetation::UpdateAllFeatures(std::vector<VegetationFeature*>* allFeatures)
+{
+	if (!this) return;
+	m_vegetationNode->GetAllFeatures(allFeatures);
+}
+
+void Vegetation::SetAllFeatures(std::vector<VegetationFeature*> allFeatures)
+{
+	m_allFeatures.clear();
+
+	m_allFeatures = allFeatures;
+}
+
+void Vegetation::UpdateLight(float time)
+{
+	if (m_age > MAX_AGE) return;
+
+	// Update features list
+
+	m_allSelfFeatures.clear();
+	m_vegetationNode->GetAllFeatures(&m_allSelfFeatures);
+
+	m_threadIterator = 0;
+	m_threadsComplete = 0;
+
+	m_updateThreads = true;
+
+	float compTime = 0.0f;
+
+	while (m_updateThreads)
+	{
+		compTime += 0.001f;
+		Sleep(1);
+	}
+
+	m_age += compTime;
+}
+
 void Vegetation::DoThread()
 {
 	VegetationFeature* currentFeature;
@@ -129,11 +151,11 @@ void Vegetation::DoThread()
 		{
 			i = m_threadIterator++;
 
-			if (i >= m_allFeatures.size())
+			if (i >= m_allSelfFeatures.size())
 			{
-				while (m_threadsComplete < m_allFeatures.size())
+				while (m_threadsComplete < m_allSelfFeatures.size())
 				{
-					Sleep(0.01);
+					Sleep(10);
 				}
 
 				m_updateThreads = false;
@@ -142,14 +164,14 @@ void Vegetation::DoThread()
 			}
 			else
 			{
-				currentFeature = m_allFeatures[i];
+				currentFeature = m_allSelfFeatures[i];
 				currentFeature->UpdateTropisms(&m_allFeatures);
 				m_threadsComplete++;
 			}
 		}
 		else
 		{
-			Sleep(0.05f);
+			Sleep(10);
 		}
 	}
 

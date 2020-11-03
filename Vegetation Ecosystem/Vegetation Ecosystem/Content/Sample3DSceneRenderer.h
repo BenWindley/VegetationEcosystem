@@ -38,10 +38,7 @@ namespace Vegetation_Ecosystem
 		// System resources for cube geometry.
 		ModelViewProjectionConstantBuffer m_constantBufferData;
 
-		Vegetation* m_tree;
-		Cube* m_cubex;
-		Cube* m_cubey;
-		Cube* m_cubez;
+		std::vector<Vegetation*> m_trees;
 
 		// Variables used with the rendering loop.
 		float	m_degreesPerSecond;

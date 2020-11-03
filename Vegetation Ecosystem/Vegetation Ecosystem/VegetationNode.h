@@ -15,7 +15,7 @@ public:
 public:
 	virtual void Start(Transform* parent, Species species, DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
 	virtual void Start(VegetationNode* parent, Species species, DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
-	virtual void Update(float growth);
+	virtual void Update(float growth, float time);
 	virtual void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
 	void CreateNewNode(VegetationFeature growthBud);
@@ -25,12 +25,15 @@ public:
 	bool GetRemove();
 	float GetBranchWidth();
 	float GetGrowthFactor();
+	float GetLifeCost();
 	void GetAllFeatures(std::vector<VegetationFeature*>* allFeatures);
 	VegetationNode* GetParentNode();
 	std::vector<VegetationNode*> GetChildren();
 	std::vector<VegetationFeature*> GetFeatures();
 
 	int m_depth = 0;
+	int m_complexity = 0;
+	int m_simplicity = 0;
 
 private:
 	VegetationNode* m_parentNode;

@@ -94,9 +94,11 @@
     <ClCompile Include="CylinderSegment.cpp">
       <Filter>Content\Structures</Filter>
     </ClCompile>
-    <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="Common\WICTextureLoader.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
+      <Filter>Content\Structures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

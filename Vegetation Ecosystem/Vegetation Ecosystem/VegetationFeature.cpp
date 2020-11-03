@@ -24,13 +24,9 @@ void VegetationFeature::Start(DX::DeviceResources* deviceResources, Vegetation_E
 {
 	m_deviceResources = deviceResources;
 	m_rendererResources = rendererResources;
-
-	//m_cube = new Cube();
-	//m_cube->Init(m_deviceResources, m_rendererResources);
-	//m_cube->m_parent = this;
 }
 
-void VegetationFeature::Update(float growth)
+void VegetationFeature::Update(float growth, float time)
 {
 
 }
@@ -45,9 +41,9 @@ bool VegetationFeature::GetFate()
 	return m_fate;
 }
 
-bool VegetationFeature::GetRemove()
+bool VegetationFeature::GetDormant()
 {
-	return m_remove;
+	return m_dormant;
 }
 
 float VegetationFeature::GetTropismFactor()
@@ -96,6 +92,8 @@ float VegetationFeature::GetGrowthFactor()
 
 void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatures)
 {
+	if (m_dormant) return;
+
 	float light = 1.0f;
 
 	XMVECTOR selfScale;
@@ -134,7 +132,7 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 			auto oc = XMVectorSubtract(selfPosition, samplePosition);
 			float a = XMVectorGetX(XMVector3Dot(rayDir, rayDir));
 			float b = 2.0 * XMVectorGetX(XMVector3Dot(oc, rayDir));
-			float c = XMVectorGetX(XMVector3Dot(oc, oc)) - 4 * XMVectorGetX(sampleScale) * XMVectorGetX(sampleScale);
+			float c = XMVectorGetX(XMVector3Dot(oc, oc)) - 0.1f * XMVectorGetX(sampleScale) * XMVectorGetX(sampleScale);
 			float discriminant = b * b - 2 * a * c;
 
 			if (discriminant >= 0.0)
@@ -181,5 +179,5 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 
 float VegetationFeature::GetLightAbsorbtion()
 {
-	return 0.7f;
+	return 0.3f;
 }

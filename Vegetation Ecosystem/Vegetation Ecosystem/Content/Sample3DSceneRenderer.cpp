@@ -50,7 +50,7 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
 		);
 
 	// Eye is at (0,0.7,1.5), looking at point (0,-0.1,0) with the up-vector along the y-axis.
-	static const XMVECTORF32 eye = { 0.0f, 0.7f, 1.5f, 0.0f };
+	static const XMVECTORF32 eye = { 0.0f, 1.0f, 1.5f, 0.0f };
 	static const XMVECTORF32 at = { 0.0f, -0.1f, 0.0f, 0.0f };
 	static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
@@ -70,16 +70,34 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 		Rotate(radians);
 	}
 
-	m_tree->Update(0.01f);
+	std::vector<VegetationFeature*> allFeatures;
+
+	for (auto& t : m_trees)
+	{
+		t->UpdateAllFeatures(&allFeatures);
+	}
+
+	for (auto& t : m_trees)
+	{
+		t->SetAllFeatures(allFeatures);
+		t->UpdateLight(0.01f);
+	}
+
+	for (auto& t : m_trees)
+	{
+		t->Update(0.01f);
+	}
 }
 
 // Rotate the 3D cube model a set amount of radians.
 void Sample3DSceneRenderer::Rotate(float radians)
 {
-	// Prepare to pass the updated model matrix to the shader
-	if(m_tree)
-		if(m_tree->IsComplete())
-			m_tree->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYaw( 0,radians,0 ));
+	for (auto& t : m_trees)
+	{
+		if (t)
+			if (t->IsComplete())
+				t->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYaw(0, radians, 0));
+	}
 }
 
 void Sample3DSceneRenderer::StartTracking()
@@ -105,7 +123,10 @@ void Sample3DSceneRenderer::StopTracking()
 // Renders one frame using the vertex and pixel shaders.
 void Sample3DSceneRenderer::Render()
 {
-	m_tree->Render(m_constantBufferData);
+	for (auto& t : m_trees)
+	{
+		t->Render(m_constantBufferData);
+	}
 }
 
 void Sample3DSceneRenderer::CreateDeviceDependentResources()
@@ -171,12 +192,9 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 		{
 			ID3D11BlendState* d3dBlendState;
 			D3D11_BLEND_DESC omDesc;
-			ZeroMemory(&omDesc,
 
-				sizeof(D3D11_BLEND_DESC));
-			omDesc.RenderTarget[0].BlendEnable =
-
-				true;
+			ZeroMemory(&omDesc, sizeof(D3D11_BLEND_DESC));
+			omDesc.RenderTarget[0].BlendEnable = true;
 			omDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 			omDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 			omDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
@@ -185,16 +203,23 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			omDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 			omDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
-
-			if (FAILED(m_deviceResources->GetD3DDevice()->CreateBlendState(&omDesc, &d3dBlendState))) return false;
-
+			m_deviceResources->GetD3DDevice()->CreateBlendState(&omDesc, &d3dBlendState);
 			m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(d3dBlendState, 0, 0xffffffff);
 
-			m_tree = new Vegetation(Species(0.5f, 1.0f));
-			m_tree->Start(&*m_deviceResources, &m_rendererResources);
+			m_trees.push_back(new Vegetation(Species(0.5f, 1.0f)));
+			m_trees.back()->SetLocalPosition({ -0.2f,-2.0f,0.2f });
+			m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
+			m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 
-			m_tree->SetLocalPosition({ 0,-1.0f,0 });
-			m_tree->SetScale({ 0.04f, 0.04f, 0.04f });
+			m_trees.push_back(new Vegetation(Species(0.5f, 1.0f)));
+			m_trees.back()->SetLocalPosition({ 0.2f,-2.0f,-0.2f });
+			m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
+			m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
+
+			m_trees.push_back(new Vegetation(Species(0.5f, 1.0f)));
+			m_trees.back()->SetLocalPosition({ 0.0f,-2.0f, 0.0f });
+			m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
+			m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 		});
 }
 

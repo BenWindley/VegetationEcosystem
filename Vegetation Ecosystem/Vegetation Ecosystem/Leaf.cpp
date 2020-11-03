@@ -33,7 +33,9 @@ void Leaf::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::Rend
             tempTransform.SetLocalPosition(XMVectorAdd(offset, pos));
             XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, XMMatrixTranspose(tempTransform.GetTransposeMatrix()));
 
-            vertices.push_back({ {samplePosition.m128_f32[0], samplePosition.m128_f32[1], samplePosition.m128_f32[2]}, {1.0f, 1.0f, 1.0f}, {x + 0.5f, y + 0.5f} });
+            XMFLOAT2 uvs = { (x + 1.0f) * 0.5f, (y + 1.0f) * 0.5f };
+
+            vertices.push_back({ {samplePosition.m128_f32[0], samplePosition.m128_f32[1], samplePosition.m128_f32[2]}, {1.0f, 1.0f, 1.0f}, uvs });
         }
     }
 

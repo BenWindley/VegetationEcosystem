@@ -9,10 +9,11 @@ public:
 
 public:
 	void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources) override;
-	void Update(float growth) override;
+	void Update(float growth, float time) override;
 	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData) override;
 
 private:
 	bool m_terminalBud;
 	float m_storedGrowth;
+	float m_age;
 };

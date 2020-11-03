@@ -1,6 +1,8 @@
-﻿  App.cpp
-  Sample3DSceneRenderer.cpp
-  Vegetation_EcosystemMain.cpp
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(193,1): warning C4316: 'Vegetation': object allocated on the heap may not be aligned 16
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(198): warning C4715: '<lambda_138c73b39fb9b46a979471dfa5c3d5f9>::operator()': not all control paths return a value
+﻿  Vegetation.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(18,9): warning C4244: 'argument': conversion from 'double' to 'DWORD', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(29,41): warning C4316: 'VegetationNode': object allocated on the heap may not be aligned 16
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(154,10): warning C4018: '>=': signed/unsigned mismatch
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(156,30): warning C4018: '<': signed/unsigned mismatch
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(193,18): warning C4316: 'Leaf': object allocated on the heap may not be aligned 16
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(208,45): warning C4316: 'CylinderSegment': object allocated on the heap may not be aligned 16
   Vegetation Ecosystem.vcxproj -> D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\Vegetation Ecosystem.exe

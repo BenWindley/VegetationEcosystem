@@ -18,6 +18,9 @@ public:
 	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
 	bool IsComplete(); 
+	void UpdateAllFeatures(std::vector<VegetationFeature*>* allFeatures);
+	void SetAllFeatures(std::vector<VegetationFeature*> allFeatures);
+	void UpdateLight(float time);
 
 private:
 	void DoThread();
@@ -39,6 +42,7 @@ private:
 	std::atomic<int> m_threadsComplete;
 	std::vector<std::thread> m_doThreads;
 	std::vector<VegetationFeature*> m_allFeatures;
+	std::vector<VegetationFeature*> m_allSelfFeatures;
 
 	std::vector<CylinderSegment*> m_core;
 	std::vector<Leaf*> m_leaves;

@@ -16,7 +16,7 @@ public:
 
 public:
 	virtual void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
-	virtual void Update(float growth);
+	virtual void Update(float growth, float time);
 	virtual void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
 	virtual float GetGrowthFactor();
@@ -24,12 +24,13 @@ public:
 	virtual void UpdateTropisms(std::vector<VegetationFeature*>* allFeatures);
 
 	bool GetFate();
-	bool GetRemove();
+	bool GetDormant();
 	float GetTropismFactor();
 	DirectX::XMVECTOR GetSpatialTropism();
 	DirectX::XMVECTOR GetTropismDirectionQuaternion();
 
 	float m_branchWidth = 1.0f;
+	bool m_sylleptic = false;
 
 protected:
 	DirectX::XMVECTOR GetLookatRotation(DirectX::XMVECTOR directionVector);
@@ -41,7 +42,8 @@ protected:
 
 	int m_id;
 	bool m_fate = false;
-	bool m_remove = false;
+	bool m_dormant = false;
+
 	float m_light = 0.0f;
 
 	DirectX::XMVECTOR m_photoTropismDirection = { 0, 1, 0 };

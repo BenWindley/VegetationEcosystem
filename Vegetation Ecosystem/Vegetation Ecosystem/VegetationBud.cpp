@@ -13,18 +13,19 @@ void VegetationBud::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosy
 	m_rendererResources = rendererResources;
 }
 
-void VegetationBud::Update(float growth)
+void VegetationBud::Update(float growth, float time)
 {
 	m_storedGrowth += growth;
+	m_age += time;
 
-	if (m_storedGrowth > 1.0f)
+	if (m_storedGrowth > m_branchWidth)
 	{
 		m_fate = true;
 	}
 
-	if (m_fate)
+	if (m_fate || m_age > 10.0f)
 	{
-		m_remove = true;
+		m_dormant = true;
 	}
 }
 

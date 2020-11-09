@@ -47,7 +47,7 @@ void Vegetation_EcosystemMain::Update()
 	{
 		// TODO: Replace this with your app's content update functions.
 		m_sceneRenderer->Update(m_timer);
-		m_fpsTextRenderer->Update(m_timer);
+		m_fpsTextRenderer->Update(m_sceneRenderer->GetComputeProgress());
 	});
 }
 

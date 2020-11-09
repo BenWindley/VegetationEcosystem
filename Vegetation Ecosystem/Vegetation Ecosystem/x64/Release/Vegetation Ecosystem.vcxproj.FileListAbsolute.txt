@@ -1,0 +1,70 @@
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\SamplePixelShader.cso
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\SampleVertexShader.cso
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\Blank.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\Leaf.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\LockScreenLogo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\SplashScreen.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\Square150x150Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\Square44x44Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\Square44x44Logo.targetsize-24_altform-unplated.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\StoreLogo.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\Tree-export.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\Tree.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Assets\Wide310x150Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\resources.pri
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\AppxManifest.xml
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\Blank.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\Leaf.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\LockScreenLogo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\SplashScreen.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\Square150x150Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\Square44x44Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\Square44x44Logo.targetsize-24_altform-unplated.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\StoreLogo.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\Tree-export.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\Tree.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Assets\Wide310x150Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\resources.pri
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\SamplePixelShader.cso
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\SampleVertexShader.cso
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Vegetation Ecosystem.exe
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Vegetation Ecosystem.pdb
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Vegetation_Ecosystem.winmd
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Vegetation Ecosystem.build.appxrecipe
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ResourceHandlingTask.state
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\priconfig.xml
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\priconfig.xml.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\unfiltered.layout.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\unfiltered.layout.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\filtered.layout.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\filtered.layout.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\excluded.layout.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\excluded.layout.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\resources.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\resources.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\pri.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\pri.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\qualifiers.txt
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\qualifiers.txt.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\MultipleQualifiersPerDimensionFound.txt
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ProjectArchitectures.txt
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\AppxManifest.xml
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Vegetation Ecosystem.pdb
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Vegetation_Ecosystem.winmd
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\resources.pri
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Vegetation Ecosystem.exe
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\Blank.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\Leaf.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\LockScreenLogo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\SplashScreen.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\Square150x150Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\Square44x44Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\Square44x44Logo.targetsize-24_altform-unplated.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\StoreLogo.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\Tree-export.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\Tree.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\Assets\Wide310x150Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\SamplePixelShader.cso
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc\in\SampleVertexShader.cso
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\ilc.Vegetation Ecosystem.rsp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem.vcxprojAssemblyReference.cache

@@ -44,12 +44,11 @@ SampleFpsTextRenderer::SampleFpsTextRenderer(const std::shared_ptr<DX::DeviceRes
 }
 
 // Updates the text to be displayed.
-void SampleFpsTextRenderer::Update(DX::StepTimer const& timer)
+void SampleFpsTextRenderer::Update(std::wstring progress)
 {
-	// Update display text.
-	uint32 fps = timer.GetFramesPerSecond();
+	// Update text.
 
-	m_text = (fps > 0) ? std::to_wstring(fps) + L" FPS" : L" - FPS";
+	m_text = progress;
 
 	ComPtr<IDWriteTextLayout> textLayout;
 	DX::ThrowIfFailed(

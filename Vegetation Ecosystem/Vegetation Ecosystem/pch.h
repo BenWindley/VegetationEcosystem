@@ -1,29 +1,34 @@
 ﻿#pragma once
 
-
-#define MAX_AGE 20.0f
-#define MAX_THREADS 4
-#define TROPISM_FACTOR 0.15f
-#define LIGHTRAYS 10
+#define MAX_AGE 5.0f
+#define MAX_THREADS 5
+#define TROPISM_FACTOR 0.1f
+#define LIGHTRAYS 15
 #define PHOTOTROPISM_FACTOR 1.0f
-#define SPATIALTROPISM_FACTOR 0.5f
-#define SPATIAL_FALLOFF 10
+#define PHOTOTROPISM_BIAS 5.0f
+#define SPATIALTROPISM_FACTOR 0.0f
 #define GRAVITROPISM_FACTOR 0.0f
 #define MAX_COMPLEXITY 10
 
-#define SPREAD_MAIN 15
+#define SPREAD_MAIN 50
 #define SPREAD_BRANCH 60
-#define SPREAD_RANDOM 5
+#define SPREAD_SIDE 90
+#define SPREAD_RANDOM 10
 
-#define WIDTH_MAIN 0.9
-#define WIDTH_BRANCH 0.7
+#define WIDTH_STRAIGHT 0.95
+#define WIDTH_MAIN 0.90
+#define WIDTH_BRANCH 0.85
+#define WIDTH_SIDE 0.7
+#define MIN_BRANCH_WIDTH 0.05
 
 #define CYLINDER_SEGMENTS 10
 #define LEAF_QUANTITY 5
 #define LEAF_SIZE 7.0f
 #define LEAF_DISPLACEMENT 8
 
-#define UPKEEP_COEFFICIENT 0.00001f
+#define UPKEEP_COEFFICIENT 1e-10F
+
+#define PLANT_SPACING 0.0f
 
 #include <wrl.h>
 #include <wrl/client.h>

@@ -27,6 +27,8 @@ public:
 	float GetGrowthFactor();
 	float GetLifeCost();
 	void GetAllFeatures(std::vector<VegetationFeature*>* allFeatures);
+	bool IsNodeAlive();
+
 	VegetationNode* GetParentNode();
 	std::vector<VegetationNode*> GetChildren();
 	std::vector<VegetationFeature*> GetFeatures();
@@ -34,6 +36,9 @@ public:
 	int m_depth = 0;
 	int m_complexity = 0;
 	int m_simplicity = 0;
+	bool m_terminal = false;
+
+	float m_previousGrowth = 0.0f;
 
 private:
 	VegetationNode* m_parentNode;

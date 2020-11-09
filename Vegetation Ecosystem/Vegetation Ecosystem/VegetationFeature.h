@@ -24,13 +24,14 @@ public:
 	virtual void UpdateTropisms(std::vector<VegetationFeature*>* allFeatures);
 
 	bool GetFate();
-	bool GetDormant();
+	bool IsDormant();
 	float GetTropismFactor();
 	DirectX::XMVECTOR GetSpatialTropism();
 	DirectX::XMVECTOR GetTropismDirectionQuaternion();
 
 	float m_branchWidth = 1.0f;
 	bool m_sylleptic = false;
+	bool m_terminal = true;
 
 protected:
 	DirectX::XMVECTOR GetLookatRotation(DirectX::XMVECTOR directionVector);
@@ -44,7 +45,7 @@ protected:
 	bool m_fate = false;
 	bool m_dormant = false;
 
-	float m_light = 0.0f;
+	float m_light = 1.0f;
 
 	DirectX::XMVECTOR m_photoTropismDirection = { 0, 1, 0 };
 	DirectX::XMVECTOR m_spatialTropism = { 0, 0, 0 };

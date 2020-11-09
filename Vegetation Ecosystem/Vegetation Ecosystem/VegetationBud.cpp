@@ -18,12 +18,12 @@ void VegetationBud::Update(float growth, float time)
 	m_storedGrowth += growth;
 	m_age += time;
 
-	if (m_storedGrowth > m_branchWidth)
+	if (m_storedGrowth > (m_branchWidth * 0.5f + 0.5f))
 	{
 		m_fate = true;
 	}
 
-	if (m_fate || m_age > 10.0f)
+	if (m_light < (m_terminal ? 0.15f : 0.2f))
 	{
 		m_dormant = true;
 	}

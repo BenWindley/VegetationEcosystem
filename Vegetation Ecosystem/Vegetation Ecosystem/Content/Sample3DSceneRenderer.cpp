@@ -3,6 +3,9 @@
 
 #include "..\Common\DirectXHelper.h"
 
+#include <random>
+#include <cmath>
+
 using namespace Vegetation_Ecosystem;
 
 using namespace DirectX;
@@ -60,6 +63,8 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
 // Called once per frame, rotates the cube and calculates the model and view matrices.
 void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 {
+	m_totalTime = timer.GetTotalSeconds();
+
 	if (!m_tracking)
 	{
 		// Convert degrees to radians, then convert seconds to rotation angle
@@ -120,12 +125,18 @@ void Sample3DSceneRenderer::StopTracking()
 	m_tracking = false;
 }
 
+std::wstring Vegetation_Ecosystem::Sample3DSceneRenderer::GetComputeProgress()
+{
+	return (m_trees.size() > 0) ? std::to_wstring(m_trees[0]->GetProgress() * 100) : L"0";
+}
+
 // Renders one frame using the vertex and pixel shaders.
 void Sample3DSceneRenderer::Render()
 {
+	bool renderLeaves = (std::fmod(m_totalTime, 16) > 8);
 	for (auto& t : m_trees)
 	{
-		t->Render(m_constantBufferData);
+		t->Render(m_constantBufferData, renderLeaves);
 	}
 }
 
@@ -206,20 +217,22 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			m_deviceResources->GetD3DDevice()->CreateBlendState(&omDesc, &d3dBlendState);
 			m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(d3dBlendState, 0, 0xffffffff);
 
-			m_trees.push_back(new Vegetation(Species(0.5f, 1.0f)));
-			m_trees.back()->SetLocalPosition({ -0.2f,-2.0f,0.2f });
-			m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
-			m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
+			std::random_device r;
+			std::uniform_real_distribution<float> position(-PLANT_SPACING, PLANT_SPACING);
 
-			m_trees.push_back(new Vegetation(Species(0.5f, 1.0f)));
-			m_trees.back()->SetLocalPosition({ 0.2f,-2.0f,-0.2f });
-			m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
-			m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
+			for (int x = 0; x < 1; ++x)
+			{
+				//for (int y = -1; y <= 1; ++y)
+				{
+					//if (y != 0 || x != 0) continue;
+					//if (y == 0 || x == 0) continue;
 
-			m_trees.push_back(new Vegetation(Species(0.5f, 1.0f)));
-			m_trees.back()->SetLocalPosition({ 0.0f,-2.0f, 0.0f });
-			m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
-			m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
+					m_trees.push_back(new Vegetation(Species(0.3f, 5)));
+					m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });
+					m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
+					m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
+				}
+			}
 		});
 }
 

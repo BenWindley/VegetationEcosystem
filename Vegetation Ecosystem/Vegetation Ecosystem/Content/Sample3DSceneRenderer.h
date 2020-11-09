@@ -24,6 +24,8 @@ namespace Vegetation_Ecosystem
 		void StopTracking();
 		bool IsTracking() { return m_tracking; }
 
+		std::wstring GetComputeProgress();
+
 
 	private:
 		void Rotate(float radians);
@@ -43,5 +45,6 @@ namespace Vegetation_Ecosystem
 		// Variables used with the rendering loop.
 		float	m_degreesPerSecond;
 		bool	m_tracking;
+		float	m_totalTime;
 	};
 }

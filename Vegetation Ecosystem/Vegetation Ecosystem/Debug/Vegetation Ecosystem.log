@@ -1,8 +1,4 @@
-﻿  Vegetation.cpp
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(18,9): warning C4244: 'argument': conversion from 'double' to 'DWORD', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(29,41): warning C4316: 'VegetationNode': object allocated on the heap may not be aligned 16
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(154,10): warning C4018: '>=': signed/unsigned mismatch
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(156,30): warning C4018: '<': signed/unsigned mismatch
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(193,18): warning C4316: 'Leaf': object allocated on the heap may not be aligned 16
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(208,45): warning C4316: 'CylinderSegment': object allocated on the heap may not be aligned 16
+﻿  VegetationFeature.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(136,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(176,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Vegetation Ecosystem.vcxproj -> D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Debug\Vegetation Ecosystem\Vegetation Ecosystem.exe

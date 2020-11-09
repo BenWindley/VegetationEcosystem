@@ -31,7 +31,7 @@ void Vegetation::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosyste
 
 	for (int i = 0; i < MAX_THREADS; ++i)
 	{
-		m_doThreads.push_back(std::thread(&Vegetation::DoThread, this));
+		m_doThreads.push_back(std::thread(&Vegetation::JobQueueThread, this));
 		m_doThreads.back().detach();
 		m_threadCount++;
 	}
@@ -40,8 +40,6 @@ void Vegetation::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosyste
 void Vegetation::Update(float time)
 {
 	if (!this) return;
-
-	time *= 5;
 
 	if (m_age > MAX_AGE) 
 	{
@@ -67,9 +65,10 @@ void Vegetation::Update(float time)
 
 	m_age += time;
 
+	if (!m_vegetationNode) return;
+
 	// Update growth rate
 	m_growth += time * m_species.m_growthRate * m_vegetationNode->GetGrowthFactor() * 0.9f;
-	//m_growth -= time * m_vegetationNode->GetLifeCost() * UPKEEP_COEFFICIENT;
 
 	// Pass growth down list of nodes
 	m_vegetationNode->Update(m_growth, time);
@@ -78,7 +77,7 @@ void Vegetation::Update(float time)
 	m_growth *= 0.1f;
 }
 
-void Vegetation::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData)
+void Vegetation::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData, bool renderLeaves)
 {
 	if (!this) return;
 
@@ -90,9 +89,12 @@ void Vegetation::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer 
 		{
 			c->Render(constantBufferData);
 		}
-		for (auto& c : m_leaves)
+		if (renderLeaves)
 		{
-			c->Render(constantBufferData);
+			for (auto& c : m_leaves)
+			{
+				c->Render(constantBufferData);
+			}
 		}
 	}
 }
@@ -102,14 +104,21 @@ bool Vegetation::IsComplete()
 	return m_age > MAX_AGE;
 }
 
+float Vegetation::GetProgress()
+{
+	return m_age / MAX_AGE;
+}
+
 void Vegetation::UpdateAllFeatures(std::vector<VegetationFeature*>* allFeatures)
 {
-	if (!this) return;
+	if (!this || IsComplete()) return;
 	m_vegetationNode->GetAllFeatures(allFeatures);
 }
 
 void Vegetation::SetAllFeatures(std::vector<VegetationFeature*> allFeatures)
 {
+	if (!this || IsComplete()) return;
+
 	m_allFeatures.clear();
 
 	m_allFeatures = allFeatures;
@@ -117,7 +126,7 @@ void Vegetation::SetAllFeatures(std::vector<VegetationFeature*> allFeatures)
 
 void Vegetation::UpdateLight(float time)
 {
-	if (m_age > MAX_AGE) return;
+	if (!this || IsComplete()) return;
 
 	// Update features list
 
@@ -134,13 +143,11 @@ void Vegetation::UpdateLight(float time)
 	while (m_updateThreads)
 	{
 		compTime += 0.001f;
-		Sleep(1);
+		Sleep(10);
 	}
-
-	m_age += compTime;
 }
 
-void Vegetation::DoThread()
+void Vegetation::JobQueueThread()
 {
 	VegetationFeature* currentFeature;
 	int i;
@@ -188,7 +195,7 @@ void Vegetation::BuildModel(VegetationNode* node, CylinderSegment* previous)
 
 	for (auto& f : node->GetFeatures())
 	{
-		for (int i = 0; i < LEAF_QUANTITY * node->GetBranchWidth(); ++i)
+		for (int i = 0; i < std::ceilf(LEAF_QUANTITY * node->GetBranchWidth()); ++i)
 		{
 			l = new Leaf();
 

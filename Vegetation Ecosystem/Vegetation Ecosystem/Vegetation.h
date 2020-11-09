@@ -15,20 +15,22 @@ public:
 public:
 	void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
 	void Update(float time);
-	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
+	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData, bool renderLeaves = true);
 
 	bool IsComplete(); 
+	float GetProgress();
 	void UpdateAllFeatures(std::vector<VegetationFeature*>* allFeatures);
 	void SetAllFeatures(std::vector<VegetationFeature*> allFeatures);
 	void UpdateLight(float time);
 
+	float m_age = 0.0f;
+
 private:
-	void DoThread();
+	void JobQueueThread();
 	void BuildModel(VegetationNode* node, CylinderSegment* previous);
 
 	VegetationNode* m_vegetationNode;
 
-	float m_age = 0.0f;
 	float m_growth = 0.0f;
 	Species m_species;
 

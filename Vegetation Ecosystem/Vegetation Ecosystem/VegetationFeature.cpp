@@ -41,7 +41,7 @@ bool VegetationFeature::GetFate()
 	return m_fate;
 }
 
-bool VegetationFeature::GetDormant()
+bool VegetationFeature::IsDormant()
 {
 	return m_dormant;
 }
@@ -102,6 +102,7 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 
 	XMMatrixDecompose(&selfScale, &selfRotation, &selfPosition, XMMatrixTranspose(GetTransposeMatrix()));
 	selfPosition = XMVector3Rotate(selfPosition, selfRotation);
+	selfScale *= m_branchWidth;
 
 	XMVECTOR sampleScale;
 	XMVECTOR samplePosition;
@@ -109,30 +110,32 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 
 	XMVECTOR totalPhototropism = { 0, 0, 0 };
 
-	std::random_device r;
-	std::uniform_real_distribution<float> lightRange(-XM_PIDIV2, XM_PIDIV2);
+	static std::random_device r;
+	static std::uniform_real_distribution<float> lightRange( -XM_PIDIV4, XM_PIDIV4);
+	static std::uniform_real_distribution<float> lightRotation(-XM_PI, XM_PI);
 
 	for (int x = 0; x < LIGHTRAYS; ++x)
 	{
 		float rayLight = 1.0f;
-		XMVECTOR rayDir = XMVector3Rotate({ 0, 1, 0 }, XMQuaternionRotationRollPitchYaw(0, 0, lightRange(r)));
+		XMVECTOR rayDir = XMVector3Rotate({ 0, 1, 0 }, XMQuaternionRotationRollPitchYaw(0, lightRotation(r), lightRange(r)));
 
 		for (auto& vFeature : *allFeatures)
 		{
 			XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, XMMatrixTranspose(vFeature->GetTransposeMatrix()));
 			samplePosition = XMVector3Rotate(samplePosition, sampleRotation);
+			sampleScale *= vFeature->m_branchWidth;
 
 			if (vFeature->m_id == m_id)
 				continue;
 			if (light == 0.0f)
 				break;
-			if (XMVector3Equal(selfPosition, samplePosition))
-				break;
+			if (XMVector3Length(XMVectorSubtract(selfPosition, samplePosition)).m128_f32[0] < (sampleScale.m128_f32[0] + selfScale.m128_f32[0]) * 2)
+				continue;
 
 			auto oc = XMVectorSubtract(selfPosition, samplePosition);
-			float a = XMVectorGetX(XMVector3Dot(rayDir, rayDir));
-			float b = 2.0 * XMVectorGetX(XMVector3Dot(oc, rayDir));
-			float c = XMVectorGetX(XMVector3Dot(oc, oc)) - 0.1f * XMVectorGetX(sampleScale) * XMVectorGetX(sampleScale);
+			float a = XMVector3Dot(rayDir, rayDir).m128_f32[0];
+			float b = 2.0 * XMVector3Dot(oc, rayDir).m128_f32[0];
+			float c = XMVector3Dot(oc, oc).m128_f32[0] - 5 * pow(sampleScale.m128_f32[0], 2.0f);
 			float discriminant = b * b - 2 * a * c;
 
 			if (discriminant >= 0.0)
@@ -155,14 +158,14 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 		}
 
 		light += rayLight;
-		totalPhototropism = XMVectorAdd(totalPhototropism, XMVectorScale(rayDir, rayLight / LIGHTRAYS));
+		totalPhototropism = XMVectorAdd(totalPhototropism, XMVectorScale(rayDir, std::powf(rayLight, PHOTOTROPISM_BIAS)));
 	}
 
-	m_photoTropismDirection = totalPhototropism;
+	m_photoTropismDirection = XMVector3Normalize(totalPhototropism);
 
-	m_light = light / 9;
+	m_light = (light / LIGHTRAYS) * 0.2f + m_light * 0.8f;
 
-	m_spatialTropism = { 0, 0, 0 };
+	m_spatialTropism = XMVectorZero();
 
 	for (auto& vFeature : *allFeatures)
 	{
@@ -170,8 +173,8 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 
 		XMVECTOR v = XMVectorSubtract(selfPosition, samplePosition);
 		v = XMVectorMultiply(v, { 1,1,1,0 });
-		float dist = XMVectorGetX(XMVector3Length(v));
-		float factor = pow(SPATIAL_FALLOFF, -dist);
+		float dist = XMVectorGetX(XMVector3LengthEst(v));
+		float factor = pow(2, -dist);
 
 		m_spatialTropism = XMVectorAdd(m_spatialTropism, XMVectorScale(XMVector3Normalize(v), factor));
 	}
@@ -179,5 +182,5 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 
 float VegetationFeature::GetLightAbsorbtion()
 {
-	return 0.3f;
+	return 0.3f * m_branchWidth;
 }

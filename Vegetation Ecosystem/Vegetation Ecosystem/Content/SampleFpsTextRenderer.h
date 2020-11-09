@@ -13,7 +13,7 @@ namespace Vegetation_Ecosystem
 		SampleFpsTextRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 		void CreateDeviceDependentResources();
 		void ReleaseDeviceDependentResources();
-		void Update(DX::StepTimer const& timer);
+		void Update(std::wstring progress);
 		void Render();
 
 	private:

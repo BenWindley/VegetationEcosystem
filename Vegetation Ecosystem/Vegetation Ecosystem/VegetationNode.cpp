@@ -59,16 +59,17 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 	static std::uniform_real_distribution<float> range(0, 1);
 	static std::uniform_real_distribution<float> smallTilt(DirectX::XMConvertToRadians(-SPREAD_RANDOM), DirectX::XMConvertToRadians(SPREAD_RANDOM));
 
-	auto chance = 1 - pow(m_species.m_syllepticChance, 0.1f * (m_simplicity + 1));
+	float chance = 1 - powf(m_species.m_prolepticChance + 1, -m_parentNode->m_previousGrowth);
+	bool LHS = m_depth % 2;
 
 	if (range(r) < chance)
 	{
-		bool LHS = m_depth % 2;
 		bool primary = range(r) > 0.5f;
 
 		m_vegetationFeatures.push_back(new VegetationBud(this, false));
 		m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
 		m_vegetationFeatures.back()->m_branchWidth = m_branchWidth * (primary ? WIDTH_MAIN : WIDTH_BRANCH);
+		m_vegetationFeatures.back()->m_terminal = m_terminal;
 		m_vegetationFeatures.back()->m_sylleptic = true;
 
 		if (LHS)
@@ -79,6 +80,7 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 		m_vegetationFeatures.push_back(new VegetationBud(this, true));
 		m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
 		m_vegetationFeatures.back()->m_branchWidth = m_branchWidth * (!primary ? WIDTH_MAIN : WIDTH_BRANCH);
+		m_vegetationFeatures.back()->m_terminal = m_terminal;
 		m_vegetationFeatures.back()->m_sylleptic = true;
 
 		if (LHS)
@@ -91,17 +93,31 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 		m_vegetationFeatures.push_back(new VegetationBud(this, true));
 		m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
 		m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ smallTilt(r), 0, smallTilt(r) }));
-		m_vegetationFeatures.back()->m_branchWidth = m_branchWidth;
+		m_vegetationFeatures.back()->m_branchWidth = m_branchWidth * WIDTH_STRAIGHT;
+		m_vegetationFeatures.back()->m_terminal = m_terminal;
 		m_vegetationFeatures.back()->m_sylleptic = false;
+
+		if (m_terminal)
+		{
+			m_vegetationFeatures.push_back(new VegetationBud(this, true));
+			m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources);
+			m_vegetationFeatures.back()->m_branchWidth = m_branchWidth * WIDTH_SIDE;
+			m_vegetationFeatures.back()->m_terminal = false;
+			m_vegetationFeatures.back()->m_sylleptic = false;
+
+			if((m_depth % 4) <= 1)
+				m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ 0, 0, LHS ? DirectX::XMConvertToRadians(SPREAD_SIDE) : -DirectX::XMConvertToRadians(SPREAD_SIDE)}));
+			else
+				m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ LHS ? DirectX::XMConvertToRadians(SPREAD_SIDE) : -DirectX::XMConvertToRadians(SPREAD_SIDE), 0, 0 }));
+		}
 	}
 }
 
 void VegetationNode::Update(float growth, float time)
 {
-	if(m_complexity > MAX_COMPLEXITY)
-		return;
-
 	float totalGrowthFactor = GetGrowthFactor();
+
+	m_previousGrowth = totalGrowthFactor;
 
 	// Append Pass
 	for (auto& v : m_vegetationFeatures)
@@ -114,17 +130,17 @@ void VegetationNode::Update(float growth, float time)
 		v->Update(growth * v->GetGrowthFactor() / totalGrowthFactor, time);
 	}
 
+	if (m_complexity > MAX_COMPLEXITY || m_branchWidth < MIN_BRANCH_WIDTH)
+		return;
+
 	// Shed Pass
 	for (size_t i = m_vegetationFeatures.size(); i--; )
 	{
-		if (m_vegetationFeatures[i]->GetDormant())
+		if (m_vegetationFeatures[i]->GetFate())
 		{
-			if (m_vegetationFeatures[i]->GetFate())
-			{
-				CreateNewNode(*m_vegetationFeatures[i]);
-				delete m_vegetationFeatures[i];
-				m_vegetationFeatures.erase(m_vegetationFeatures.begin() + i);
-			}
+			CreateNewNode(*m_vegetationFeatures[i]);
+			delete m_vegetationFeatures[i];
+			m_vegetationFeatures.erase(m_vegetationFeatures.begin() + i);
 		}
 	}
 
@@ -159,10 +175,14 @@ void VegetationNode::CreateNewNode(VegetationFeature growthBud)
 
 	node->m_complexity = m_complexity + (growthBud.m_sylleptic ? 1 : 0);
 	node->m_simplicity = growthBud.m_sylleptic ? 0 : (m_simplicity + 1);
+	node->m_terminal = growthBud.m_terminal;
 	node->SetBranchWidth(growthBud.m_branchWidth);
 	node->Start(this, m_species, m_deviceResources, m_rendererResources);
 
-	node->SetLocalPosition(DirectX::XMVectorAdd(growthBud.GetLocalPosition(), { 0, 7.0f * pow(10.0f, growthBud.m_branchWidth - 1), 0 }));
+	const float maxDistance = 7.0f;
+	float distance = 7.0f * pow(30.0f, growthBud.m_branchWidth - 1);
+
+	node->SetLocalPosition(DirectX::XMVectorAdd(growthBud.GetLocalPosition(), { 0, distance, 0 }));
 
 	auto rotationQuaternion = growthBud.GetTropismDirectionQuaternion();
 	auto budRotationQuaternion = growthBud.GetRotation();
@@ -181,7 +201,7 @@ void VegetationNode::SetBranchWidth(float branchWidth)
 
 bool VegetationNode::GetRemove()
 {
-	return m_remove;
+	return !IsNodeAlive();
 }
 
 float VegetationNode::GetBranchWidth()
@@ -195,22 +215,22 @@ float VegetationNode::GetGrowthFactor()
 
 	for (auto& vFeature : m_vegetationFeatures)
 	{
-		totalGrowthFactor += vFeature->GetGrowthFactor();
+		totalGrowthFactor += vFeature->GetGrowthFactor() * m_branchWidth;
 	}
 
 	for (auto& vNode : m_childNodes)
 	{
-		totalGrowthFactor += vNode->GetGrowthFactor();
+		totalGrowthFactor += vNode->GetGrowthFactor() - vNode->GetLifeCost();
 	}
 
-	return totalGrowthFactor * pow(m_branchWidth, 2);
+	return totalGrowthFactor;
 }
 
 float VegetationNode::GetLifeCost()
 {
 	float totalLifeCost = 0.0f;
 
-	totalLifeCost += m_branchWidth;
+	totalLifeCost += m_branchWidth * UPKEEP_COEFFICIENT;
 
 	for (auto& vNode : m_childNodes)
 	{
@@ -224,13 +244,29 @@ void VegetationNode::GetAllFeatures(std::vector<VegetationFeature*>* allFeatures
 {
 	for (auto& vFeature : m_vegetationFeatures)
 	{
-		allFeatures->push_back(vFeature);
+		if(!vFeature->IsDormant())
+			allFeatures->push_back(vFeature);
 	}
 
 	for (auto& vNode : m_childNodes)
 	{
 		vNode->GetAllFeatures(allFeatures);
 	}
+}
+
+bool VegetationNode::IsNodeAlive()
+{
+	std::vector<VegetationFeature*> features;
+
+	GetAllFeatures(&features);
+
+	bool anyAlive = false;
+
+	for (auto& f : features)
+		if(!f->IsDormant())
+			anyAlive = true;
+
+	return anyAlive;
 }
 
 VegetationNode* VegetationNode::GetParentNode()

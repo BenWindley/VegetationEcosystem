@@ -5,6 +5,9 @@
 
 #include <random>
 #include <cmath>
+#include <string>
+#include <codecvt>
+#include <locale>
 
 using namespace Vegetation_Ecosystem;
 
@@ -91,6 +94,30 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 	for (auto& t : m_trees)
 	{
 		t->Update(0.01f);
+	}
+
+	m_calculateBiomass++;
+
+	if (m_trees.size() > 0 && (m_calculateBiomass % 100) == 0 && m_calculateBiomass <= 1000)
+	{
+		float totalBiomass = 0.0f;
+		float minX = 0.0f, maxX = 0.0f, minY = 0.0f, maxY = 0.0f;
+
+		for (auto& t : m_trees)
+		{
+			totalBiomass += t->GetBiomass();
+
+			auto p = t->GetPosition();
+
+			minX = std::fminf(minX, p.m128_f32[0]);
+			maxX = std::fmaxf(maxX, p.m128_f32[0]);
+			minY = std::fminf(minY, p.m128_f32[2]);
+			maxY = std::fmaxf(maxY, p.m128_f32[2]);
+		}
+
+		float area = (maxX - minX) * (maxY - minY);
+
+		OutputDebugString(std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(std::string("Average Biomass: ") + std::to_string(totalBiomass / m_trees.size()) + std::string("\nPlant Density: ") + std::to_string(totalBiomass / area) + "\n").c_str());
 	}
 }
 
@@ -218,20 +245,15 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(d3dBlendState, 0, 0xffffffff);
 
 			std::random_device r;
-			std::uniform_real_distribution<float> position(-PLANT_SPACING, PLANT_SPACING);
+			std::normal_distribution<float> position(0, PLANT_SPACING);
+			//std::uniform_real_distribution<float> position(-PLANT_SPACING, PLANT_SPACING);
 
 			for (int x = 0; x < 1; ++x)
 			{
-				//for (int y = -1; y <= 1; ++y)
-				{
-					//if (y != 0 || x != 0) continue;
-					//if (y == 0 || x == 0) continue;
-
-					m_trees.push_back(new Vegetation(Species(0.3f, 5)));
-					m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });
-					m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
-					m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
-				}
+				m_trees.push_back(new Vegetation(Species(0.2f, 1.0f, 5)));
+				m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });
+				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
+				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 			}
 		});
 }

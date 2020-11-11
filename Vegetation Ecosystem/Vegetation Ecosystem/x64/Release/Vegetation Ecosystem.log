@@ -15,24 +15,25 @@
   VegetationNode.cpp
   VegetationSimulationScene.cpp
   Vegetation_EcosystemMain.cpp
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\CylinderSegment.cpp(59,138): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationSimulationScene.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file VegetationSimulationScene.cpp)
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(147,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(187,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Leaf.cpp(58,137): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(137,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(177,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(71,62): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(76,138): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(78,132): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(82,62): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(87,138): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(89,132): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(96,62): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(104,63): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(18,9): warning C4244: 'argument': conversion from 'double' to 'DWORD', possible loss of data
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(66,37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(73,62): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(78,138): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(80,132): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(84,62): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(89,138): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(91,132): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(98,62): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(106,63): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(220,97): warning C4244: '+=': conversion from 'long double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\CylinderSegment.cpp(59,138): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(21,9): warning C4244: 'argument': conversion from 'double' to 'DWORD', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(69,37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Generating code
-  2 of 3655 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  258 of 3775 functions ( 6.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    7 functions had inline decision re-evaluated but remain unchanged
+    207 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Vegetation Ecosystem.vcxproj -> D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\Vegetation Ecosystem.exe

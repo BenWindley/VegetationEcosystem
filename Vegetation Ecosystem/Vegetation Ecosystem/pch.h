@@ -2,22 +2,22 @@
 
 #define MAX_AGE 5.0f
 #define MAX_THREADS 5
-#define TROPISM_FACTOR 0.1f
+#define TROPISM_FACTOR 0.3f
 #define LIGHTRAYS 15
 #define PHOTOTROPISM_FACTOR 1.0f
-#define PHOTOTROPISM_BIAS 5.0f
-#define SPATIALTROPISM_FACTOR 0.0f
-#define GRAVITROPISM_FACTOR 0.0f
-#define MAX_COMPLEXITY 10
+#define PHOTOTROPISM_BIAS 1.0f
+#define SPATIALTROPISM_FACTOR 0.2f
+#define GRAVITROPISM_FACTOR 0.00f
+#define MAX_COMPLEXITY 20
 
-#define SPREAD_MAIN 50
-#define SPREAD_BRANCH 60
+#define SPREAD_MAIN 45
+#define SPREAD_BRANCH 45
 #define SPREAD_SIDE 90
-#define SPREAD_RANDOM 10
+#define SPREAD_RANDOM 10.0f
 
 #define WIDTH_STRAIGHT 0.95
-#define WIDTH_MAIN 0.90
-#define WIDTH_BRANCH 0.85
+#define WIDTH_MAIN 0.95
+#define WIDTH_BRANCH 0.95
 #define WIDTH_SIDE 0.7
 #define MIN_BRANCH_WIDTH 0.05
 
@@ -28,7 +28,7 @@
 
 #define UPKEEP_COEFFICIENT 1e-10F
 
-#define PLANT_SPACING 0.0f
+#define PLANT_SPACING 0.1f
 
 #include <wrl.h>
 #include <wrl/client.h>

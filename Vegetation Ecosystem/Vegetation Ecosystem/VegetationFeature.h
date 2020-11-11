@@ -28,6 +28,7 @@ public:
 	float GetTropismFactor();
 	DirectX::XMVECTOR GetSpatialTropism();
 	DirectX::XMVECTOR GetTropismDirectionQuaternion();
+	float GetBiomass();
 
 	float m_branchWidth = 1.0f;
 	bool m_sylleptic = false;

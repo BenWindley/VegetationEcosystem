@@ -23,7 +23,7 @@ void VegetationBud::Update(float growth, float time)
 		m_fate = true;
 	}
 
-	if (m_light < (m_terminal ? 0.15f : 0.2f))
+	if (m_light < (m_terminal ? 0.05f : 0.1f))
 	{
 		m_dormant = true;
 	}

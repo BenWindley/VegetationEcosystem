@@ -3,6 +3,9 @@
 
 #include <thread>
 #include <random>
+#include <string>
+#include <codecvt>
+#include <locale>
 
 Vegetation::Vegetation(Species species)
 {
@@ -143,8 +146,13 @@ void Vegetation::UpdateLight(float time)
 	while (m_updateThreads)
 	{
 		compTime += 0.001f;
-		Sleep(10);
+		Sleep(5);
 	}
+}
+
+float Vegetation::GetBiomass()
+{
+	return m_vegetationNode->GetBiomass();
 }
 
 void Vegetation::JobQueueThread()
@@ -162,7 +170,7 @@ void Vegetation::JobQueueThread()
 			{
 				while (m_threadsComplete < m_allSelfFeatures.size())
 				{
-					Sleep(10);
+					Sleep(5);
 				}
 
 				m_updateThreads = false;
@@ -178,7 +186,7 @@ void Vegetation::JobQueueThread()
 		}
 		else
 		{
-			Sleep(10);
+			Sleep(5);
 		}
 	}
 

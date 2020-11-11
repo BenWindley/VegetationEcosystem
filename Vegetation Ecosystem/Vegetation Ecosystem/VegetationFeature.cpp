@@ -60,10 +60,19 @@ XMVECTOR VegetationFeature::GetTropismDirectionQuaternion()
 {
 	// Phototropism
 	auto photoTropism = GetLookatRotation(m_photoTropismDirection);
-	auto graviTropism = XMQuaternionRotationRollPitchYawFromVector({ 0.0f, 0.0f, XM_PI });
+	auto graviTropism = GetLookatRotation({ 0,1,0 });
 	auto spatialTropism = GetLookatRotation(m_spatialTropism);
 
-	return XMQuaternionSlerp(XMQuaternionSlerp(photoTropism, graviTropism, GRAVITROPISM_FACTOR / std::fmaxf(GRAVITROPISM_FACTOR + PHOTOTROPISM_FACTOR, 0.01f)), spatialTropism, SPATIALTROPISM_FACTOR / std::fmaxf(GRAVITROPISM_FACTOR + PHOTOTROPISM_FACTOR + SPATIALTROPISM_FACTOR, 0.01f));
+	return XMQuaternionSlerp(
+		XMQuaternionSlerp(photoTropism, graviTropism, GRAVITROPISM_FACTOR / std::fmaxf(GRAVITROPISM_FACTOR + PHOTOTROPISM_FACTOR, 0.01f)), 
+		spatialTropism, 
+		SPATIALTROPISM_FACTOR / std::fmaxf(GRAVITROPISM_FACTOR + PHOTOTROPISM_FACTOR + SPATIALTROPISM_FACTOR, 0.01f)
+	);
+}
+
+float VegetationFeature::GetBiomass()
+{
+	return m_branchWidth * 20.0f;
 }
 
 XMVECTOR VegetationFeature::GetLookatRotation(DirectX::XMVECTOR directionVector)
@@ -101,7 +110,6 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 	XMVECTOR selfRotation;
 
 	XMMatrixDecompose(&selfScale, &selfRotation, &selfPosition, XMMatrixTranspose(GetTransposeMatrix()));
-	selfPosition = XMVector3Rotate(selfPosition, selfRotation);
 	selfScale *= m_branchWidth;
 
 	XMVECTOR sampleScale;
@@ -111,31 +119,33 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 	XMVECTOR totalPhototropism = { 0, 0, 0 };
 
 	static std::random_device r;
-	static std::uniform_real_distribution<float> lightRange( -XM_PIDIV4, XM_PIDIV4);
-	static std::uniform_real_distribution<float> lightRotation(-XM_PI, XM_PI);
+	static std::uniform_real_distribution<float> lightRange( -1, 1);
 
 	for (int x = 0; x < LIGHTRAYS; ++x)
 	{
 		float rayLight = 1.0f;
-		XMVECTOR rayDir = XMVector3Rotate({ 0, 1, 0 }, XMQuaternionRotationRollPitchYaw(0, lightRotation(r), lightRange(r)));
+		XMVECTOR rayDir = DirectX::XMVector3Normalize({ lightRange(r), 1, lightRange(r) });
 
 		for (auto& vFeature : *allFeatures)
 		{
-			XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, XMMatrixTranspose(vFeature->GetTransposeMatrix()));
-			samplePosition = XMVector3Rotate(samplePosition, sampleRotation);
-			sampleScale *= vFeature->m_branchWidth;
-
-			if (vFeature->m_id == m_id)
-				continue;
 			if (light == 0.0f)
 				break;
-			if (XMVector3Length(XMVectorSubtract(selfPosition, samplePosition)).m128_f32[0] < (sampleScale.m128_f32[0] + selfScale.m128_f32[0]) * 2)
+			if (vFeature->m_id == m_id)
+				continue;
+
+			XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, XMMatrixTranspose(vFeature->GetTransposeMatrix()));
+
+			sampleScale *= vFeature->m_branchWidth;
+
+			if (samplePosition.m128_f32[1] < selfPosition.m128_f32[1]) 
+				continue;
+			if (XMVector3LengthEst(XMVectorSubtract(selfPosition, samplePosition)).m128_f32[0] < (sampleScale.m128_f32[0] + selfScale.m128_f32[0]))
 				continue;
 
 			auto oc = XMVectorSubtract(selfPosition, samplePosition);
 			float a = XMVector3Dot(rayDir, rayDir).m128_f32[0];
 			float b = 2.0 * XMVector3Dot(oc, rayDir).m128_f32[0];
-			float c = XMVector3Dot(oc, oc).m128_f32[0] - 5 * pow(sampleScale.m128_f32[0], 2.0f);
+			float c = XMVector3Dot(oc, oc).m128_f32[0] - pow(sampleScale.m128_f32[0], 2.0f);
 			float discriminant = b * b - 2 * a * c;
 
 			if (discriminant >= 0.0)
@@ -158,12 +168,12 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 		}
 
 		light += rayLight;
-		totalPhototropism = XMVectorAdd(totalPhototropism, XMVectorScale(rayDir, std::powf(rayLight, PHOTOTROPISM_BIAS)));
+		totalPhototropism = XMVectorAdd(totalPhototropism, XMVectorScale(rayDir, rayLight));
 	}
 
 	m_photoTropismDirection = XMVector3Normalize(totalPhototropism);
 
-	m_light = (light / LIGHTRAYS) * 0.2f + m_light * 0.8f;
+	m_light = (light / LIGHTRAYS) * 0.5f + m_light * 0.5f;
 
 	m_spatialTropism = XMVectorZero();
 

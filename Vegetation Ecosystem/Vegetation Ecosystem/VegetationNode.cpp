@@ -59,7 +59,9 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 	static std::uniform_real_distribution<float> range(0, 1);
 	static std::uniform_real_distribution<float> smallTilt(DirectX::XMConvertToRadians(-SPREAD_RANDOM), DirectX::XMConvertToRadians(SPREAD_RANDOM));
 
-	float chance = 1 - powf(m_species.m_prolepticChance + 1, -m_parentNode->m_previousGrowth);
+	float prolepticChance = m_terminal ? m_species.m_prolepticChance : m_species.m_branchProlepticChance;
+
+	float chance = 1 - powf(prolepticChance + 1, -m_parentNode->m_previousGrowth);
 	bool LHS = m_depth % 2;
 
 	if (range(r) < chance)
@@ -207,6 +209,27 @@ bool VegetationNode::GetRemove()
 float VegetationNode::GetBranchWidth()
 {
 	return m_branchWidth;
+}
+
+float VegetationNode::GetBiomass()
+{
+	float localBiomass = 0.0f;
+
+	float avgRadius = m_branchWidth + (m_childNodes.size() > 0 ? m_childNodes[0]->GetBranchWidth() : 0);
+
+	localBiomass += 0.33f * std::_Pi * avgRadius * avgRadius * 7.0f * pow(30.0f, m_branchWidth - 1);
+
+	for (auto& vFeature : m_vegetationFeatures)
+	{
+		localBiomass += vFeature->GetBiomass();
+	}
+
+	for (auto& vNode : m_childNodes)
+	{
+		localBiomass += vNode->GetBiomass();
+	}
+
+	return localBiomass;
 }
 
 float VegetationNode::GetGrowthFactor()

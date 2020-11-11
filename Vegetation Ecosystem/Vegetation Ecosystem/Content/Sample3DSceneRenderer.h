@@ -46,5 +46,7 @@ namespace Vegetation_Ecosystem
 		float	m_degreesPerSecond;
 		bool	m_tracking;
 		float	m_totalTime;
+
+		int m_calculateBiomass = 0;
 	};
 }

@@ -22,6 +22,7 @@ public:
 	void UpdateAllFeatures(std::vector<VegetationFeature*>* allFeatures);
 	void SetAllFeatures(std::vector<VegetationFeature*> allFeatures);
 	void UpdateLight(float time);
+	float GetBiomass();
 
 	float m_age = 0.0f;
 

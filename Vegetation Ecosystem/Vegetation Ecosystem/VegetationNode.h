@@ -24,6 +24,7 @@ public:
 
 	bool GetRemove();
 	float GetBranchWidth();
+	float GetBiomass();
 	float GetGrowthFactor();
 	float GetLifeCost();
 	void GetAllFeatures(std::vector<VegetationFeature*>* allFeatures);

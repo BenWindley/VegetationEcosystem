@@ -20,8 +20,9 @@ VegetationFeature::~VegetationFeature()
 	delete m_cube;
 }
 
-void VegetationFeature::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources)
+void VegetationFeature::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Species species)
 {
+	m_species = species;
 	m_deviceResources = deviceResources;
 	m_rendererResources = rendererResources;
 }
@@ -48,26 +49,26 @@ bool VegetationFeature::IsDormant()
 
 float VegetationFeature::GetTropismFactor()
 {
-	return TROPISM_FACTOR;
+	return m_species.m_tropismFactor;
 }
 
 XMVECTOR VegetationFeature::GetSpatialTropism()
 {
-	return XMVectorScale(m_spatialTropism, SPATIALTROPISM_FACTOR);
+	return XMVectorScale(m_spatialTropism, m_species.m_spatialTropismFactor);
 }
 
 XMVECTOR VegetationFeature::GetTropismDirectionQuaternion()
 {
 	// Phototropism
-	auto photoTropism = GetLookatRotation(m_photoTropismDirection);
-	auto graviTropism = GetLookatRotation({ 0,1,0 });
-	auto spatialTropism = GetLookatRotation(m_spatialTropism);
+	auto photo = XMVectorScale(XMVector3Normalize(m_photoTropismDirection), m_species.m_photoTropismFactor);
+	auto grav = XMVectorScale(XMVector3Normalize({ 0, 1, 0 }), m_species.m_gravitropismFactor);
+	auto spatial = XMVectorScale(XMVector3Normalize(m_spatialTropism), m_species.m_gravitropismFactor);
 
-	return XMQuaternionSlerp(
-		XMQuaternionSlerp(photoTropism, graviTropism, GRAVITROPISM_FACTOR / std::fmaxf(GRAVITROPISM_FACTOR + PHOTOTROPISM_FACTOR, 0.01f)), 
-		spatialTropism, 
-		SPATIALTROPISM_FACTOR / std::fmaxf(GRAVITROPISM_FACTOR + PHOTOTROPISM_FACTOR + SPATIALTROPISM_FACTOR, 0.01f)
-	);
+	auto sum = XMVectorAdd(XMVectorAdd(photo, grav), spatial);
+
+	auto tropism = GetLookatRotation(sum);
+
+	return tropism;
 }
 
 float VegetationFeature::GetBiomass()
@@ -119,12 +120,12 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 	XMVECTOR totalPhototropism = { 0, 0, 0 };
 
 	static std::random_device r;
-	static std::uniform_real_distribution<float> lightRange( -1, 1);
+	static std::uniform_real_distribution<float> lightRange(-XM_PI, XM_PI);
 
 	for (int x = 0; x < LIGHTRAYS; ++x)
 	{
 		float rayLight = 1.0f;
-		XMVECTOR rayDir = DirectX::XMVector3Normalize({ lightRange(r), 1, lightRange(r) });
+		XMVECTOR rayDir = XMVector3Rotate({ 0, 1, 0 }, XMQuaternionRotationRollPitchYaw(0, lightRange(r), lightRange(r) * 0.5f));
 
 		for (auto& vFeature : *allFeatures)
 		{
@@ -171,7 +172,7 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 		totalPhototropism = XMVectorAdd(totalPhototropism, XMVectorScale(rayDir, rayLight));
 	}
 
-	m_photoTropismDirection = XMVector3Normalize(totalPhototropism);
+	m_photoTropismDirection = XMVector3Normalize(XMVectorAdd(totalPhototropism, m_photoTropismDirection));
 
 	m_light = (light / LIGHTRAYS) * 0.5f + m_light * 0.5f;
 
@@ -184,7 +185,7 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 		XMVECTOR v = XMVectorSubtract(selfPosition, samplePosition);
 		v = XMVectorMultiply(v, { 1,1,1,0 });
 		float dist = XMVectorGetX(XMVector3LengthEst(v));
-		float factor = pow(2, -dist);
+		float factor = pow(2, -dist) * vFeature->m_branchWidth / m_branchWidth;
 
 		m_spatialTropism = XMVectorAdd(m_spatialTropism, XMVectorScale(XMVector3Normalize(v), factor));
 	}

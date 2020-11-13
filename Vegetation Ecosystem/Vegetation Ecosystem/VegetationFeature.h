@@ -6,6 +6,7 @@
 
 #include "Transform.h"
 #include "Cube.h"
+#include "VegetationParameters.h"
 
 class VegetationFeature : public Transform
 {
@@ -15,7 +16,7 @@ public:
 	virtual ~VegetationFeature();
 
 public:
-	virtual void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources);
+	virtual void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Species species);
 	virtual void Update(float growth, float time);
 	virtual void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 
@@ -41,6 +42,8 @@ protected:
 	Vegetation_Ecosystem::RendererResources* m_rendererResources;
 
 	Cube* m_cube;
+
+	Species m_species;
 
 	int m_id;
 	bool m_fate = false;

@@ -260,6 +260,7 @@
     <ClInclude Include="Cube.h" />
     <ClInclude Include="CylinderSegment.h" />
     <ClInclude Include="Leaf.h" />
+    <ClInclude Include="OBJExporter.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vegetation.h" />
@@ -283,12 +284,14 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="CylinderSegment.cpp" />
     <ClCompile Include="Leaf.cpp" />
+    <ClCompile Include="OBJExporter.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vegetation.cpp" />
     <ClCompile Include="VegetationBud.cpp" />
     <ClCompile Include="VegetationFeature.cpp" />
     <ClCompile Include="VegetationNode.cpp" />
+    <ClCompile Include="VegetationParameters.cpp" />
     <ClCompile Include="VegetationSimulationScene.cpp" />
     <ClCompile Include="Vegetation_EcosystemMain.cpp" />
     <ClCompile Include="Content\SampleFpsTextRenderer.cpp" />
@@ -316,6 +319,11 @@
     <FxCompile Include="Content\SampleVertexShader.hlsl">
       <ShaderType>Vertex</ShaderType>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Oak.txt" />
+    <Text Include="Pine.txt" />
+    <Text Include="Shrub.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,7 +8,7 @@ public:
 	~VegetationBud() = default;
 
 public:
-	void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources) override;
+	void Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Species species) override;
 	void Update(float growth, float time) override;
 	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData) override;
 

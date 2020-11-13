@@ -14,7 +14,7 @@ float4 main(PixelShaderInput input) : SV_TARGET
 {
 	float4 col = _texture.Sample(_sampler, input.uv);
 
-	if (col.a < 0.5f) discard;
+	if (col.a < 0.9f) discard;
 
 	return float4(input.color.rgb * _texture.Sample(_sampler, input.uv).rgb, col.a);
 }

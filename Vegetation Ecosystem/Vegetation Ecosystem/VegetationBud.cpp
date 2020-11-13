@@ -7,10 +7,9 @@ VegetationBud::VegetationBud(Transform* parent, bool terminalBud) : VegetationFe
 
 }
 
-void VegetationBud::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources)
+void VegetationBud::Start(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Species species)
 {
-	m_deviceResources = deviceResources;
-	m_rendererResources = rendererResources;
+	VegetationFeature::Start(deviceResources, rendererResources, species);
 }
 
 void VegetationBud::Update(float growth, float time)
@@ -23,7 +22,7 @@ void VegetationBud::Update(float growth, float time)
 		m_fate = true;
 	}
 
-	if (m_light < (m_terminal ? 0.05f : 0.1f))
+	if (m_light < (m_terminal ? m_species.m_minLightRequired * 0.75f : m_species.m_minLightRequired))
 	{
 		m_dormant = true;
 	}

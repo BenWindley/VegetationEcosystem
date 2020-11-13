@@ -1,0 +1,3 @@
+﻿  Sample3DSceneRenderer.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(69,37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Vegetation Ecosystem.vcxproj -> D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Vegetation Ecosystem.exe

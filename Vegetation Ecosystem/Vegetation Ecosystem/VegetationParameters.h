@@ -1,19 +1,34 @@
 #pragma once
+#include <string>
 
 struct Species
 {
 public:
+	// Growth
 	float m_prolepticChance;
 	float m_branchProlepticChance;
+	float m_initialBranchWidth;
 	float m_growthRate;
+	float m_minBranchWidth;
+	float m_minLightRequired;
 
-	Species()
-	{
-		m_prolepticChance = 0.5f;
-		m_branchProlepticChance = 0.5f;
-		m_growthRate = 1.0f;
-	}
+	// Spatial
+	float m_spreadMain;
+	float m_spreadBranch;
+	float m_spreadSide;
+	float m_randomness;
 
-	Species(float prolepticChance, float growthRate) : m_prolepticChance(prolepticChance), m_growthRate(growthRate) {};
-	Species(float prolepticChance, float branchProlepticChance, float growthRate) : m_prolepticChance(prolepticChance), m_branchProlepticChance(branchProlepticChance), m_growthRate(growthRate) {};
+	float m_widthStraight;
+	float m_widthMain;
+	float m_widthBranch;
+	float m_widthSide;
+	
+	//Tropisms
+	float m_tropismFactor;
+	float m_photoTropismFactor;
+	float m_spatialTropismFactor;
+	float m_gravitropismFactor;
+
+	Species() = default;
+	Species(std::string name);
 };

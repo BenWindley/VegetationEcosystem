@@ -56,6 +56,9 @@
     <Filter Include="Content\Vegetation">
       <UniqueIdentifier>{fec43fcd-63fb-4603-8a7e-bb88978613d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content\Utility">
+      <UniqueIdentifier>{b000e722-4309-4038-aa77-c96fd46ffbd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
@@ -81,7 +84,6 @@
     <ClCompile Include="VegetationFeature.cpp">
       <Filter>Content\Vegetation</Filter>
     </ClCompile>
-    <ClCompile Include="Vegetation_EcosystemMain.cpp" />
     <ClCompile Include="VegetationNode.cpp">
       <Filter>Content\Vegetation</Filter>
     </ClCompile>
@@ -100,6 +102,13 @@
     <ClCompile Include="Leaf.cpp">
       <Filter>Content\Structures</Filter>
     </ClCompile>
+    <ClCompile Include="VegetationParameters.cpp">
+      <Filter>Content\Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="Vegetation_EcosystemMain.cpp">
+      <Filter>Content\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="OBJExporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -128,7 +137,6 @@
     <ClInclude Include="VegetationBud.h">
       <Filter>Content\Vegetation</Filter>
     </ClInclude>
-    <ClInclude Include="Vegetation_EcosystemMain.h" />
     <ClInclude Include="VegetationFeature.h">
       <Filter>Content\Vegetation</Filter>
     </ClInclude>
@@ -149,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="Common\WICTextureLoader.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Vegetation_EcosystemMain.h">
+      <Filter>Content\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="OBJExporter.h">
+      <Filter>Content\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,5 +192,16 @@
     <FxCompile Include="Content\SampleVertexShader.hlsl">
       <Filter>Content\Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Pine.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Oak.txt">
+      <Filter>Assets</Filter>
+    </Text>
+    <Text Include="Shrub.txt">
+      <Filter>Assets</Filter>
+    </Text>
   </ItemGroup>
 </Project>

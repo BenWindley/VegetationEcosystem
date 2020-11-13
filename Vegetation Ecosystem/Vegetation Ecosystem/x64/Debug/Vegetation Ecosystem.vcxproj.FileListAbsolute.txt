@@ -1,0 +1,37 @@
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\SamplePixelShader.cso
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\SampleVertexShader.cso
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Oak.txt
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Pine.txt
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\Blank.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\Leaf.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\LockScreenLogo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\SplashScreen.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\Square150x150Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\Square44x44Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\Square44x44Logo.targetsize-24_altform-unplated.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\StoreLogo.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\Tree-export.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\Tree.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Assets\Wide310x150Logo.scale-200.png
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\resources.pri
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\AppxManifest.xml
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Vegetation Ecosystem.build.appxrecipe
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem.vcxprojAssemblyReference.cache
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\ResourceHandlingTask.state
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem.vcxproj.GenerateResource.Cache
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\priconfig.xml
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\priconfig.xml.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\unfiltered.layout.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\unfiltered.layout.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\filtered.layout.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\filtered.layout.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\excluded.layout.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\excluded.layout.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\resources.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\resources.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\pri.resfiles
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\pri.resfiles.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\qualifiers.txt
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\qualifiers.txt.intermediate
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\MultipleQualifiersPerDimensionFound.txt
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\x64\Debug\ProjectArchitectures.txt

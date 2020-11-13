@@ -64,6 +64,12 @@
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Oak.txt">
+      <PackagePath>Oak.txt</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Pine.txt">
+      <PackagePath>Pine.txt</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
@@ -72,6 +78,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\SampleVertexShader.cso">
       <PackagePath>SampleVertexShader.cso</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Shrub.txt">
+      <PackagePath>Shrub.txt</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Vegetation Ecosystem.exe">
       <PackagePath>Vegetation Ecosystem.exe</PackagePath>

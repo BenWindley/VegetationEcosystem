@@ -29,7 +29,7 @@
     <AppXManifest Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-11-09T17:14:30.371</Modified>
+      <Modified>2020-11-13T00:15:53.491</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
@@ -83,25 +83,37 @@
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
       <Modified>2020-07-06T17:57:45.715</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Oak.txt">
+      <PackagePath>Oak.txt</PackagePath>
+      <Modified>2020-11-12T17:29:54.461</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Pine.txt">
+      <PackagePath>Pine.txt</PackagePath>
+      <Modified>2020-11-12T17:49:34.198</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-11-09T17:14:30.336</Modified>
+      <Modified>2020-11-13T00:15:53.406</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\SamplePixelShader.cso">
       <PackagePath>SamplePixelShader.cso</PackagePath>
-      <Modified>2020-11-09T17:13:40.065</Modified>
+      <Modified>2020-11-12T09:31:26.161</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\SampleVertexShader.cso">
       <PackagePath>SampleVertexShader.cso</PackagePath>
       <Modified>2020-11-09T17:13:40.133</Modified>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Shrub.txt">
+      <PackagePath>Shrub.txt</PackagePath>
+      <Modified>2020-11-12T19:21:01.394</Modified>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Vegetation Ecosystem.exe">
       <PackagePath>Vegetation Ecosystem.exe</PackagePath>
-      <Modified>2020-11-11T23:24:39.935</Modified>
+      <Modified>2020-11-13T00:16:10.999</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Vegetation Ecosystem.pdb">
       <PackagePath>Vegetation Ecosystem.pdb</PackagePath>
-      <Modified>2020-11-11T23:24:39.979</Modified>
+      <Modified>2020-11-13T00:16:11.262</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Release\Vegetation Ecosystem\ilc\Vegetation_Ecosystem.winmd">
       <PackagePath>Vegetation_Ecosystem.winmd</PackagePath>

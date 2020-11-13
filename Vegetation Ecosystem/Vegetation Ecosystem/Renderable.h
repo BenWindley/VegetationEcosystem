@@ -13,6 +13,8 @@ public:
 	~Renderable() = default;
 
 	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
+	std::vector<Vegetation_Ecosystem::VertexPositionColor> GetVertices() { return m_vertices; };
+	std::vector<unsigned short> GetIndices() { return m_indices; };
 
 protected:
 	void Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Vegetation_Ecosystem::VertexPositionColor vertices[], uint32 vertexCount, unsigned short indices[], uint32 indexCount, std::wstring texName);
@@ -25,6 +27,9 @@ protected:
 
 	ID3D11Buffer* m_indexBuffer;
 	ID3D11Buffer* m_vertexBuffer;
+
+	std::vector<Vegetation_Ecosystem::VertexPositionColor> m_vertices;
+	std::vector<unsigned short> m_indices;
 
 	DX::DeviceResources* m_deviceResources;
 	ID3D11InputLayout* m_inputLayout;

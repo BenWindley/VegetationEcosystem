@@ -68,6 +68,8 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 {
 	m_totalTime = timer.GetTotalSeconds();
 
+	Species("Oak");
+
 	if (!m_tracking)
 	{
 		// Convert degrees to radians, then convert seconds to rotation angle
@@ -201,7 +203,8 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 					&m_rendererResources.inputLayout
 				)
 			);
-		});
+		}
+	);
 
 	// After the pixel shader file is loaded, create the shader and constant buffer.
 	auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData)
@@ -223,7 +226,8 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 					&m_rendererResources.constantBuffer
 				)
 			);
-		});
+		}
+	);
 
 	// Once both shaders are loaded, create the mesh.
 	auto createVegetationTask = (createPSTask && createVSTask).then([this]()
@@ -248,14 +252,30 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			std::normal_distribution<float> position(0, PLANT_SPACING);
 			//std::uniform_real_distribution<float> position(-PLANT_SPACING, PLANT_SPACING);
 
-			for (int x = 0; x < 1; ++x)
+			for (int x = 0; x < 2; ++x)
 			{
-				m_trees.push_back(new Vegetation(Species(0.2f, 1.0f, 5)));
+				m_trees.push_back(new Vegetation(Species("Oak")));
+				m_trees.back()->SetLocalPosition({ 0 , -1.0f, 0 });
+				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
+				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
+			}
+
+			for (int x = 0; x < 2; ++x)
+			{
+				m_trees.push_back(new Vegetation(Species("Pine")));
 				m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });
 				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
 				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 			}
-		});
+			for (int x = 0; x < 10; ++x)
+			{
+				m_trees.push_back(new Vegetation(Species("Shrub")));
+				m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });
+				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
+				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
+			}
+		}
+	);
 }
 
 void Sample3DSceneRenderer::ReleaseDeviceDependentResources()

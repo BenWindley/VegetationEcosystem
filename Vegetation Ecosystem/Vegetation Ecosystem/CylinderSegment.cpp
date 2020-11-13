@@ -6,8 +6,6 @@ using namespace Windows::Foundation;
 
 void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, float branchWidth, CylinderSegment* previous, Transform* currentTransform, bool branchEnd, bool branching)
 {
-	std::vector<unsigned short> indices;
-
     std::vector<XMFLOAT2> circleVertices;
 
     float radius = branchEnd ? 0 : branchWidth;
@@ -47,16 +45,16 @@ void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecos
 
     for (unsigned short i = 0; i < CYLINDER_SEGMENTS * 2; i+=2)
     {
-        indices.push_back(i + 3);
-        indices.push_back(i + 0);
-        indices.push_back(i + 1);
+        m_indices.push_back(i + 3);
+        m_indices.push_back(i + 0);
+        m_indices.push_back(i + 1);
 
-        indices.push_back(i + 2);
-        indices.push_back(i + 0);
-        indices.push_back(i + 3);
+        m_indices.push_back(i + 2);
+        m_indices.push_back(i + 0);
+        m_indices.push_back(i + 3);
     }
 
-	Renderable::Init(deviceResources, rendererResources, &m_vertices[0], m_vertices.size(), &indices[0], indices.size(), L"Assets\\Tree.png");
+	Renderable::Init(deviceResources, rendererResources, &m_vertices[0], m_vertices.size(), &m_indices[0], m_indices.size(), L"Assets\\Tree.png");
 }
 
 void CylinderSegment::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData)

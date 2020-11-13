@@ -1,0 +1,8 @@
+Proleptic Chance
+0.0
+Branch Proleptic Chance
+0.5
+Growth Rate
+5.0
+Initial Branch Width
+1.0

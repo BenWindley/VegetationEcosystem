@@ -6,8 +6,8 @@ using namespace Windows::Foundation;
 
 void Leaf::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Transform* currentTransform, DirectX::XMVECTOR rotation, DirectX::XMVECTOR offset)
 {
-    std::vector<Vegetation_Ecosystem::VertexPositionColor> vertices;
-    std::vector<unsigned short> indices;
+    m_vertices.clear();
+    m_indices.clear();
 
     Transform tempTransform;
     tempTransform.m_parent = currentTransform;
@@ -35,27 +35,27 @@ void Leaf::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::Rend
 
             XMFLOAT2 uvs = { (x + 1.0f) * 0.5f, (y + 1.0f) * 0.5f };
 
-            vertices.push_back({ {samplePosition.m128_f32[0], samplePosition.m128_f32[1], samplePosition.m128_f32[2]}, {1.0f, 1.0f, 1.0f}, uvs });
+            m_vertices.push_back({ {samplePosition.m128_f32[0], samplePosition.m128_f32[1], samplePosition.m128_f32[2]}, {1.0f, 1.0f, 1.0f}, uvs });
         }
     }
 
-    indices.push_back(0);
-    indices.push_back(1);
-    indices.push_back(2);
+    m_indices.push_back(0);
+    m_indices.push_back(1);
+    m_indices.push_back(2);
 
-    indices.push_back(1);
-    indices.push_back(3);
-    indices.push_back(2);
+    m_indices.push_back(1);
+    m_indices.push_back(3);
+    m_indices.push_back(2);
 
-    indices.push_back(1);
-    indices.push_back(0);
-    indices.push_back(2);
+    m_indices.push_back(1);
+    m_indices.push_back(0);
+    m_indices.push_back(2);
 
-    indices.push_back(3);
-    indices.push_back(1);
-    indices.push_back(2);
+    m_indices.push_back(3);
+    m_indices.push_back(1);
+    m_indices.push_back(2);
 
-    Renderable::Init(deviceResources, rendererResources, &vertices[0], vertices.size(), &indices[0], indices.size(), L"Assets\\Leaf.png");
+    Renderable::Init(deviceResources, rendererResources, &m_vertices[0], m_vertices.size(), &m_indices[0], m_indices.size(), L"Assets\\Leaf.png");
 }
 
 void Leaf::Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData)

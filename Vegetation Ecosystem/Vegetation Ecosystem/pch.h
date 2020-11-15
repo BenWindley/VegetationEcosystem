@@ -14,10 +14,10 @@
 #include <agile.h>
 #include <concrt.h>
 
-#define MAX_AGE 5.0f
-#define MAX_THREADS 5
+#define MAX_AGE 10.0f
+#define MAX_THREADS 6
 
-#define LIGHTRAYS 15
+#define LIGHTRAYS 20
 #define MAX_COMPLEXITY 20
 
 #define CYLINDER_SEGMENTS 10
@@ -27,4 +27,4 @@
 
 #define UPKEEP_COEFFICIENT 1e-10F
 
-#define PLANT_SPACING 0.5f
+#define PLANT_SPACING 0.3

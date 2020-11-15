@@ -7,5 +7,5 @@
 
 namespace Utility
 {
-	static bool ExportOBJ(std::vector<Renderable> objects, std::string fileName);
+	bool ExportOBJ(std::vector<Renderable*> objects, std::string fileName);
 }

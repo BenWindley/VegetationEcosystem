@@ -1,5 +1,7 @@
 #include "pch.h"
+
 #include "Vegetation.h"
+#include "OBJExporter.h"
 
 #include <thread>
 #include <random>
@@ -9,6 +11,9 @@
 
 Vegetation::Vegetation(Species species)
 {
+	static int id = 0;
+	m_id = id++;
+
 	m_species = species;
 }
 
@@ -224,10 +229,10 @@ void Vegetation::BuildModel(VegetationNode* node, CylinderSegment* previous)
 
 		c->Init(
 			m_deviceResources,
-			m_rendererResources, 
-			node->GetBranchWidth(), 
-			previous, 
-			node, 
+			m_rendererResources,
+			node->GetBranchWidth(),
+			previous,
+			node,
 			v->GetChildren().size() == 0
 		);
 
@@ -235,4 +240,19 @@ void Vegetation::BuildModel(VegetationNode* node, CylinderSegment* previous)
 
 		BuildModel(v, c);
 	}
+
+	if (node != m_vegetationNode) return;
+
+	std::vector<Renderable*> wholeTree;
+
+	for (auto& c : m_core)
+	{
+		wholeTree.push_back(c);
+	}
+	for (auto& c : m_leaves)
+	{
+		wholeTree.push_back(c);
+	}
+
+	Utility::ExportOBJ(wholeTree, "Tree" + std::to_string(m_id));
 }

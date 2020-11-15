@@ -1,3 +1,10 @@
-﻿  Sample3DSceneRenderer.cpp
-D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(69,37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+﻿  CylinderSegment.cpp
+  Vegetation.cpp
+  VegetationFeature.cpp
+  VegetationNode.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\CylinderSegment.cpp(57,142): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(148,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(188,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(221,97): warning C4244: '+=': conversion from 'long double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(26,9): warning C4244: 'argument': conversion from 'double' to 'DWORD', possible loss of data
   Vegetation Ecosystem.vcxproj -> D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Vegetation Ecosystem.exe

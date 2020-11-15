@@ -119,13 +119,18 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 
 		float area = (maxX - minX) * (maxY - minY);
 
-		OutputDebugString(std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(std::string("Average Biomass: ") + std::to_string(totalBiomass / m_trees.size()) + std::string("\nPlant Density: ") + std::to_string(totalBiomass / area) + "\n").c_str());
+		OutputDebugString(std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(
+			std::string("Average Biomass: ") + std::to_string(totalBiomass / m_trees.size()) + 
+			std::string("\nPlant Density: ") + std::to_string(totalBiomass / area) + "\n").c_str()
+		);
 	}
 }
 
 // Rotate the 3D cube model a set amount of radians.
 void Sample3DSceneRenderer::Rotate(float radians)
 {
+	return;
+
 	for (auto& t : m_trees)
 	{
 		if (t)
@@ -252,7 +257,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			std::normal_distribution<float> position(0, PLANT_SPACING);
 			//std::uniform_real_distribution<float> position(-PLANT_SPACING, PLANT_SPACING);
 
-			for (int x = 0; x < 2; ++x)
+			for (int x = 0; x < 0; ++x)
 			{
 				m_trees.push_back(new Vegetation(Species("Oak")));
 				m_trees.back()->SetLocalPosition({ 0 , -1.0f, 0 });
@@ -260,14 +265,14 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 			}
 
-			for (int x = 0; x < 2; ++x)
+			for (int x = -1; x < 2; ++x)
 			{
 				m_trees.push_back(new Vegetation(Species("Pine")));
-				m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });
+				m_trees.back()->SetLocalPosition({ x * (float) PLANT_SPACING , -1.0f, 0.0f });
 				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
 				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 			}
-			for (int x = 0; x < 10; ++x)
+			for (int x = 0; x < 0; ++x)
 			{
 				m_trees.push_back(new Vegetation(Species("Shrub")));
 				m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });

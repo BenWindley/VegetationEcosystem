@@ -3,7 +3,7 @@ Proleptic Chance
 Branch Proleptic Chance
 1.0
 Growth Rate
-7.0
+5.0
 Initial Branch Width
 1.0
 Spread Main

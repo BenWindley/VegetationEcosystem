@@ -34,6 +34,7 @@ public:
 	std::vector<VegetationNode*> GetChildren();
 	std::vector<VegetationFeature*> GetFeatures();
 
+	int m_treeID = 0;
 	int m_depth = 0;
 	int m_complexity = 0;
 	int m_simplicity = 0;

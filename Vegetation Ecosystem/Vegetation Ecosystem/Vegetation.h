@@ -49,4 +49,6 @@ private:
 
 	std::vector<CylinderSegment*> m_core;
 	std::vector<Leaf*> m_leaves;
+
+	int m_id = 0;
 };

@@ -15,6 +15,7 @@ public:
 	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 	std::vector<Vegetation_Ecosystem::VertexPositionColor> GetVertices() { return m_vertices; };
 	std::vector<unsigned short> GetIndices() { return m_indices; };
+	int GetTextureID() { return m_textureID; };
 
 protected:
 	void Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Vegetation_Ecosystem::VertexPositionColor vertices[], uint32 vertexCount, unsigned short indices[], uint32 indexCount, std::wstring texName);
@@ -30,6 +31,7 @@ protected:
 
 	std::vector<Vegetation_Ecosystem::VertexPositionColor> m_vertices;
 	std::vector<unsigned short> m_indices;
+	int m_textureID;
 
 	DX::DeviceResources* m_deviceResources;
 	ID3D11InputLayout* m_inputLayout;
@@ -44,6 +46,7 @@ protected:
 private:
 	struct Texture
 	{
+		int id;
 		std::wstring name;
 		ID3D11Resource* m_texture;
 		ID3D11ShaderResourceView* m_textureResourceView;

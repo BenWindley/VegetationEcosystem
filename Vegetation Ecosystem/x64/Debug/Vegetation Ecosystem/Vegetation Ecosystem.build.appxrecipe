@@ -37,6 +37,9 @@
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Pine.txt">
       <PackagePath>Pine.txt</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Shrub.txt">
+      <PackagePath>Shrub.txt</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Assets\Blank.png">
       <PackagePath>Assets\Blank.png</PackagePath>
     </AppxPackagedFile>

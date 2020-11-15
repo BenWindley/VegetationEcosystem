@@ -39,6 +39,7 @@ void VegetationNode::Start(Transform* parent, Species species, DX::DeviceResourc
 // Used for sub-nodes
 void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources)
 {
+	m_treeID = parent->m_treeID;
 	m_parentNode = parent;
 	m_parent = parent;
 	m_species = species;
@@ -107,7 +108,7 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 			m_vegetationFeatures.back()->m_terminal = false;
 			m_vegetationFeatures.back()->m_sylleptic = false;
 
-			if((m_depth % 4) <= 1)
+			if(((m_depth + m_treeID) % 4) <= 1)
 				m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ 0, 0, LHS ? DirectX::XMConvertToRadians(m_species.m_spreadSide) : -DirectX::XMConvertToRadians(m_species.m_spreadSide)}));
 			else
 				m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ LHS ? DirectX::XMConvertToRadians(m_species.m_spreadSide) : -DirectX::XMConvertToRadians(m_species.m_spreadSide), 0, 0 }));

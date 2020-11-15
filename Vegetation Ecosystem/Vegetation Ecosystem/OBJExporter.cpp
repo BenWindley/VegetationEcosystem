@@ -1,13 +1,40 @@
 #include "pch.h"
 #include "OBJExporter.h"
 
+#include <Windows.h>
 #include <ostream>
 #include <fstream>
+#include <ppltasks.h>
+#include <codecvt>
+#include <locale>
 
-bool Utility::ExportOBJ(std::vector<Renderable> objects, std::string fileName)
+using namespace concurrency;
+
+using namespace Windows::Storage;
+using namespace Windows::Storage::Pickers;
+using namespace DirectX;
+using namespace Windows::Foundation;
+
+using namespace std;
+
+bool Utility::ExportOBJ(std::vector<Renderable*> objects, std::string fileName)
 {
+	auto platformPath = ApplicationData::Current->LocalFolder->Path;
+	std::wstring platformPathW(platformPath->Begin());
+	std::string convertedPlatformPath(platformPathW.begin(), platformPathW.end());
 
-	std::ofstream file("..\\Exports\\" + fileName + ".obj");
+	std::string path = convertedPlatformPath + "\\" + fileName + ".obj";
+
+	ofstream file;
+	char buff[256];
+	file.open(path.c_str(), std::ios::trunc);
+	
+	if (file.fail())
+		return false;
+
+	OutputDebugString(std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(
+		std::string("Exporting to: ") + path + "\n").c_str()
+	);
 
 	file << "o ExportedBuilding" << std::endl << std::endl;
 
@@ -18,11 +45,14 @@ bool Utility::ExportOBJ(std::vector<Renderable> objects, std::string fileName)
 
 	for (int object_i = 0; object_i < objects.size(); ++object_i)
 	{
+		file << "g object" << (int)objects.at(object_i)->GetTextureID() << std::endl;
+		file << "usemtl " << (int)objects.at(object_i)->GetTextureID() << std::endl << std::endl;
+
 		std::vector<std::string> vertex_position;
 		std::vector<std::string> vertex_tex_coord;
 
-		vertices = objects.at(object_i).GetVertices();
-		indices = objects.at(object_i).GetIndices();
+		vertices = objects.at(object_i)->GetVertices();
+		indices = objects.at(object_i)->GetIndices();
 
 		// Fill strings
 
@@ -73,6 +103,8 @@ bool Utility::ExportOBJ(std::vector<Renderable> objects, std::string fileName)
 
 		v_offset += vertices.size();
 	}
+
+	file.close();
 
 	return true;
 }

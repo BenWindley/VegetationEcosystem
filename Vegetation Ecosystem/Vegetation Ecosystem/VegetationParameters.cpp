@@ -50,6 +50,8 @@ Species::Species(std::string name)
 			m_gravitropismFactor = std::stof(arg);
 		else if (value == "Min Light Required")
 			m_minLightRequired = std::stof(arg);
+		else if (value == "Leaf Size")
+			m_leafSize = std::stof(arg);
 	}
 
 	file.close();

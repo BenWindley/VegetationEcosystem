@@ -25,12 +25,14 @@ Width Side
 Min Branch Width
 0.05
 Tropism Factor
-0.2
+0.3
 Phototropism Factor
 1.0
 Spatialtropism Factor
-0.0
+0.5
 Gravitropism Factor
-0.0
+0.5
 Min Light Required
-0.2
+0.4
+Leaf Size
+5.0

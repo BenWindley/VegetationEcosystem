@@ -9,7 +9,7 @@ public:
 	Leaf() = default;
 	~Leaf() = default;
 
-	void Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Transform* currentTransform, DirectX::XMVECTOR rotation, DirectX::XMVECTOR offset);
+	void Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Transform* currentTransform, DirectX::XMVECTOR rotation, DirectX::XMVECTOR offset, float size);
 	void Render(Vegetation_Ecosystem::ModelViewProjectionConstantBuffer constantBufferData);
 };
 

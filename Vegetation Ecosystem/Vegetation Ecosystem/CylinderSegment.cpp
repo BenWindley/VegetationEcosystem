@@ -4,15 +4,15 @@
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, float branchWidth, CylinderSegment* previous, Transform* currentTransform, bool branchEnd, bool branching)
+void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, float branchWidth, CylinderSegment* previous, Transform* currentTransform, bool branchEnd, int cylinderSegments, bool branching)
 {
     std::vector<XMFLOAT2> circleVertices;
 
     float radius = branchEnd ? 0 : branchWidth;
 
-    for (int i = 0; i <= CYLINDER_SEGMENTS; ++i)
+    for (int i = 0; i <= cylinderSegments; ++i)
     {
-        float sectorAngle = i * XM_2PI / CYLINDER_SEGMENTS;
+        float sectorAngle = i * XM_2PI / cylinderSegments;
         circleVertices.push_back({ radius * cosf(sectorAngle), radius * sinf(sectorAngle)});
     }
 
@@ -23,13 +23,13 @@ void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecos
     XMVECTOR sampleRotation;
     XMVECTOR samplePosition;
 
-    for (int i = 0; i <= CYLINDER_SEGMENTS; ++i)
+    for (int i = 0; i <= cylinderSegments; ++i)
     {
         ringTransform.SetLocalPosition({ circleVertices[i].x, 0, circleVertices[i].y });
 
         XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, XMMatrixTranspose(ringTransform.GetTransposeMatrix()));
 
-        m_vertices.push_back({ DirectX::XMFLOAT3(samplePosition.m128_f32[0], samplePosition.m128_f32[1], samplePosition.m128_f32[2]), { 1, 1, 1 }, {(float) i / CYLINDER_SEGMENTS, 1} });
+        m_vertices.push_back({ DirectX::XMFLOAT3(samplePosition.m128_f32[0], samplePosition.m128_f32[1], samplePosition.m128_f32[2]), { 1, 1, 1 }, {(float) i / cylinderSegments, 1} });
 
         if (branching || previous == nullptr)
         {
@@ -43,7 +43,7 @@ void CylinderSegment::Init(DX::DeviceResources* deviceResources, Vegetation_Ecos
         }
     }
 
-    for (unsigned short i = 0; i < CYLINDER_SEGMENTS * 2; i+=2)
+    for (unsigned short i = 0; i < cylinderSegments * 2; i+=2)
     {
         m_indices.push_back(i + 3);
         m_indices.push_back(i + 0);

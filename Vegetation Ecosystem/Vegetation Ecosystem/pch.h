@@ -15,16 +15,16 @@
 #include <concrt.h>
 
 #define MAX_AGE 10.0f
-#define MAX_THREADS 6
+#define MAX_THREADS 5
 
-#define LIGHTRAYS 20
+#define LIGHTRAYS 30
 #define MAX_COMPLEXITY 20
 
-#define CYLINDER_SEGMENTS 10
-#define LEAF_QUANTITY 5
-#define LEAF_SIZE 7.0f
-#define LEAF_DISPLACEMENT 8
+#define CYLINDER_SEGMENTS 20
+#define LOD_STEPS 1
+#define LEAF_QUANTITY 10
+#define LEAF_DISPLACEMENT 1
 
 #define UPKEEP_COEFFICIENT 1e-10F
 
-#define PLANT_SPACING 0.3
+#define PLANT_SPACING 0.5

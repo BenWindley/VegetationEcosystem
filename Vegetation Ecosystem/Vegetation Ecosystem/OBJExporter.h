@@ -1,5 +1,7 @@
-#pragma once
+// Reused from AT Building Generation in DirectX 11 (2018)
+// Made by myself - Ben Windley
 
+#pragma once
 #include "Renderable.h"
 
 #include <vector>

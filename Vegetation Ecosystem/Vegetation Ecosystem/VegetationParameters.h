@@ -23,11 +23,14 @@ public:
 	float m_widthBranch;
 	float m_widthSide;
 	
-	//Tropisms
+	// Tropisms
 	float m_tropismFactor;
 	float m_photoTropismFactor;
 	float m_spatialTropismFactor;
 	float m_gravitropismFactor;
+
+	// Visual
+	float m_leafSize = 7.0f;
 
 	Species() = default;
 	Species(std::string name);

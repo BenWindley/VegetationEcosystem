@@ -78,21 +78,21 @@ float VegetationFeature::GetBiomass()
 
 XMVECTOR VegetationFeature::GetLookatRotation(DirectX::XMVECTOR directionVector)
 {
-	directionVector = XMVector3Normalize({ directionVector.m128_f32[0], directionVector.m128_f32[2], directionVector.m128_f32[1] });
+	directionVector = { directionVector.m128_f32[0], directionVector.m128_f32[2], directionVector.m128_f32[1] };
 
 	XMVECTOR sampleScale;
 	XMVECTOR samplePosition;
 	XMVECTOR sampleRotation;
 
 	static const XMVECTOR pos = { 0.0f, 0.0f, 0.0f };
-	static const XMVECTOR at = XMVector3Normalize(directionVector);
+	static const XMVECTOR at = directionVector;
 	static const XMVECTOR up = { 0.0f, 1.0f, 0.0f };
 
 	auto lookAtMatrix = XMMatrixLookAtLH(pos, at, up);
 
 	XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, lookAtMatrix);
-
-	return sampleRotation;
+	
+	return sampleRotation;// XMQuaternionMultiply(sampleRotation, XMQuaternionRotationRollPitchYaw(0, (directionVector.m128_f32[2] < 0) ? XM_PIDIV2 : -XM_PIDIV2, 0));
 }
 
 float VegetationFeature::GetGrowthFactor()
@@ -120,12 +120,12 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 	XMVECTOR totalPhototropism = { 0, 0, 0 };
 
 	static std::random_device r;
-	static std::uniform_real_distribution<float> lightRange(-XM_PI, XM_PI);
+	static std::uniform_real_distribution<float> lightRange(-XM_PIDIV2, XM_PIDIV2);
 
 	for (int x = 0; x < LIGHTRAYS; ++x)
 	{
 		float rayLight = 1.0f;
-		XMVECTOR rayDir = XMVector3Rotate({ 0, 1, 0 }, XMQuaternionRotationRollPitchYaw(0, lightRange(r), lightRange(r) * 0.5f));
+		XMVECTOR rayDir = XMVector3Rotate({ 0, 1, 0 }, XMQuaternionRotationRollPitchYaw(0, lightRange(r) * 2, lightRange(r) * 1.5f));
 
 		for (auto& vFeature : *allFeatures)
 		{
@@ -140,7 +140,7 @@ void VegetationFeature::UpdateTropisms(std::vector<VegetationFeature*>* allFeatu
 
 			if (samplePosition.m128_f32[1] < selfPosition.m128_f32[1]) 
 				continue;
-			if (XMVector3LengthEst(XMVectorSubtract(selfPosition, samplePosition)).m128_f32[0] < (sampleScale.m128_f32[0] + selfScale.m128_f32[0]))
+			if (XMVector3LengthEst(XMVectorSubtract(selfPosition, samplePosition)).m128_f32[0] < 3 * (sampleScale.m128_f32[0] + selfScale.m128_f32[0]))
 				continue;
 
 			auto oc = XMVectorSubtract(selfPosition, samplePosition);

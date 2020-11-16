@@ -4,7 +4,7 @@
 using namespace DirectX;
 using namespace Windows::Foundation;
 
-void Leaf::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Transform* currentTransform, DirectX::XMVECTOR rotation, DirectX::XMVECTOR offset)
+void Leaf::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::RendererResources* rendererResources, Transform* currentTransform, DirectX::XMVECTOR rotation, DirectX::XMVECTOR offset, float size)
 {
     m_vertices.clear();
     m_indices.clear();
@@ -26,7 +26,7 @@ void Leaf::Init(DX::DeviceResources* deviceResources, Vegetation_Ecosystem::Rend
 
             Transform t;
 
-            XMVECTOR pos = { LEAF_SIZE * x / 2.0f, 0, LEAF_SIZE * y / 2.0f };
+            XMVECTOR pos = { size * x / 2.0f, 0, size * y / 2.0f };
 
             pos = XMVector3Rotate(pos, rotation);
 

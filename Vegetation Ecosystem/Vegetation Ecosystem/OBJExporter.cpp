@@ -1,3 +1,6 @@
+// Reused from AT Building Generation in DirectX 11 (2018)
+// Made by myself - Ben Windley
+
 #include "pch.h"
 #include "OBJExporter.h"
 

@@ -28,7 +28,7 @@ public:
 
 private:
 	void JobQueueThread();
-	void BuildModel(VegetationNode* node, CylinderSegment* previous);
+	void BuildModel(VegetationNode* node, CylinderSegment* previous, int cylinderCount, int lod);
 
 	VegetationNode* m_vegetationNode;
 

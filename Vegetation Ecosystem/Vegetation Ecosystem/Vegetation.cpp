@@ -51,20 +51,23 @@ void Vegetation::Update(float time)
 
 	if (m_age > MAX_AGE) 
 	{
-		for (auto& c : m_core)
-		{
-			c->SetRotation(GetRotation());
-		}
-		for (auto& c : m_leaves)
-		{
-			c->SetRotation(GetRotation());
-		}
-
 		if (m_keepThreads)
 		{
 			// Build plant structure
 
-			BuildModel(m_vegetationNode, nullptr);
+			for (int i = 0; i < LOD_STEPS; ++i)
+			{
+				int segments = CYLINDER_SEGMENTS / (i + 1);
+				BuildModel(m_vegetationNode, nullptr, segments, i);
+
+				if (i + 1 < LOD_STEPS)
+				{
+					for (auto& c : m_core)
+						delete c;
+
+					m_core.clear();
+				}
+			}
 			m_keepThreads = false;
 		}
 
@@ -198,31 +201,36 @@ void Vegetation::JobQueueThread()
 	m_threadCount--;
 }
 
-void Vegetation::BuildModel(VegetationNode* node, CylinderSegment* previous)
+void Vegetation::BuildModel(VegetationNode* node, CylinderSegment* previous, int cylinderCount, int lod)
 {
-	std::random_device r;
-	std::random_device _r;
-	std::uniform_real_distribution<float> rotation(0, DirectX::XM_2PI);
-	std::uniform_real_distribution<float> offset(-LEAF_DISPLACEMENT * node->GetBranchWidth(), LEAF_DISPLACEMENT * node->GetBranchWidth());
+	static std::random_device r;
+	static std::random_device _r;
+	static std::uniform_real_distribution<float> rotation(0, DirectX::XM_2PI);
+	static std::uniform_real_distribution<float> offset(-LEAF_DISPLACEMENT * node->GetBranchWidth(), LEAF_DISPLACEMENT * node->GetBranchWidth());
 	Leaf* l;
 
-	for (auto& f : node->GetFeatures())
+	if (lod == 0)
 	{
-		for (int i = 0; i < std::ceilf(LEAF_QUANTITY * node->GetBranchWidth()); ++i)
+		for (auto& f : node->GetFeatures())
 		{
-			l = new Leaf();
+			for (int i = 0; i < std::ceilf(LEAF_QUANTITY * node->GetBranchWidth()); ++i)
+			{
+				l = new Leaf();
 
-			l->Init(
-				m_deviceResources,
-				m_rendererResources,
-				node,
-				DirectX::XMQuaternionRotationRollPitchYaw(rotation(r), rotation(r), rotation(r)),
-				{ offset(r), offset(r), offset(r) }
-			);
+				l->Init(
+					m_deviceResources,
+					m_rendererResources,
+					node,
+					DirectX::XMQuaternionRotationRollPitchYaw(rotation(r), rotation(r), rotation(r)),
+					{ offset(r), offset(r), offset(r) },
+					m_species.m_leafSize
+				);
 
-			m_leaves.push_back(l);
+				m_leaves.push_back(l);
+			}
 		}
 	}
+
 	for (auto& v : node->GetChildren())
 	{
 		CylinderSegment* c = new CylinderSegment();
@@ -233,12 +241,13 @@ void Vegetation::BuildModel(VegetationNode* node, CylinderSegment* previous)
 			node->GetBranchWidth(),
 			previous,
 			node,
-			v->GetChildren().size() == 0
+			v->GetChildren().size() == 0,
+			cylinderCount
 		);
 
 		m_core.push_back(c);
 
-		BuildModel(v, c);
+		BuildModel(v, c, cylinderCount, lod);
 	}
 
 	if (node != m_vegetationNode) return;
@@ -254,5 +263,5 @@ void Vegetation::BuildModel(VegetationNode* node, CylinderSegment* previous)
 		wholeTree.push_back(c);
 	}
 
-	Utility::ExportOBJ(wholeTree, "Tree" + std::to_string(m_id));
+	Utility::ExportOBJ(wholeTree, "Tree_" + std::to_string(m_id) + "_LOD_" + std::to_string(lod));
 }

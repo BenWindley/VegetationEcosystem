@@ -25,7 +25,7 @@ Width Side
 Min Branch Width
 0.05
 Tropism Factor
-0.4
+0.2
 Phototropism Factor
 1.0
 Spatialtropism Factor

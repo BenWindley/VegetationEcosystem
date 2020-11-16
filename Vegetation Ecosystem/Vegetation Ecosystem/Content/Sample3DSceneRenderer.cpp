@@ -260,18 +260,19 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			for (int x = 0; x < 0; ++x)
 			{
 				m_trees.push_back(new Vegetation(Species("Oak")));
+				m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });
+				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
+				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
+			}
+
+			for (int x = 0; x < 1; ++x)
+			{
+				m_trees.push_back(new Vegetation(Species("Pine")));
 				m_trees.back()->SetLocalPosition({ 0 , -1.0f, 0 });
 				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
 				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 			}
 
-			for (int x = -1; x < 2; ++x)
-			{
-				m_trees.push_back(new Vegetation(Species("Pine")));
-				m_trees.back()->SetLocalPosition({ x * (float) PLANT_SPACING , -1.0f, 0.0f });
-				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
-				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
-			}
 			for (int x = 0; x < 0; ++x)
 			{
 				m_trees.push_back(new Vegetation(Species("Shrub")));

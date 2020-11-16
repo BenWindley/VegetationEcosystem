@@ -15,14 +15,6 @@ XMVECTOR Transform::GetLocalPosition()
 
 XMVECTOR Transform::GetRotation()
 {
-	XMVECTOR sampleScale;
-	XMVECTOR samplePosition;
-	XMVECTOR sampleRotation;
-
-	XMMatrixDecompose(&sampleScale, &sampleRotation, &samplePosition, XMMatrixTranspose(GetTransposeMatrix()));
-
-	//return sampleRotation;
-
 	return m_parent ? DirectX::XMQuaternionMultiply(m_localRotation, m_parent->GetRotation()) : m_localRotation;
 }
 

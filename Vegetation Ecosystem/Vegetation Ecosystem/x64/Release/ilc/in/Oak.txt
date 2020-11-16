@@ -3,13 +3,13 @@ Proleptic Chance
 Branch Proleptic Chance
 1.0
 Growth Rate
-5.0
+3.0
 Initial Branch Width
 1.0
 Spread Main
 45.0
 Spread Branch
-45.0
+55.0
 Spread Side
 90.0
 Randomness
@@ -21,7 +21,7 @@ Width Main
 Width Branch
 0.95
 Width Side
-0.5
+0.7
 Min Branch Width
 0.05
 Tropism Factor
@@ -31,6 +31,8 @@ Phototropism Factor
 Spatialtropism Factor
 0.5
 Gravitropism Factor
-0.0
+0.5
 Min Light Required
-0.4
+0.2
+Leaf Size
+5.0

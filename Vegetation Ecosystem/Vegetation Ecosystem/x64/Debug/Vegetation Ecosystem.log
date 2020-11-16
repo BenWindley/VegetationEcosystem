@@ -1,10 +1,75 @@
-﻿  CylinderSegment.cpp
+﻿  pch.cpp
+  App.cpp
+  DeviceResources.cpp
+  WICTextureLoader.cpp
+  Sample3DSceneRenderer.cpp
+  SampleFpsTextRenderer.cpp
+  Cube.cpp
+  CylinderSegment.cpp
+  Leaf.cpp
+  OBJExporter.cpp
+  Renderable.cpp
+  Transform.cpp
   Vegetation.cpp
+  VegetationBud.cpp
   VegetationFeature.cpp
   VegetationNode.cpp
+  VegetationParameters.cpp
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Leaf.cpp(58,145): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\CylinderSegment.cpp(57,142): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  VegetationSimulationScene.cpp
+  Vegetation_EcosystemMain.cpp
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(148,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationFeature.cpp(188,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationNode.cpp(221,97): warning C4244: '+=': conversion from 'long double' to 'float', possible loss of data
 D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Vegetation.cpp(26,9): warning C4244: 'argument': conversion from 'double' to 'DWORD', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(69,37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\OBJExporter.cpp(92,3): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\OBJExporter.cpp(107,30): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\OBJExporter.cpp(32,7): warning C4101: 'buff': unreferenced local variable
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\Content\Sample3DSceneRenderer.cpp(257,1): warning C4305: 'argument': truncation from 'double' to '_Ty'
+          with
+          [
+              _Ty=float
+          ]
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\VegetationSimulationScene.h(7,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline (compiling source file VegetationSimulationScene.cpp)
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(2390,23): warning C4244: 'argument': conversion from 'wchar_t' to 'const _Elem', possible loss of data
+          with
+          [
+              _Elem=char
+          ] (compiling source file OBJExporter.cpp)
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(2401): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ] (compiling source file OBJExporter.cpp)
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(2401): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ] (compiling source file OBJExporter.cpp)
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(2381): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ] (compiling source file OBJExporter.cpp)
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\include\xstring(2381): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ] (compiling source file OBJExporter.cpp)
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\OBJExporter.cpp(27): message : see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\Vegetation Ecosystem\OBJExporter.cpp(27): message : see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
   Vegetation Ecosystem.vcxproj -> D:\Git\CTD-VegetationEcosystem\Vegetation Ecosystem\x64\Debug\Vegetation Ecosystem\Vegetation Ecosystem.exe

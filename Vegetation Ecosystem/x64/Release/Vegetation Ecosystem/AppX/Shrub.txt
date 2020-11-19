@@ -12,14 +12,16 @@ Spread Branch
 45.0
 Spread Side
 90.0
-Randomness
+Randomness Terminal
 3.0
+Randomness Auxiliary
+10.0
 Width Straight
-0.95
+0.92
 Width Main
-0.95
+0.9
 Width Branch
-0.95
+0.9
 Width Side
 0.5
 Min Branch Width
@@ -28,9 +30,7 @@ Tropism Factor
 0.2
 Phototropism Factor
 1.0
-Spatialtropism Factor
-0.5
 Gravitropism Factor
-0.0
+0.2
 Min Light Required
 0.2

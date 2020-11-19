@@ -57,7 +57,7 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
 
 	// Eye is at (0,0.7,1.5), looking at point (0,-0.1,0) with the up-vector along the y-axis.
 	static const XMVECTORF32 eye = { 0.0f, 1.0f, 1.5f, 0.0f };
-	static const XMVECTORF32 at = { 0.0f, -0.1f, 0.0f, 0.0f };
+	static const XMVECTORF32 at = { 0.0f, 0.5f, 0.0f, 0.0f };
 	static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
 	XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
@@ -254,29 +254,27 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			m_deviceResources->GetD3DDeviceContext()->OMSetBlendState(d3dBlendState, 0, 0xffffffff);
 
 			std::random_device r;
-			std::normal_distribution<float> position(0, PLANT_SPACING);
-			//std::uniform_real_distribution<float> position(-PLANT_SPACING, PLANT_SPACING);
+			//std::normal_distribution<float> position(0, PLANT_SPACING);
+			std::uniform_real_distribution<float> position(-PLANT_SPACING, PLANT_SPACING);
 
 			for (int x = 0; x < 0; ++x)
 			{
 				m_trees.push_back(new Vegetation(Species("Oak")));
-				m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });
+				m_trees.back()->SetLocalPosition({ position(r), 0.0f, position(r) });
 				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
 				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 			}
-
 			for (int x = 0; x < 1; ++x)
 			{
 				m_trees.push_back(new Vegetation(Species("Pine")));
-				m_trees.back()->SetLocalPosition({ 0 , -1.0f, 0 });
+				m_trees.back()->SetLocalPosition({ position(r), 0.0f, position(r) });
 				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
 				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 			}
-
 			for (int x = 0; x < 0; ++x)
 			{
 				m_trees.push_back(new Vegetation(Species("Shrub")));
-				m_trees.back()->SetLocalPosition({ position(r) , -1.0f, position(r) });
+				m_trees.back()->SetLocalPosition({ position(r), 0.0f, position(r) });
 				m_trees.back()->SetScale({ 0.02f, 0.02f, 0.02f });
 				m_trees.back()->Start(&*m_deviceResources, &m_rendererResources);
 			}

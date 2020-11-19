@@ -27,7 +27,6 @@ public:
 	bool GetFate();
 	bool IsDormant();
 	float GetTropismFactor();
-	DirectX::XMVECTOR GetSpatialTropism();
 	DirectX::XMVECTOR GetTropismDirectionQuaternion();
 	float GetBiomass();
 
@@ -52,5 +51,4 @@ protected:
 	float m_light = 1.0f;
 
 	DirectX::XMVECTOR m_photoTropismDirection = { 0, 1, 0 };
-	DirectX::XMVECTOR m_spatialTropism = { 0, 0, 0 };
 };

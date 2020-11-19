@@ -58,15 +58,17 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 
 	static std::random_device r;
 	static std::uniform_real_distribution<float> range(0, 1);
-	static std::uniform_real_distribution<float> smallTilt(DirectX::XMConvertToRadians(-m_species.m_randomness), DirectX::XMConvertToRadians(m_species.m_randomness));
+	static std::uniform_real_distribution<float> smallTilt(DirectX::XMConvertToRadians(m_terminal ? -m_species.m_randomnessTerminal : -m_species.m_randomnessAuxiliary), DirectX::XMConvertToRadians(m_terminal ? m_species.m_randomnessTerminal : m_species.m_randomnessAuxiliary));
 
 	float prolepticChance = m_terminal ? m_species.m_prolepticChance : m_species.m_branchProlepticChance;
 
 	float chance = 1 - powf(prolepticChance + 1, -m_parentNode->m_previousGrowth);
 	bool LHS = m_depth % 2;
 
+	// Sylleptic Branch
 	if (range(r) < chance)
 	{
+		// First Branch
 		bool primary = range(r) > 0.5f;
 
 		m_vegetationFeatures.push_back(new VegetationBud(this, false));
@@ -80,6 +82,7 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 		else
 			m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ DirectX::XMConvertToRadians(primary ? -m_species.m_spreadMain : -m_species.m_spreadBranch), 0, 0 }));
 
+		// Second Branch
 		m_vegetationFeatures.push_back(new VegetationBud(this, true));
 		m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources, m_species);
 		m_vegetationFeatures.back()->m_branchWidth = m_branchWidth * (!primary ? m_species.m_widthMain : m_species.m_widthBranch);
@@ -91,8 +94,10 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 		else
 			m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ DirectX::XMConvertToRadians(primary ? m_species.m_spreadBranch : m_species.m_spreadMain), 0, 0, 0 }));
 	}
+	// Proleptic Branch
 	else
 	{
+		// Terminal Branch
 		m_vegetationFeatures.push_back(new VegetationBud(this, true));
 		m_vegetationFeatures.back()->Start(m_deviceResources, m_rendererResources, m_species);
 		m_vegetationFeatures.back()->SetLocalRotation(DirectX::XMQuaternionRotationRollPitchYawFromVector({ smallTilt(r), 0, smallTilt(r) }));
@@ -100,6 +105,7 @@ void VegetationNode::Start(VegetationNode* parent, Species species, DX::DeviceRe
 		m_vegetationFeatures.back()->m_terminal = m_terminal;
 		m_vegetationFeatures.back()->m_sylleptic = false;
 
+		// Auxiliary Branch
 		if (m_terminal)
 		{
 			m_vegetationFeatures.push_back(new VegetationBud(this, true));

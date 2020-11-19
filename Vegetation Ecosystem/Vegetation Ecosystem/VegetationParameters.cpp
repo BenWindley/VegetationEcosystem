@@ -28,8 +28,10 @@ Species::Species(std::string name)
 			m_spreadBranch = std::stof(arg);
 		else if (value == "Spread Side")
 			m_spreadSide = std::stof(arg);
-		else if (value == "Randomness")
-			m_randomness = std::stof(arg);
+		else if (value == "Randomness Terminal")
+			m_randomnessTerminal = std::stof(arg);
+		else if (value == "Randomness Auxiliary")
+			m_randomnessAuxiliary = std::stof(arg);
 		else if (value == "Width Straight")
 			m_widthStraight = std::stof(arg);
 		else if (value == "Width Main")
@@ -44,8 +46,6 @@ Species::Species(std::string name)
 			m_tropismFactor = std::stof(arg);
 		else if (value == "Phototropism Factor")
 			m_photoTropismFactor = std::stof(arg);
-		else if (value == "Spatialtropism Factor")
-			m_spatialTropismFactor = std::stof(arg);
 		else if (value == "Gravitropism Factor")
 			m_gravitropismFactor = std::stof(arg);
 		else if (value == "Min Light Required")

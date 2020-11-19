@@ -16,7 +16,8 @@ public:
 	float m_spreadMain;
 	float m_spreadBranch;
 	float m_spreadSide;
-	float m_randomness;
+	float m_randomnessTerminal;
+	float m_randomnessAuxiliary;
 
 	float m_widthStraight;
 	float m_widthMain;
@@ -26,7 +27,6 @@ public:
 	// Tropisms
 	float m_tropismFactor;
 	float m_photoTropismFactor;
-	float m_spatialTropismFactor;
 	float m_gravitropismFactor;
 
 	// Visual
